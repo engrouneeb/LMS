@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "circleLoadLogo.png",
+      "filename" : "mobileLogin.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "circleLoadLogo@2x.png",
+      "filename" : "mobileLogin@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "circleLoadLogo@3x.png",
+      "filename" : "mobileLogin@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
