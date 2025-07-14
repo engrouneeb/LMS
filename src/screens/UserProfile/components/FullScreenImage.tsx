@@ -1,6 +1,6 @@
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import React, { FC } from 'react';
-import FastImage from 'react-native-fast-image';
+//import FastImage from 'react-native-fast-image';
 import { _View, _VectorIcons } from 'components';
 import { whiteThemeColors } from 'utilities';
 
@@ -26,14 +26,11 @@ const FullScreenImage: FC<FullScreenImageProps> = ({
       style={styles.container}
     >
       <_View style={styles.imageContainer}>
-        <FastImage
+        <Image
           style={styles.image}
           source={{
             uri: imageUri,
-            priority: FastImage.priority.normal,
-            cache: FastImage.cacheControl.immutable,
           }}
-          resizeMode={FastImage.resizeMode.contain}
         />
       </_View>
 

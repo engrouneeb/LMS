@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react';
 import {
+  Image,
   KeyboardAvoidingView,
   Modal,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
+//import FastImage from 'react-native-fast-image';
 import { SendIcon } from '../../../../../assets/Icons';
 import { _TextInput, _View, _VectorIcons } from '../../../../components';
 import Loader from '../../../Loader/loader';
@@ -41,14 +42,11 @@ const ImagePreview: FC<ImagePreview> = ({
       visible={imagePreviewModal}
       style={styles.modal}
     >
-      <FastImage
+      <Image
         style={styles.fullScreenImage}
         source={{
           uri: uri,
-          priority: FastImage.priority.normal,
-          cache: FastImage.cacheControl.immutable,
         }}
-        resizeMode={FastImage.resizeMode.contain}
         onLoadStart={() => {
           setLoading(true);
         }}

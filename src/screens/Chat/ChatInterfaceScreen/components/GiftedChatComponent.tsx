@@ -5,12 +5,13 @@ import React, { useState } from 'react';
 import {
   Alert,
   Dimensions,
+  Image,
   Modal,
   Platform,
   Pressable,
   TouchableOpacity,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
+//import FastImage from 'react-native-fast-image';
 import { FloatingMenu } from 'react-native-floating-action-menu';
 import {
   Bubble,
@@ -185,12 +186,10 @@ export const useRenderMessageImage = () => {
             setIsFullScreen(true);
           }}
         >
-          <FastImage
+          <Image
             style={styles.thumbnailImage}
             source={{
               uri: props.currentMessage.image,
-              priority: FastImage.priority.normal,
-              cache: FastImage.cacheControl.immutable,
             }}
           />
           <Modal

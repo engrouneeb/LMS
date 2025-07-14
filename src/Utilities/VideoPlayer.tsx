@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { Modal, StyleSheet, TouchableOpacity } from 'react-native';
-import FastImage from 'react-native-fast-image';
+import { Image, Modal, StyleSheet, TouchableOpacity } from 'react-native';
+//import FastImage from 'react-native-fast-image';
 import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -74,7 +74,7 @@ const Videoplayer: React.FC<props> = ({ url, thumbnail, style }) => {
           }}
         />
       </_View>
-      <FastImage
+      <Image
         style={{
           width: 260,
           height: 240,
@@ -87,9 +87,7 @@ const Videoplayer: React.FC<props> = ({ url, thumbnail, style }) => {
           uri: thumbnail
             ? thumbnail
             : 'https://cypressintegration.com/wp-content/uploads/gray-background-texture-1-1.gif',
-          priority: FastImage.priority.normal,
         }}
-        resizeMode={FastImage.resizeMode.cover}
       />
       {isFullScreen && (
         <Modal
