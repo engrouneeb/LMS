@@ -1,0 +1,147 @@
+import { Platform, StyleSheet } from 'react-native';
+import CommonStyles from 'screens/CommonStyles';
+import { whiteThemeColors } from 'utilities';
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: whiteThemeColors.background,
+    alignItems: 'center',
+    paddingTop: 10,
+    justifyContent: 'flex-start',
+  },
+  reviewContainer: {
+    backgroundColor: whiteThemeColors.white + 90,
+    borderRadius: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 30,
+    minWidth: '95%',
+
+    height: 350,
+  },
+  title: {
+    fontFamily: CommonStyles.fonts.bold,
+    fontSize: 15,
+    color: whiteThemeColors.AudioChallengeView.mediaControllIconColor,
+  },
+  totalWrap: {
+    marginTop: 20,
+    marginBottom: 5,
+    backgroundColor: whiteThemeColors.background,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
+  },
+  amountText: {
+    color: whiteThemeColors.lightBlack,
+    textAlign: 'center',
+    fontFamily: CommonStyles.fonts.regular,
+  },
+
+  spacer: {
+    marginBottom: 10,
+  },
+  textArea: {
+    height: Platform.OS == 'android' ? 100 : 140,
+    width: '100%',
+    borderRadius: 5,
+    marginTop: 15,
+    borderWidth: 1,
+    borderColor: 'lightgrey',
+  },
+  btnStyle: {
+    height: 40,
+    width: 150,
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: 30,
+    borderRadius: 5,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    backgroundColor: whiteThemeColors.primary,
+  },
+  courseImage: {
+    height: 220,
+    width: '100%',
+    resizeMode: 'cover',
+    marginTop: -10,
+  },
+  userImage: {
+    height: 40,
+    width: 40,
+    margin: 10,
+    marginTop: 0,
+    resizeMode: 'cover',
+    borderRadius: 22,
+    borderWidth: 0.5,
+    borderColor: whiteThemeColors.primary,
+  },
+  RatingStarView: {
+    flexDirection: 'row',
+    height: '10%',
+    margin: 0,
+    padding: 0,
+  },
+  submitCourseReview: {
+    backgroundColor: whiteThemeColors.white,
+    borderRadius: 10,
+    padding: 20,
+    minWidth: '90%',
+    maxWidth: '95%',
+    height: Platform.OS == 'android' ? '45%' : '55%',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 1.0,
+    shadowRadius: 2,
+    shadowColor: whiteThemeColors.shadowColor,
+    elevation: 5,
+  },
+  courseReviews: {
+    backgroundColor: whiteThemeColors.white + 90,
+    marginVertical: 5,
+    borderRadius: 10,
+    paddingTop: 10,
+    width: '100%',
+    height: 80,
+  },
+  headerView: {
+    flexDirection: 'row',
+    paddingLeft: 10,
+  },
+  bottomView: {
+    flex: 1,
+    height: 40,
+    margin: 5,
+    padding: 5,
+  },
+  reviewText: {
+    fontSize: 14,
+    width: '93%',
+    color: whiteThemeColors.primaryTextColor,
+    fontFamily: CommonStyles.fonts.regular,
+  },
+  rateText: {
+    marginRight: 10,
+    color: whiteThemeColors.primaryTextColor,
+    fontFamily: CommonStyles.fonts.regular,
+  },
+  courseImgCon: {
+    width: '100%',
+    height: 300,
+    padding: 0,
+    margin: 0,
+  },
+  courseName: {
+    margin: Platform.OS == 'android' ? 5 : 10,
+    color: whiteThemeColors.primaryTextColor,
+    fontSize: 18,
+    fontFamily: CommonStyles.fonts.regular,
+  },
+  userName: {
+    color: whiteThemeColors.primaryTextColor,
+    fontFamily: CommonStyles.fonts.medium,
+    fontSize: 12,
+  },
+});

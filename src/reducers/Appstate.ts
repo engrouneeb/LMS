@@ -1,0 +1,67 @@
+import { rootInterface } from 'reducers';
+import { tabReducerInterface } from '../screens/Store/StoreHome/helper';
+import { CP_StudentReducerInterface } from './CP_StudentReducer';
+import { CourseAssignStudentsReducerInterface } from './CourseAssignStudentsReducer';
+import { CourseDetailReducerInterface } from './CourseDetailReducer';
+import { CourseDownloadReducerInterface } from './CourseDownloadReducer';
+import { CoursePlayerContentInterface } from './CoursePlayerContentReducer';
+import { CoverUserReducerInterface } from './CoverUserReducer';
+import { CustomAlertReducerInterface } from './CustomAlertReducer';
+import { HtmlStepInterface } from './HtmlStepReducer';
+import { languageInterface } from './LanguageReducer';
+import { ModulePagesPermissionsInterface } from './ModulePagesPermissionsReducer';
+import { adminScheduleInterface } from './adminScheduleReducer';
+import { AnnouncementsReducerInterface } from './announcementReducer';
+import { AssignCoursesInterface } from './assignCoursesReducer';
+import { AttendenceReducerInterface } from './attendence';
+import { chatReducerInterface } from './chat';
+import { ClassReducerInterface } from './class';
+import { HomeworkReducerInterface } from './homeworkReducer';
+import { MesssageReducerInterface } from './messages';
+import { MS_AdminWagesInterface } from './ms_AdminWagesReducer';
+import { StudentsAnalyticsInterface } from './ms_db_studentsAnalyticsReducer';
+import { StudentsEnrolledInterface } from './ms_db_studentsEnrolledReducer';
+import { ScheduleInterface } from './scheduleReducer';
+import { SetupInterface } from './setupReducer';
+import { StudentInfoInterface } from './studentInfoReducer';
+import { TimeOffInstructorInterface } from './timeOffInstructorReducer';
+import { TimeTrackerInterface } from './timetracker';
+import { userInterface } from './user';
+import { timerInterface } from 'components/Interfaces/timerInterface';
+import { AppModulePermissionInterfaceState } from './appModulePermissionReducer';
+import { Web_AuthState } from './webAuthReducer';
+
+export interface Appstate {
+  token: rootInterface;
+  chat: chatReducerInterface;
+  attendence: AttendenceReducerInterface;
+  timetracker: TimeTrackerInterface;
+  User: userInterface;
+  class: ClassReducerInterface;
+  messages: MesssageReducerInterface;
+  setupReducer: SetupInterface;
+  StudentInfoReducer: StudentInfoInterface;
+  scheduleReducer: ScheduleInterface;
+  adminScheduleReducer: adminScheduleInterface;
+  coverUserReducer: CoverUserReducerInterface;
+  coursePlayerContentReducer: CoursePlayerContentInterface;
+  courseDetailReducer: CourseDetailReducerInterface;
+  courseDownloadReducer: CourseDownloadReducerInterface;
+  cpStudentReducer: CP_StudentReducerInterface;
+  msStudentAnalyticsReducer: StudentsAnalyticsInterface;
+  msStudentEnrolledReducer: StudentsEnrolledInterface;
+  courseAssignStudentsReducer: CourseAssignStudentsReducerInterface;
+  language: languageInterface;
+  msAdminWagesReducer: MS_AdminWagesInterface;
+  timeOffInstructorReducer: TimeOffInstructorInterface;
+  htmlStepReducer: HtmlStepInterface;
+  AnnouncementsReducer: AnnouncementsReducerInterface;
+  assignCoursesReducer: AssignCoursesInterface;
+  HomeworkReducer: HomeworkReducerInterface;
+  CustomAlert: CustomAlertReducerInterface;
+  ModulePagesPermissions: ModulePagesPermissionsInterface;
+  tabReducer: tabReducerInterface;
+  timerReducer: timerInterface;
+  AppModulePermission:AppModulePermissionInterfaceState
+  WebAuthReducer:Web_AuthState
+}

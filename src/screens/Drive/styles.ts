@@ -1,0 +1,183 @@
+import { StyleSheet } from 'react-native';
+import CommonStyles from 'screens/CommonStyles';
+import { whiteThemeColors } from 'utilities';
+
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  subContainer: {
+    flex: 1,
+    padding: 10,
+    paddingTop: 4,
+  },
+  itemContainer: {
+    borderRadius: 15,
+    backgroundColor: whiteThemeColors.primary ,
+    marginVertical: 5,
+    marginHorizontal: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  borderShadow: {
+    shadowColor: 'grey',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+  },
+  fileNameText: {
+    color: whiteThemeColors.white ,
+    fontSize: 8,
+    fontFamily: CommonStyles.fonts.regular,
+    width: 150,
+  },
+  keyText: {
+    color: whiteThemeColors.white,
+    fontSize: 8,
+    fontFamily: CommonStyles.fonts.semiBold,
+    textAlign: 'left',
+  },
+  valueText: {
+    color: whiteThemeColors.white,
+    fontSize: 8,
+    fontFamily: CommonStyles.fonts.semiBold,
+    marginLeft:5,
+    width:'90%',
+    textAlign: 'left',
+  },
+  fileSizeText: {
+    color: whiteThemeColors.greyDark,
+    fontSize: 11,
+  },
+
+  fileIconContainer: {
+    marginTop: 7,
+    marginBottom: 7,
+    width: 65,
+    height: 65,
+    borderRadius: 20,
+    backgroundColor: whiteThemeColors.white,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  filetxtContainer: {
+    position: 'absolute',
+    top:25,
+    right: 0,
+    left: 67,
+    bottom:40,
+    zIndex: 1000,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width:50
+  },
+  filelabelTxt: {
+    fontSize: 8,
+    color: whiteThemeColors.primary ,
+    zIndex: 1000,
+    fontFamily: CommonStyles.fonts.regular,
+
+  },
+  fabContainer: {
+    width: 60,
+    height: 60,
+    borderRadius: 20,
+    backgroundColor: whiteThemeColors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: 20,
+    right: 15,
+    zIndex: 100,
+  },
+  emptyListContainer: {
+    flex: 1,
+    marginTop: 300,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  emptyListText: {
+    color: whiteThemeColors.black,
+    fontSize: 14,
+    fontFamily: CommonStyles.fonts.regular,
+    textAlign: 'center',
+  },
+  deleteContainer: {
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    right: 10,
+    top: 8,
+    backgroundColor: whiteThemeColors.white + 90,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  downloadContainer: {
+    width: 20,
+    height: 20,
+    position: 'absolute',
+    right: 10,
+    bottom: 10,
+    backgroundColor: whiteThemeColors.white + 90,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  containerList: {
+    flex: 1,
+    padding: 5,
+  },
+  itemContainerList: {
+    width: '97%',
+    height: 90,
+    backgroundColor: whiteThemeColors.white + 90,
+    marginVertical: 6,
+    borderRadius: 15,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    flexDirection: 'row',
+
+    alignSelf: 'center',
+  },
+  borderShadowList: {
+    shadowColor: 'grey',
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    elevation: 5,
+  },
+  avatarContainer: {
+    height: '100%',
+    width: '20%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: whiteThemeColors.white,
+    borderTopLeftRadius: 15,
+    borderBottomLeftRadius: 15,
+  },
+  nameContainer: {
+    height: '100%',
+    width: '65%',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingLeft: 15,
+  },
+  nameText: {
+    color: whiteThemeColors.primary,
+    fontFamily: CommonStyles.fonts.semiBold,
+    fontSize: 15,
+  },
+  roleText: {
+    color: whiteThemeColors.greyDark,
+    fontSize: 10,
+    fontFamily: CommonStyles.fonts.regular,
+  },
+  iconContainer: {
+    width: 30,
+    height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: whiteThemeColors.primary + 30,
+    borderRadius: 10,
+  },
+});

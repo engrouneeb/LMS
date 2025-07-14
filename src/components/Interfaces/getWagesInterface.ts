@@ -1,0 +1,29 @@
+export interface ScheduleWeekView {
+  AddSchedule: string;
+  ApplyForItem: string;
+  Cancel: string;
+  CannotGetWagesAtMoment: string;
+  Description: string;
+  EndDate: string;
+  Error: string;
+  Loading: string;
+  NoScheduleAvailable: string;
+  PleaseSelectDateMissingStartdateEnddate: string;
+  PleaseSelectItem: string;
+  PleaseSelectTimeMissingStarttimeEndtime: string;
+  PleaseSelectYourScheduleDays: string;
+  PleaseWait: string;
+  Schedule: string;
+  ScheduleHasBeenAdded: string;
+  SelectedDate: string;
+  SelectedDays: string;
+  ShowAvailability: string;
+  SomethingWentWrong: string;
+  StartDate: string;
+  Timings: string;
+  UpdateAvailability: string;
+  UpdateSchedule: string;
+  UseDateRange: string;
+  Warning: string;
+  YouMustAddedWageForYourSchedule: string;
+}

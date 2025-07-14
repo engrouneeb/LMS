@@ -1,0 +1,6 @@
+{
+    "name": "screens",
+    "devDependencies": {
+        "@types/react-native-modal-dropdown": "^1.0.1"
+    }
+}

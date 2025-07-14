@@ -1,0 +1,172 @@
+import { StyleSheet } from 'react-native';
+import CommonStyles from 'screens/CommonStyles';
+import { whiteThemeColors } from 'utilities';
+
+export const styles = StyleSheet.create({
+  mainContainer: {
+    width: '95%',
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  input: {
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: whiteThemeColors.white,
+    borderRadius: 8,
+    height: 45,
+  },
+
+  dropDownContainer: {
+    width: '89%',
+  },
+  dropdownStyle: {
+    width: '83%',
+    marginTop: 10,
+    borderRadius: 10,
+    numberOfLines: 1,
+  },
+  dropDownTxt: {
+    marginLeft: 10,
+    width: '90%',
+    color: whiteThemeColors.greyDark,
+    fontSize: 13,
+    fontFamily: CommonStyles.fonts.regular,
+  },
+  labelTxt: {
+    marginLeft: 5,
+    marginTop: 10,
+    fontFamily: CommonStyles.fonts.semiBold,
+    fontSize: 13,
+    marginBottom: 5,
+    color: whiteThemeColors.primary,
+  },
+  headerText: {
+    fontSize: 18,
+    paddingLeft: 15,
+    marginTop: 10,
+    fontFamily: CommonStyles.fonts.bold,
+    color: whiteThemeColors.primaryTextColor,
+  },
+  detailText: {
+    paddingLeft: 15,
+    marginTop: 10,
+    fontFamily: CommonStyles.fonts.regular,
+    color: whiteThemeColors.greyDark,
+  },
+  noClassFoundTxt: {
+    color: whiteThemeColors.white,
+    fontFamily: CommonStyles.fonts.regular,
+    marginLeft: 10,
+  },
+  btnContainer: {
+    width: '100%',
+
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 60,
+  },
+  btn: {
+    backgroundColor: whiteThemeColors.primary,
+    width: '70%',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    marginBottom: 10,
+  },
+  CloseBtn: {
+    backgroundColor: whiteThemeColors.white,
+    width: '70%',
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 12,
+    marginBottom: 10,
+  },
+  btnTxt: {
+    color: whiteThemeColors.white,
+    fontFamily: CommonStyles.fonts.semiBold,
+  },
+  CloseBtnTxt: {
+    color: whiteThemeColors.primary,
+    fontFamily: CommonStyles.fonts.semiBold,
+  },
+  search: {
+    flexDirection: 'row',
+    backgroundColor: whiteThemeColors.primary + 30,
+    alignItems: 'center',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+    height: 50,
+    paddingHorizontal: 10,
+  },
+  dropdown: {
+    backgroundColor: whiteThemeColors.white,
+
+    alignItems: 'center',
+    flexDirection: 'row',
+
+    borderRadius: 10,
+    height: 45,
+    paddingLeft: 20,
+  },
+  dropdownMainCon: {
+    backgroundColor: whiteThemeColors.white,
+    position: 'absolute',
+    borderRadius: 15,
+    right: 25,
+    left: 2,
+    top: 74,
+    zIndex: 99,
+    width: '100%',
+  },
+  dropdownCon: {
+    zIndex: 99,
+    width: '100%',
+    minHeight: 50,
+    maxHeight: 250,
+    paddingVertical: 4,
+  },
+  dropDownSearchTxtInp: {
+    marginHorizontal: 5,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    width: '100%',
+    height: '100%',
+  },
+  dropDownItemContainer: {
+    paddingVertical: 8,
+    paddingLeft: 15,
+    marginBottom: 10,
+    borderBottomWidth: 0.18,
+    borderBottomColor: whiteThemeColors.greyDark + 50,
+  },
+  dropDownItemTxt: {
+    fontSize: 13,
+    color: whiteThemeColors.black,
+    fontFamily: CommonStyles.fonts.regular,
+  },
+  dateTimeTxt: {
+    flex: 1,
+    fontSize: 13,
+    fontFamily: CommonStyles.fonts.regular,
+    color: whiteThemeColors.greyDark,
+  },
+  noCourseTxtContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 7,
+  },
+  iconContainer: {
+    width: 50,
+    height: 45,
+    backgroundColor: whiteThemeColors.primary + 40,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    right: 0,
+  },
+});
