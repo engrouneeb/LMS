@@ -1,7 +1,7 @@
 import { UploadAttachmentInterface } from 'interfaces';
 import React, { useEffect, useState } from 'react';
 import { Platform, TouchableOpacity } from 'react-native';
-import DocumentPicker from 'react-native-document-picker';
+import DocumentPicker from '@react-native-documents/picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useSelector } from 'react-redux';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Linking, PermissionsAndroid, Platform } from 'react-native';
 import { createThumbnail } from 'react-native-create-thumbnail';
-import DocumentPicker from 'react-native-document-picker';
+import DocumentPicker from '@react-native-documents/picker';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { chatObject, whiteThemeColors } from 'utilities';
