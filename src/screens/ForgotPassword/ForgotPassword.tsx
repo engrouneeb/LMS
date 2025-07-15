@@ -9,7 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { CustomAlert, whiteThemeColors } from 'utilities';
+import { CustomAlert, whiteThemeColors } from '../../Utilities';
 import ApiEndpoints from '../../../data/ApiEndpoints';
 import { DataAccess } from '../../../data/DAL';
 import { loading } from '../../actions/AsyncStorage';

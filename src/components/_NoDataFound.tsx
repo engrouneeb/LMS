@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../Utilities';
 import { _Text, _View } from '.';
 import CommonStyles from 'screens/CommonStyles';
 

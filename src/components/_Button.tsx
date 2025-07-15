@@ -3,7 +3,7 @@ import { ButtonIntefaces } from 'interfaces';
 import React, { FC, useEffect, useState } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
-import { scale, whiteThemeColors } from 'utilities';
+import { scale, whiteThemeColors } from '../Utilities';
 import { _ActivityIndicator } from '../screens/Loader';
 import { isPortrait } from './Portrait';
 import { _Text } from './_Text';

@@ -26,7 +26,7 @@ import HomeworkReducer from './homeworkReducer';
 import CustomAlertReducer from './CustomAlertReducer';
 import TimeOffInstructorReducer from './timeOffInstructorReducer';
 import ModulePagesPermissions from './ModulePagesPermissionsReducer';
-import { tabReducer } from '../screens/Store/StoreHome/helper';
+// import { tabReducer } from '../screens/Store/StoreHome/helper';
 import { timerReducer } from './timerReducer';
 import { AppModulePermission} from "./appModulePermissionReducer"
 import {web_authReducer} from "./webAuthReducer"
@@ -289,7 +289,7 @@ const appReducer = combineReducers({
   HomeworkReducer: HomeworkReducer,
   CustomAlert: CustomAlertReducer,
   ModulePagesPermissions: ModulePagesPermissions,
-  tabReducer: tabReducer,
+  // tabReducer: tabReducer,
   timerReducer: timerReducer,
   AppModulePermission:AppModulePermission,
   WebAuthReducer:web_authReducer

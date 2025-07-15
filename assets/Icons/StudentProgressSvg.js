@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import Svg, { Path } from 'react-native-svg';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../../src/Utilities';
 
 export const StudentProgressSvg = (props) => {
   return (

@@ -1,160 +1,77 @@
-import React, { FC } from 'react';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import React from 'react';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import Entypo from 'react-native-vector-icons/Entypo';
+import EvilIcons from 'react-native-vector-icons/EvilIcons';
+import Feather from 'react-native-vector-icons/Feather';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Fontisto from 'react-native-vector-icons/Fontisto';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import EntypoIcon from 'react-native-vector-icons/Entypo';
-import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
-import FontAwesome5ProIcon from 'react-native-vector-icons/FontAwesome5Pro';
-import FontistoIcon from 'react-native-vector-icons/Fontisto';
-import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Octicons from 'react-native-vector-icons/Octicons';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import Foundation from 'react-native-vector-icons/Foundation';
 import Zocial from 'react-native-vector-icons/Zocial';
-import Octicons from 'react-native-vector-icons/Octicons';
-import { VectorIconsInterfaces } from 'interfaces';
-export const _VectorIcons: FC<VectorIconsInterfaces> = ({
-  type,
+
+type IconType =
+  | 'AntDesign'
+  | 'Entypo'
+  | 'EvilIcons'
+  | 'Feather'
+  | 'FontAwesome'
+  | 'FontAwesome5'
+  | 'Fontisto'
+  | 'Ionicons'
+  | 'MaterialIcons'
+  | 'MaterialCommunityIcons'
+  | 'Octicons'
+  | 'SimpleLineIcons'
+  | 'Foundation'
+  | 'Zocial';
+
+interface VectorIconProps {
+  type?: IconType;
+  name: string;
+  size?: number;
+  color?: string;
+  style?: any;
+  [key: string]: any; // for additional props
+}
+
+const iconSets = {
+  AntDesign,
+  Entypo,
+  EvilIcons,
+  Feather,
+  FontAwesome,
+  FontAwesome5,
+  Fontisto,
+  Ionicons,
+  MaterialIcons,
+  MaterialCommunityIcons,
+  Octicons,
+  SimpleLineIcons,
+  Foundation,
+  Zocial,
+};
+
+export const _VectorIcons: React.FC<VectorIconProps> = ({
+  type = 'Ionicons',
   name,
-  size,
-  color,
+  size = 24,
+  color = '#000',
+  style,
   ...props
 }) => {
-  switch (type) {
-    case 'Octicons':
-      return (
-        <Octicons
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'Zocial':
-      return (
-        <Zocial
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'Foundation':
-      return (
-        <Foundation
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'SimpleLineIcons':
-      return (
-        <SimpleLineIcons
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'MaterialCommunityIcons':
-      return (
-        <MaterialCommunityIcons
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'AntDesign':
-      return (
-        <AntDesignIcon
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'Entypo':
-      return (
-        <EntypoIcon
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'EvilIcons':
-      return (
-        <EvilIconsIcon
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'Feather':
-      return (
-        <FeatherIcon
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'FontAwesome':
-      return (
-        <FontAwesomeIcon
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'FontAwesome5':
-      return (
-        <FontAwesome5Icon
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'FontAwesome5Pro':
-      return (
-        <FontAwesome5ProIcon
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'Fontisto':
-      return (
-        <FontistoIcon name={name} size={size || 16} color={color || '#fff'} />
-      );
-    case 'Material':
-    case 'MaterialIcons':
-      return (
-        <MaterialIcon
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    case 'Ionicons':
-      return (
-        <Ionicons
-          name={name}
-          size={size || 16}
-          color={color || '#fff'}
-          {...props}
-        />
-      );
-    default:
-      return <Ionicons name={name} size={size || 16} color={color || '#fff'} />;
-  }
+  const IconComponent = iconSets[type] || Ionicons;
+  return (
+    <IconComponent
+      name={name}
+      size={size}
+      color={color}
+      style={style}
+      {...props}
+    />
+  );
 };

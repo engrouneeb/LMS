@@ -19,7 +19,6 @@ export * from './Orientation';
 export * from './ResponsiveUI';
 export * from './Scaling';
 export * from './UtilsFunctions';
-export * from './VideoPlayer';
 export * from './collapsiableAnimation';
 export * from './colors';
 export * from './moduleConfig';

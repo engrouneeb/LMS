@@ -12,8 +12,8 @@ import {
   getHeight,
   getWidth,
   LoadLogoImage,
-  whiteThemeColors,
-} from 'utilities';
+} from '../Utilities';
+import {whiteThemeColors} from "../Utilities/colors"
 import { _VectorIcons } from '.';
 import CommonStyles from '../screens/CommonStyles';
 interface Props {

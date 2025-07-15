@@ -23,7 +23,10 @@ RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getAppName) {
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getVariantURL) {
   return @"Default";
 }
-
+RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getVariantName) {
+  return @"calimaticlms";
+}
+ 
 RCT_EXPORT_BLOCKING_SYNCHRONOUS_METHOD(getPrimaryColor) {
   return @"#0076ff";
 }

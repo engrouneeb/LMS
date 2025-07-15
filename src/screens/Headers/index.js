@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { CustomAlert, isStaff, whiteThemeColors } from 'utilities';
+import { CustomAlert, isStaff, whiteThemeColors } from '../../Utilities';
 import { StudentIcon } from '../../../assets/Icons';
 import {
   isPortrait,
@@ -21,7 +21,6 @@ import {
   _View,
 } from '../../components';
 import { hp, wp } from '../../Helpers/Responsiveness';
-import { useLogin } from '../../navigation/MainNav';
 import CommonStyles from '../CommonStyles';
 import { showHideTimer } from '../../actions/TimerAction';
 //endregion
@@ -29,7 +28,6 @@ var language;
 
 function MasterHeader(props) {
   const dispatch = useDispatch();
-  const [ori, setOrientation] = useState('');
   const [alertTitle, setAlertTitle] = useState(undefined);
   const [alertMessage, setAlertMessage] = useState(undefined);
   const [showAlert, setShowAlert] = useState(false);
@@ -40,10 +38,7 @@ function MasterHeader(props) {
     dashboardScreen: state.language.dashboardScreen,
     isShow: state.timerReducer.isShow,
   }));
-  const { orientation } = useLogin();
-  useEffect(() => {
-    if (orientation) setOrientation(orientation);
-  }, [orientation]);
+
   useEffect(() => {
     AsyncStorage.getItem('@LanguageSettings')
       .then((data) => {
@@ -316,13 +311,12 @@ function MasterHeader(props) {
           styles.subContainer,
           {
             marginTop:
-              ori === 'PORTRAIT'
-                ? Platform.OS === 'ios'
+               Platform.OS === 'ios'
                   ? isTablet
                     ? hp(2)
                     : 30
                   : 0
-                : 5,
+                
           },
         ]}
       >

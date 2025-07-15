@@ -1,7 +1,7 @@
 import { _Text, _View } from 'components';
 import React, { FC, useEffect, useState } from 'react';
 import { Animated, StyleSheet } from 'react-native';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../Utilities';
 import { ProgressBarInterfaces } from 'interfaces';
 import CommonStyles from 'screens/CommonStyles';
 export const PercentageBar: FC<ProgressBarInterfaces> = ({

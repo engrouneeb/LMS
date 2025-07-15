@@ -3,7 +3,7 @@ import moment from 'moment';
 import React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../../../Utilities';
 import Endpoints from '../../../../data/ApiEndpoints';
 import { Domain } from '../../../../src/reducers/BaseUrl';
 import { saveToken, saveUserToken } from '../../../actions/AsyncStorage';

@@ -1,5 +1,5 @@
 import { Dimensions } from 'react-native';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../../Utilities';
 import WhiteLabelConfig from '../../WhiteLabelConfig';
 
 // Map for Josefin Sans font weights

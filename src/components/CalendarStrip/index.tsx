@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useMemo, useState } from 'react';
 import { Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
-import { DateTimePickerIos, whiteThemeColors } from 'utilities';
+import { DateTimePickerIos, whiteThemeColors } from '../../Utilities';
 
 import { _VectorIcons, _View } from '../../components';
 import CommonStyles from '../../screens/CommonStyles';

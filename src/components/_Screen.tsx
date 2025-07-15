@@ -3,7 +3,7 @@ import { ScreenInterfaces } from 'interfaces';
 import React, { FC } from 'react';
 import { BackHandler, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../Utilities';
 import { _View } from '.';
 
 export const _Screen: FC<ScreenInterfaces> = ({

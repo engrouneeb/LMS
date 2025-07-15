@@ -1,8 +1,8 @@
 import { wp } from "../../Helpers/Responsiveness";
 import { StyleSheet, Platform, Dimensions } from "react-native";
 import { isTablet } from "react-native-device-info";
-import CommonStyles from "screens/CommonStyles";
-import { whiteThemeColors } from "../../Utilities/colors";
+import CommonStyles from "../CommonStyles";
+import { whiteThemeColors } from '../../Utilities/colors';
 const deviceWidth = Dimensions.get('window').width;
 
 export const styles = StyleSheet.create({
@@ -106,7 +106,8 @@ export const styles = StyleSheet.create({
       borderRadius: 30,
       marginTop: wp(6),
       height: Platform.OS == 'ios' ? 50 : 54,
-      backgroundColor: whiteThemeColors.primary,
+      // backgroundColor: whiteThemeColors.primary,
+      backgroundColor: "#004BC0",
     },
     subContainer: {
       flexDirection: 'row',
@@ -126,7 +127,8 @@ export const styles = StyleSheet.create({
     buttonText: {
       fontSize: 18,
       fontWeight: '800',
-      color: whiteThemeColors.primary,
+      // color: whiteThemeColors.primary,
+      color: "#004BC0",
   
       textAlign: 'justify',
       alignSelf: 'center',
@@ -136,7 +138,8 @@ export const styles = StyleSheet.create({
       fontSize: 18,
       fontWeight: '800',
       fontFamily: 'DroidArabicNaskh',
-      color: whiteThemeColors.primary,
+      // color: whiteThemeColors.primary,
+      color: "#004BC0",
       textAlign: 'justify',
     },
   });

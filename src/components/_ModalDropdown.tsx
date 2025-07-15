@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalDropdown from 'react-native-modal-dropdown';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../Utilities';
 import { _View, _VectorIcons } from '.';
 interface props {
   isdisable?: boolean;

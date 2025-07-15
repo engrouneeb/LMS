@@ -17,7 +17,7 @@ import {
   isPortrait,
   saveTerminologyToStorage,
   whiteThemeColors,
-} from 'utilities';
+} from '../../Utilities';
 import ApiEndpoints from '../../../data/ApiEndpoints';
 import { DataAccess } from '../../../data/DAL';
 import { doLogin } from '../../actions/AccountActions';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import 'react-native-gesture-handler';
-import { Toast } from 'react-native-toast-message/lib/src/Toast';
+// import { Toast } from 'react-native-toast-message/lib/src/Toast';
 import { Provider } from 'react-redux';
 import Navigator from '../navigation/MainNav';
 import store from '../store';
@@ -12,7 +12,7 @@ const Setup = () => {
       <View style={{ flex: 1 }}>
         <Navigator />
         <OfflineNotice />
-        <Toast ref={(ref: any) => Toast?.setRef(ref)} />
+        {/* <Toast ref={(ref: any) => Toast?.setRef(ref)} /> */}
       </View>
     </Provider>
   );

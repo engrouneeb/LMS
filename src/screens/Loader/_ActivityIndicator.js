@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet } from 'react-native';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../../Utilities';
 import { _Text, _View } from '../../components';
 
 const _ActivityIndicator = ({
