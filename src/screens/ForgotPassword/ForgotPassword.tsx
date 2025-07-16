@@ -362,7 +362,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '800',
     color: whiteThemeColors.primary,
-
     textAlign: 'justify',
     alignSelf: 'center',
     textTransform: 'capitalize',

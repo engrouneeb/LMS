@@ -6,10 +6,10 @@ import {
   KeyboardAvoidingView,
   Pressable,
   ScrollView,
-  TextInput
+  TextInput,
+  TouchableOpacity
 } from 'react-native';
 import { getUniqueId } from 'react-native-device-info';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   CustomAlert,
