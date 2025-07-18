@@ -1,6 +1,6 @@
 import React from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../../Utilities';
 interface props {
   size?: any;
   bgColor?: string;

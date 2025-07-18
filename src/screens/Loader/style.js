@@ -2,7 +2,7 @@ const React = require('react-native');
 const { Dimensions, Platform } = React;
 import { Header } from '@react-navigation/stack';
 import CommonStyles from '../CommonStyles';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../../Utilities';
 const deviceHeight = Dimensions.get('window').height;
 const deviceWidth = Dimensions.get('window').width;
 const ofSetVal = deviceWidth > 480 ? Header.HEIGHT + 20 : Header.HEIGHT;

@@ -1,5 +1,5 @@
 import { useFocusEffect } from '@react-navigation/native';
-import { ScreenInterfaces } from 'interfaces';
+import { ScreenInterfaces } from '../interfaces';
 import React, { FC } from 'react';
 import { BackHandler, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';

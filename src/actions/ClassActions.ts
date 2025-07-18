@@ -1,7 +1,7 @@
 import { DataAccess } from '../../data/DAL';
 import ApiEndPoint from '../../data/ApiEndpoints/index';
 import { error, loading } from './AsyncStorage';
-import { endpoint } from 'components';
+import { endpoint } from '../components';
 const { Get, PostSecured } = DataAccess();
 export const getClasses = (classes: any) => ({
   type: 'SET_CLASSES',

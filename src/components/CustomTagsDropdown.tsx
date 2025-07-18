@@ -1,9 +1,7 @@
 import React, { FC } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import CommonStyles from '../screens/CommonStyles';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { whiteThemeColors } from 'utilities';
-import { TagsDropdownTypes, Tag } from 'interfaces';
+import { View, Text, StyleSheet,TouchableOpacity } from 'react-native';
+import { whiteThemeColors } from '../Utilities';
+import { TagsDropdownTypes, Tag } from '../interfaces';
 
 const CustomTagsDropdown: FC<TagsDropdownTypes> = ({
   allTags,

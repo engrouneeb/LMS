@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { whiteThemeColors, saveTerminologyToStorage } from 'utilities';
+import { whiteThemeColors, saveTerminologyToStorage } from '../../Utilities';
 import ApiEndpoints from '../../../data/ApiEndpoints';
 import { DataAccess } from '../../../data/DAL';
 import WhiteLabelConfig from '../../WhiteLabelConfig';

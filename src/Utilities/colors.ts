@@ -6,9 +6,6 @@ var RedColor = '#D70000';
 var GreenDarkColor = '#00A72D';
 var LightBlackColor = '#414042';
 var theme: any = WhiteLabelConfig.COLORS;
-console.log("===========================");
-console.log({theme});
-console.log("===========================");
 const whiteThemeColors: any = {
   primary: theme.PRIMARY_COLOR,
   primaryDark: theme.PRIMARY_DARK,

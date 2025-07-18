@@ -12,9 +12,9 @@ import {
   getHeight,
   getWidth,
   LoadLogoImage,
+  whiteThemeColors,
 } from '../Utilities';
-import {whiteThemeColors} from "../Utilities/colors"
-import { _VectorIcons } from '.';
+import { _VectorIcons } from './index';
 import CommonStyles from '../screens/CommonStyles';
 interface Props {
   url: string;

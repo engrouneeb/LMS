@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import { _View } from 'components';
+import { _View } from '../components';
 import DeviceInfo from 'react-native-device-info';
 import WhiteLabelConfig from '../WhiteLabelConfig';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -59,6 +59,11 @@ export const covertUTCDateTimeToLocalTimeStringFormat = (dateTime: any) => {
       : `${dateTime}.000Z`;
   return moment(new Date(utcDateTime)).format(globalTimeFormat);
 };
+const compare = (arr1: any, arr2: any) => {
+  if (arr1.length !== arr2.length) return false;
+  return arr1.every((val: any, index: any) => val === arr2[index]);
+};
+
 export const compareArray = async (arr1: any, arr2: any) => {
   if (!arr1 || !arr2) return;
 

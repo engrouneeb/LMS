@@ -1,8 +1,15 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
+import React, { Fragment } from 'react';
 import ScreensNames from '../../../screenNames';
 import * as Screens from '../../../screens';
+import loginEnrollSelection from '../../../screens/loginEnrollSelection';
+import SecurePage from '../../../screens/SecurePage';
+import FranchiseSelection from '../../../screens/SecurePage/franchiseSelection';
+import FranchiseSecure from '../../../screens/SecurePage/franchiseSelection/franchiseSecure';
+import Logout from '../../../screens/Signout';
 import { ForgotPassword } from '../../../screens/ForgotPassword';
+import auth from '../../../screens/Loader/AuthLoading';
+import WhiteLabelConfig from '../../../WhiteLabelConfig';
 
 const Stack = createStackNavigator();
 const AuthenticationStack = () => {
@@ -13,7 +20,7 @@ const AuthenticationStack = () => {
         headerShown: false,
       }}
     >
-      {/* <Stack.Screen component={auth} name={ScreensNames.authLoading.name} />
+      <Stack.Screen component={auth} name={ScreensNames.authLoading.name} />
       {WhiteLabelConfig.APP_VARIANT_NAME != 'rakanCode' && (
         <Fragment>
           <Stack.Screen
@@ -30,24 +37,23 @@ const AuthenticationStack = () => {
             name={ScreensNames.getStarted.name}
           />
         </Fragment>
-      )} */}
-      {/* <Stack.Screen
+      )}
+      <Stack.Screen
         options={{ gestureEnabled: false }}
         component={loginEnrollSelection}
         name={ScreensNames.loginEnroll.name}
-      /> */}
-      <Stack.Screen
-        component={Screens.SignInScreen}
-        name={ScreensNames.signInScreen.name}
       />
       <Stack.Screen
         options={{ gestureEnabled: false }}
         component={ForgotPassword}
         name={ScreensNames.forgotPassword.name}
       />
-      
+      <Stack.Screen
+        component={Screens.SignInScreen}
+        name={ScreensNames.signInScreen.name}
+      />
 
-      {/* <Stack.Screen component={Screens.Eula} name={ScreensNames.Eula.name} />
+      <Stack.Screen component={Screens.Eula} name={ScreensNames.Eula.name} />
       <Stack.Screen
         component={SecurePage}
         name={ScreensNames.SecurePage.name}
@@ -60,7 +66,7 @@ const AuthenticationStack = () => {
         component={FranchiseSecure}
         name={ScreensNames.franchiseSecure.name}
       />
-      <Stack.Screen component={Logout} name={ScreensNames.logout.name} /> */}
+      <Stack.Screen component={Logout} name={ScreensNames.logout.name} />
     </Stack.Navigator>
   );
 };

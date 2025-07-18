@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { Appstate } from 'reducers/Appstate';
+import { Appstate } from '../reducers/Appstate';
 import { DataAccess } from '../../data/DAL';
 import { AppModuleScreenTypeEnum, AppModuleTypeEnum } from '../constants';
 

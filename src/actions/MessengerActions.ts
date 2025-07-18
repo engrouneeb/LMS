@@ -3,7 +3,7 @@ import { DataAccess } from '../../data/DAL';
 
 import { success } from './PlanActions';
 import { error, loading } from './AsyncStorage';
-import { endpoint } from 'components';
+import { endpoint } from '../components';
 const { Get, PostSecuredWithParams } = DataAccess();
 export const setChatFor = (data: any) => ({
   type: 'SET_CHAT_FOR',

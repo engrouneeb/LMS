@@ -2,11 +2,11 @@ import {
   EndpointType,
   UserDetailsProps,
   UserProfileInterfaces,
-} from 'interfaces';
+} from '../interfaces';
 import React, { FC, useEffect, useState } from 'react';
 import { Modal, StyleSheet, TouchableOpacity } from 'react-native';
-import { whiteThemeColors } from 'utilities';
-import { _Text, _VectorIcons, _View } from '.';
+import { whiteThemeColors } from '../Utilities';
+import { _Text, _VectorIcons, _View } from './index';
 import ApiEndpoints from '../../data/ApiEndpoints';
 import { DataAccess } from '../../data/DAL';
 import { _ActivityIndicator } from '../screens/Loader';

@@ -1,6 +1,6 @@
 import React from "react";
 import Svg, { Circle, Ellipse, Path, Polygon, Rect } from "react-native-svg";
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from './../src/Utilities';
 
 export default DebitCardSvg = ({ size }) => {
   return (

@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import messaging from '@react-native-firebase/messaging';
 import { useNavigation } from '@react-navigation/native';
-import { endpoint } from 'components';
+import { endpoint } from '../components';
 import { Alert, Linking } from 'react-native';
 import { getUniqueId } from 'react-native-device-info';
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import ZoomUs from 'react-native-zoom-us';
 import { useDispatch } from 'react-redux';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../Utilities';
 import {
   default as ApiEndPoint,
   default as ApiEndpoints,

@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import { _Text, _VectorIcons } from '../../components';
 import { whiteThemeColors } from '../../theme';
 import { BottomBackButtonInterface } from '../../interfaces';
-import CommonStyles from 'screens/CommonStyles';
+import CommonStyles from '../../screens/CommonStyles';
 export const BottomRightButton: React.FC<BottomBackButtonInterface> = ({
   text,
   onPress,

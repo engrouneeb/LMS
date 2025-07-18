@@ -2,7 +2,7 @@ import React from 'react';
 import { _View } from '../../components';
 import { StyleSheet } from 'react-native';
 import { useSelector } from 'react-redux';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../../Utilities';
 import { ActivityIndicator, Modal, } from 'react-native';
 
 const LoadingSc = () => {

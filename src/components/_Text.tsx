@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { Text } from 'react-native';
-import { TextInterfaces } from 'interfaces';
+import { TextInterfaces } from '../interfaces';
 export const _Text: FC<TextInterfaces> = ({
   children,
   color,

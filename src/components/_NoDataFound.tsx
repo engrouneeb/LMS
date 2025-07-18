@@ -1,8 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet } from 'react-native';
 import { whiteThemeColors } from '../Utilities';
-import { _Text, _View } from '.';
-import CommonStyles from 'screens/CommonStyles';
+import { _Text, _View } from './index';
+import CommonStyles from '../screens/CommonStyles';
 
 export const _NoDataFound = ({
   image = require('../../assets/NoDataFound.png'),

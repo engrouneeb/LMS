@@ -1,10 +1,9 @@
 import { StyleSheet, Modal } from 'react-native';
 import React, { FC } from 'react';
 import CommonStyles from '../screens/CommonStyles';
-import { whiteThemeColors } from 'utilities';
-import { _View, _Text, _TextInput, _Button, _VectorIcons } from '.';
-import { verticalScale } from 'utilities';
-import { OopsModalProps } from 'interfaces';
+import { whiteThemeColors,verticalScale } from '../Utilities';
+import { _View, _Text, _TextInput, _Button, _VectorIcons } from './index';
+import { OopsModalProps } from '../interfaces';
 
 export const OopsModal: FC<OopsModalProps> = ({
   visible,

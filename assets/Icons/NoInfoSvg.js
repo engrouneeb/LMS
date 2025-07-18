@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import Svg, { Switch, Circle, G, Text, Path } from 'react-native-svg';
-import { whiteThemeColors } from '../../src/Utilities';
+import Svg, { Circle, G, Text, Path } from 'react-native-svg';
+import { whiteThemeColors } from './../src/Utilities';
 
 export const NoInfoSvg = ({ size, opacity }) => {
   return (

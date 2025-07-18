@@ -1,4 +1,4 @@
-import { rootInterface } from 'reducers';
+import { rootInterface } from './';
 import { tabReducerInterface } from '../screens/Store/StoreHome/helper';
 import { CP_StudentReducerInterface } from './CP_StudentReducer';
 import { CourseAssignStudentsReducerInterface } from './CourseAssignStudentsReducer';
@@ -27,7 +27,7 @@ import { StudentInfoInterface } from './studentInfoReducer';
 import { TimeOffInstructorInterface } from './timeOffInstructorReducer';
 import { TimeTrackerInterface } from './timetracker';
 import { userInterface } from './user';
-import { timerInterface } from 'components/Interfaces/timerInterface';
+import { timerInterface } from '../components/Interfaces/timerInterface';
 import { AppModulePermissionInterfaceState } from './appModulePermissionReducer';
 import { Web_AuthState } from './webAuthReducer';
 

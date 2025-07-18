@@ -1,5 +1,5 @@
 // actions/authActions.ts
-import { Appstate } from 'reducers/Appstate';
+import { Appstate } from '../reducers/Appstate';
 import { Dispatch } from 'redux';
 import {LMSWebApi} from "../reducers/BaseUrl"
 

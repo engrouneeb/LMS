@@ -6,10 +6,10 @@ import {
   KeyboardAvoidingView,
   Pressable,
   ScrollView,
-  TextInput,
-  TouchableOpacity
+  TextInput
 } from 'react-native';
 import { getUniqueId } from 'react-native-device-info';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   CustomAlert,
@@ -38,7 +38,7 @@ import { languages } from '../../reducers/languages';
 import Screens from '../../screenNames';
 import CommonStyles, { appFont } from '../CommonStyles';
 import { styles } from "./";
-import { Appstate } from 'reducers/Appstate';
+import { Appstate } from '../../../reducers/Appstate';
 import { useNavigation } from '@react-navigation/native';
 const english = 'English',
   arabic = 'Arabic';

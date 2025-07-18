@@ -1,8 +1,8 @@
-import { DateTimePickerProps } from 'interfaces';
+import { DateTimePickerProps } from '../interfaces';
 import React, { useState } from 'react';
 import { Modal, Platform, StyleSheet, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-date-picker';
-import CommonStyles from 'screens/CommonStyles';
+import CommonStyles from '../screens/CommonStyles';
 import { _Text, _View } from '../components';
 import { whiteThemeColors } from '../theme';
 const DateTimePickerIos: React.FC<DateTimePickerProps> = ({

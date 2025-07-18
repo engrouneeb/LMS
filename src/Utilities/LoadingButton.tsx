@@ -6,8 +6,8 @@ import CommonStyles from '../screens/CommonStyles';
 import { whiteThemeColors } from '../theme';
 import { scale } from './';
 import { isPortrait } from './';
-import { Appstate } from 'reducers/Appstate';
-import { loadingButtonInterface } from 'interfaces';
+import { Appstate } from '../reducers/Appstate';
+import { loadingButtonInterface } from '../interfaces';
 export const LoadingButton: React.FC<loadingButtonInterface> = ({
   isBlock,
   style,

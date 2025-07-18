@@ -1,6 +1,6 @@
 import React from 'react';
 import Svg, { Path, Rect } from 'react-native-svg';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from './../src/Utilities';
 import { _View } from '../src/components';
 const PaymentSvg = ({ size }) => {
   return (

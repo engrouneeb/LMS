@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Dimensions } from 'react-native';
 import { isPortrait } from './UtilsFunctions';
 import { _View } from '../components';
-import { marginTopComponentInterface } from 'interfaces';
+import { marginTopComponentInterface } from '../interfaces';
 
 export const MarginTopComponent: React.FC<marginTopComponentInterface> = ({
   portraitMargin,

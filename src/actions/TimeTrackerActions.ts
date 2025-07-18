@@ -1,4 +1,4 @@
-import { endpoint } from 'components';
+import { endpoint } from '../components';
 import ApiEndPoint from '../../data/ApiEndpoints';
 import { DataAccess } from '../../data/DAL';
 import { error, loading } from './AsyncStorage';

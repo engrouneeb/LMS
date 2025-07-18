@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import React, { FC } from 'react';
-import { whiteThemeColors } from '../Utilities/colors';
+import { whiteThemeColors } from '../Utilities';
 
 interface ErrorComponentTypes {
   resetError: () => void;

@@ -9,7 +9,7 @@ import {
   MarkClassAttendance,
 } from '../../../screens/Attendance';
 import DrawerScreenNames from '../../Drawer/DrawerScreenNames';
-import { CancelledClassTimings } from 'screens/Attendance/CancelledClassTimings/CancelledClassTimings';
+import { CancelledClassTimings } from '../../../screens/Attendance/CancelledClassTimings/CancelledClassTimings';
 
 const Stack = createStackNavigator();
 

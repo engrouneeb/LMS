@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Circle, Path } from 'react-native-svg';
 import { _View } from '../src/components';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from './../src/Utilities';
 const NotFoundSvg = ({ height, width }) => {
   return (
     <_View>

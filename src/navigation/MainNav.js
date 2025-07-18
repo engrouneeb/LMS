@@ -1,9 +1,43 @@
+import crashlytics from '@react-native-firebase/crashlytics';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React, { createContext, useState } from 'react';
-import { Orientation } from 'utilities';
+import React, { createContext, useEffect, useState } from 'react';
+import { Platform } from 'react-native';
+import deviceInfoModule from 'react-native-device-info';
+import { Orientation } from '../Utilities';
+import { screenArray } from '../navigationScreen';
 import { commanHeaderStyle } from './CommonHeaderOptions';
+import ScreensNames from '../screenNames';
+import { Announcement, AnnouncementDetails } from '../screens/Announcement';
+import Articles from '../screens/Articles';
+import ArticleDetails from '../screens/Articles/components/ArticleDetails';
+import { ChatInterface } from '../screens/Chat';
+import {
+  Homework,
+  OnlineAssessment,
+  SubmitChallenge,
+} from '../screens/CoursePlayer';
+import DayDetails from '../screens/Dashboard/Components/DayDetails';
+import {EventDetails,EventRoster} from '../screens/Events';
+import EnrollmentScreen from '../screens/Enroll';
+import SecureFranchise from '../screens/Enroll/components/SecureFranchise';
+import {SelectTypes,Enrollments} from '../screens/Enroll/components';
+import { NotificationsTab } from '../screens/Notifications';
+import {
+  ProgressStudentList,
+  SingleStudent,
+  StudentAssessmentListForAdmin,
+  StudentProgressReport,
+} from '../screens/Reports';
+import DrawerNavigation from './Drawer/DrawerNavigator';
+import DrawerNames from './Drawer/DrawerScreenNames';
 import AuthenticationStack from './Stacks/AuthStack/AuthStack';
+import { StudentList } from './../screens/HomeWorks';
+import { NewHomeWorkStack } from './Stacks/NewHomeWorkStack';
+import { GroupChatInterface } from '../screens/GroupChat/components/GroupChatInterface';
+import { KioskStack } from './Stacks';
+import { Curriculum } from '../screens/Curriculum';
+import { StudentListForAssessment } from '../screens/StudentAssessments/StudentListForAssessment';
 const Stack = createStackNavigator();
 const orientationContext = createContext();
 function createScreen(name, component, options) {
@@ -16,6 +50,12 @@ function Navigator() {
     setOrientation(o);
   }
   return (
+    <Orientation
+      getOrientation={(o) => {
+        orientationMode(o);
+      }}
+    >
+      <orientationContext.Provider value={{ orientation, setOrientation }}>
         <NavigationContainer>
           <Stack.Navigator screenOptions={commanHeaderStyle}>
             <Stack.Screen
@@ -23,7 +63,7 @@ function Navigator() {
               name={'auth'}
               component={AuthenticationStack}
             />
-            {/* <Stack.Screen
+            <Stack.Screen
               options={{ gestureEnabled: true, animationEnabled: false }}
               name={ScreensNames.homeWork.name}
               component={Homework}
@@ -161,9 +201,11 @@ function Navigator() {
               options={{ gestureEnabled: false }}
               name={DrawerNames.dashboard.name}
               component={DrawerNavigation}
-            /> */}
+            />
           </Stack.Navigator>
         </NavigationContainer>
+      </orientationContext.Provider>
+    </Orientation>
   );
 }
 export const useLogin = () => React.useContext(orientationContext);

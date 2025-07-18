@@ -5,8 +5,8 @@ import {
   TerminologyMap,
   verticalScale,
   whiteThemeColors,
-} from 'utilities';
-import { _Button, _Text, _View } from '.';
+} from '../Utilities';
+import { _Button, _Text, _View } from './index';
 import CommonStyles from '../screens/CommonStyles';
 
 interface Props {

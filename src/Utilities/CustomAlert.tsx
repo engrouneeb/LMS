@@ -1,7 +1,8 @@
-import { _Text, _VectorIcons, _View } from 'components';
+import { _Text, _VectorIcons, _View } from '../components';
 import React, { FC } from 'react';
 import { Modal, StyleSheet, TouchableOpacity } from 'react-native';
 import { whiteThemeColors } from '../theme';
+import CommonStyles from '../screens/CommonStyles';
 import WhiteLabelConfig from '../WhiteLabelConfig';
 
 interface Props {

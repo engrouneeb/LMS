@@ -1,7 +1,7 @@
 import ApiEndpoints from '../../data/ApiEndpoints';
 import { loading, error } from './AsyncStorage';
 import { DataAccess } from '../../data/DAL';
-import { endpoint } from 'components';
+import { endpoint } from '../components';
 
 export const CoursePlayerActions = {
   COURSE_PLAYER_LOADING: '/actions/course/player/LOADING',

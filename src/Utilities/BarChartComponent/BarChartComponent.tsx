@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 import { whiteThemeColors } from '../../theme';
 import { BarChartProps } from '../../interfaces';
-import CommonStyles from 'screens/CommonStyles';
+import CommonStyles from '../../screens/CommonStyles';
 
 export const BarChartComponent: FC<BarChartProps> = ({ points, labels }) => {
   const chartConfig = {

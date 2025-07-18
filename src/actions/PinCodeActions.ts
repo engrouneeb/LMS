@@ -1,7 +1,7 @@
 import { DataAccess } from '../../data/DAL';
 import ApiEndPoint from '../../data/ApiEndpoints/index';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { endpoint } from 'components';
+import { endpoint } from '../components';
 import ApiEndpoints from '../../data/ApiEndpoints/index';
 import { loading, error } from './AsyncStorage';
 export const success = (success: any) => ({

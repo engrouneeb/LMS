@@ -1,3 +1,3 @@
-import { StoreScreensWithOutParams } from 'navigation/Stacks';
+import { StoreScreensWithOutParams } from '../Stacks';
 
 export type ScreensWithOutParams = StoreScreensWithOutParams;

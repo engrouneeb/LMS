@@ -1,0 +1,140 @@
+import { StyleSheet } from 'react-native';
+import { isTablet } from 'react-native-device-info';
+import CommonStyles from '../../../../../CommonStyles';
+import { verticalScale, whiteThemeColors } from '../../../../../../Utilities';
+
+// import { Orientation, scale, verticalScale, whiteThemeColors } from '../../../../../../Utilities';
+export const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  subContainer: {
+    backgroundColor: 'rgba(54,54,54,0.6)',
+    width: '100%',
+    height: '100%',
+  },
+  classNView: {
+    padding: 20,
+    alignSelf: 'center',
+  },
+  item: {
+    borderBottomWidth: 0,
+    flexDirection: 'column',
+    alignSelf: 'center',
+    marginTop: verticalScale(0.005),
+  },
+  modalPage: {
+    flexDirection: 'column',
+    alignContent: 'center',
+    alignSelf: 'center',
+    borderRadius: 20,
+    width: '90%',
+    backgroundColor: whiteThemeColors.background,
+    paddingBottom: '2%',
+  },
+  modalHeader: {
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20,
+    width: '100%',
+    height: 60,
+    backgroundColor: whiteThemeColors.white + 90,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignContent: 'center',
+  },
+  buttonLabel: {
+    fontSize: 17,
+    color: whiteThemeColors.primary,
+    fontFamily: CommonStyles.fonts.semiBold,
+  },
+  CancleTimeViewButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    backgroundColor: CommonStyles.themeClr.backgroundColor,
+    borderRadius: 25,
+    height: 40,
+    width: '40%',
+    marginTop: verticalScale(0.04),
+  },
+  TextInpIconContainer: {
+    flex: 1,
+    backgroundColor: whiteThemeColors.white,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 10,
+
+    borderRadius: 10,
+    width: '92%',
+    marginTop: 40,
+    alignSelf: 'center',
+  },
+  textInp: {
+    flex: 1,
+    borderRadius: 10,
+    height: 40,
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    backgroundColor: whiteThemeColors.white + 90,
+    textAlign: 'center',
+  },
+  optionBtnContainer: {
+    width: '60%',
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 15,
+    alignSelf: 'center',
+    height: 40,
+  },
+  optionBtnText: {
+    marginRight: 10,
+  },
+  orJoinRunningClassContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '100%',
+    alignSelf: 'center',
+    alignContent: 'space-around',
+    marginTop: verticalScale(0.05),
+  },
+  horizontalLine: {
+    height: 1,
+    width: '20%',
+    backgroundColor: whiteThemeColors.black,
+  },
+  orJoinRunningClassBtn: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    width: isTablet() ? '35%' : '50%',
+    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop: verticalScale(0.03),
+  },
+  bottomBtnContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    justifyContent: 'space-evenly',
+    alignContent: 'flex-end',
+    marginBottom: 20,
+  },
+  modalHeaderTextContainer: {
+    height: 40,
+    justifyContent: 'flex-end',
+    marginLeft: 20,
+  },
+  modalCloseBtn: {
+    height: 28,
+    width: 28,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 10,
+    backgroundColor: whiteThemeColors.primary + 30,
+    borderRadius: 10,
+  },
+});

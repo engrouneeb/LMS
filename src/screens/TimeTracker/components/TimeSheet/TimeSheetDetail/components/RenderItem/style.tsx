@@ -1,0 +1,123 @@
+import { StyleSheet } from 'react-native';
+import CommonStyles from '../../../../../../../screens/CommonStyles';
+import { whiteThemeColors } from '../../../../../../../Utilities';
+
+export const styles = StyleSheet.create({
+  singleCardContainer: {
+    flexDirection: 'row',
+    width: '100%',
+    marginVertical: 5,
+    borderRadius: 20,
+    borderWidth: 0.1,
+    borderColor: 'transparent',
+    backgroundColor: whiteThemeColors.white + 90,
+  },
+  timeSheetDay: {
+    width: '15%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
+  },
+  timeSheetDayFont: {
+    fontSize: 20,
+    fontFamily: CommonStyles.fonts.semiBold,
+    color: whiteThemeColors.textColor.whiteText,
+  },
+  timeSheetDetails: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '75%',
+    height: 120,
+    padding: 10,
+    backgroundColor: whiteThemeColors.white + 90,
+    borderBottomRightRadius: 10,
+    borderTopRightRadius: 10,
+  },
+  timeSheetDetailsLeft: {
+    height: '100%',
+    width: 210,
+  },
+  timeSheetDetailsTitle: {
+    fontSize: 16,
+
+    letterSpacing: 1,
+    color: whiteThemeColors.textColor.themeColorText,
+    fontFamily: CommonStyles.fonts.semiBold,
+  },
+  addHourContainer: {
+    flexDirection: 'row',
+    marginTop: 5,
+    width: '100%',
+    // borderWidth: 0.75,
+    borderColor: whiteThemeColors.greyDark + 50,
+    backgroundColor: whiteThemeColors.primary + 10,
+    borderRadius: 8,
+    height: 35,
+    alignItems: 'center',
+    padding: 7,
+    paddingLeft: 5,
+  },
+  addHourTxtInp: {
+    fontSize: 12,
+
+    borderLeftColor: whiteThemeColors.greyDark,
+    marginLeft: 2,
+    padding: 0,
+    paddingLeft: 8,
+    flex: 1,
+    height: 35,
+    fontFamily: CommonStyles.fonts.regular,
+  },
+  addCommentContainer: {
+    flexDirection: 'row',
+    marginTop: 5,
+    width: '100%',
+
+    borderColor: whiteThemeColors.greyDark + 50,
+    backgroundColor: whiteThemeColors.primary + 10,
+    borderRadius: 8,
+    height: 35,
+    alignItems: 'center',
+    padding: 7,
+    paddingLeft: 5,
+  },
+  addCommentTxtInp: {
+    fontSize: 12,
+    borderLeftColor: whiteThemeColors.greyDark,
+    marginLeft: 2,
+    paddingLeft: 8,
+    width: '80%',
+    flex: 1,
+    padding: 0,
+    height: 35,
+    fontFamily: CommonStyles.fonts.regular,
+  },
+  timeSheetDetailsRight: {
+    width: 85,
+    height: 110,
+    paddingVertical: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 5,
+  },
+  totalHourContainer: {
+    height: 90,
+    width: 73,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 15,
+  },
+  totalHourLabelTxt: {
+    textAlign: 'center',
+    fontSize: 10,
+    fontFamily: CommonStyles.fonts.regular,
+    color: whiteThemeColors.textColor.whiteText,
+  },
+  totalHourTxt: {
+    fontSize: 26,
+    fontFamily: CommonStyles.fonts.semiBold,
+    color: whiteThemeColors.textColor.whiteText,
+  },
+});

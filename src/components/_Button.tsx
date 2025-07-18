@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { ButtonIntefaces } from 'interfaces';
+import { ButtonIntefaces } from '../interfaces';
 import React, { FC, useEffect, useState } from 'react';
 import { Dimensions, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';

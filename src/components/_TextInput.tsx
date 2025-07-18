@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState, FC } from 'react';
 import { TextInput, TextInputProps } from 'react-native';
-import CommonStyles from 'screens/CommonStyles';
+import CommonStyles from "../screens/CommonStyles";
 
 interface TextInputInterfaces extends TextInputProps {
   width?: string | number;

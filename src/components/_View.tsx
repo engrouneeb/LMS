@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { View } from 'react-native';
-import { ViewInterfaces } from 'interfaces';
+import { ViewInterfaces } from '../interfaces';
 export const _View: FC<ViewInterfaces> = ({
   children,
   margins,

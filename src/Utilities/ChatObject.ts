@@ -1,4 +1,4 @@
-import { ChatObj, UserData, ChatUserObj } from 'interfaces';
+import { ChatObj, UserData, ChatUserObj } from '../interfaces';
 import moment from 'moment';
 export const chatObject = (
   ChatObj: ChatObj,

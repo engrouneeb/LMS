@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { EndpointType } from 'interfaces';
+import { EndpointType } from '../../interfaces';
 import React, { FC, useRef, useState } from 'react';
 import {
   Dimensions,
@@ -362,6 +362,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '800',
     color: whiteThemeColors.primary,
+
     textAlign: 'justify',
     alignSelf: 'center',
     textTransform: 'capitalize',

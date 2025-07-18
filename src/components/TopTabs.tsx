@@ -1,16 +1,16 @@
 import React, { FC, useEffect, useState } from 'react';
-import { _View, _Text, _VectorIcons } from '.';
+import { _View, _Text, _VectorIcons } from './index';
 import {
   whiteThemeColors,
   CustomAlert,
   TerminologyMap,
   getTerminologyLabel,
-} from 'utilities';
+} from '../Utilities';
 import { TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { getSelectedTab } from '../screens/Store/StoreHome/helper';
-import { TopTabsInterfaces, TabTypes } from 'interfaces';
-import CommonStyles from 'screens/CommonStyles';
+import { TopTabsInterfaces, TabTypes } from '../interfaces';
+import CommonStyles from "../screens/CommonStyles";
 export const TopTabs: FC<TopTabsInterfaces> = ({
   activeTab,
   setActiveTab,

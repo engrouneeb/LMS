@@ -1,7 +1,7 @@
 import React from 'react';
 import Svg, { Circle, G, Path } from 'react-native-svg';
 import { _View } from '../src/components';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from './../src/Utilities';
 export const TiktokIcon = ({ height, width }) => {
 	return <_View>
 		<Svg width={width} height={height} viewBox="0 0 100 100" >

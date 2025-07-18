@@ -1,9 +1,9 @@
-import { convertUTCDateToLocalDateStringFormat } from 'utilities';
+import { convertUTCDateToLocalDateStringFormat } from '../Utilities';
 import ApiEndPoint from '../../data/ApiEndpoints/index';
 import { DataAccess } from '../../data/DAL';
 import { success } from './AccountActions';
 import { error, loading } from './AsyncStorage';
-import { endpoint } from 'components';
+import { endpoint } from '../components/Interfaces';
 const { Get, PostSecured } = DataAccess();
 export const reset_attendence = () => ({
   type: 'RESET_ATTENDENCE',

@@ -2,7 +2,7 @@ import NetInfo from '@react-native-community/netinfo';
 import React, { useEffect, useState } from 'react';
 import { Dimensions, Platform, StyleSheet } from 'react-native';
 import { isTablet } from 'react-native-device-info';
-import { whiteThemeColors } from './Utilities/colors';
+import { whiteThemeColors } from './Utilities';
 import { _Text, _VectorIcons, _View } from './components';
 const { width } = Dimensions.get('window');
 

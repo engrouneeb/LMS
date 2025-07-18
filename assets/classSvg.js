@@ -1,7 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
 import Svg, { Circle, G, Path } from 'react-native-svg';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from './../src/Utilities';
 import { _View } from '../src/components';
 const ClassSvg = ({ size }) => {
   return (

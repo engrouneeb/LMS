@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { endpoint } from 'components';
+import { endpoint } from '../src/components';
 import { getUniqueId } from 'react-native-device-info';
 import { Domain } from '../src/reducers/BaseUrl';
 import EndPoints from './ApiEndpoints';

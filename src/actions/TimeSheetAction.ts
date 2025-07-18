@@ -1,6 +1,6 @@
 import { DataAccess } from '../../data/DAL';
 import ApiEndPoint from '../../data/ApiEndpoints/index';
-import { endpoint } from 'components';
+import { endpoint } from '../components';
 import { loading, error } from './AsyncStorage';
 const { Get, PostSecured } = DataAccess();
 

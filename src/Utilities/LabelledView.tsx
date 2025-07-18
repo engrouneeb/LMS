@@ -2,9 +2,9 @@ import React from 'react';
 import { _Text, _View } from '../components';
 import { whiteThemeColors } from '../theme';
 import { TouchableOpacity } from 'react-native';
-import CommonStyles from 'screens/CommonStyles';
+import CommonStyles from '../screens/CommonStyles';
 import { scale, verticalScale } from './';
-import { labelledViewInterface } from 'interfaces';
+import { labelledViewInterface } from '../interfaces';
 export const LabelledView: React.FC<labelledViewInterface> = ({
   onPress,
   title,

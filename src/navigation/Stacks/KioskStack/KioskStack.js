@@ -10,7 +10,7 @@ import {
 } from '../../../../src/screens/pincode';
 import ScreensNames from '../../../screenNames';
 import deviceInfoModule from 'react-native-device-info';
-import { CheckinOutHistory } from 'screens/pincode/CheckinOutCoursesList/CheckinOutHistory';
+import { CheckinOutHistory } from '../../../screens/pincode/CheckinOutCoursesList/CheckinOutHistory';
 const Stack = createStackNavigator();
 
 export const KioskStack = () => {

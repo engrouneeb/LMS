@@ -1,11 +1,10 @@
-import { TopMiniTabsProps } from 'interfaces';
+import { TopMiniTabsProps } from '../interfaces';
 import React, { FC } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
-import { whiteThemeColors } from 'utilities';
+import { whiteThemeColors } from '../Utilities';
 import { _Text, _View } from '.';
-import CommonStyles from 'screens/CommonStyles';
+import CommonStyles from '../screens/CommonStyles';
 import IconBadge from 'react-native-icon-badge';
-import { BadgeComponent } from 'screens/Chat/MsgScreen/MsgBadge';
 
 export const TopMiniTabs: FC<TopMiniTabsProps> = ({
   activeTab,
