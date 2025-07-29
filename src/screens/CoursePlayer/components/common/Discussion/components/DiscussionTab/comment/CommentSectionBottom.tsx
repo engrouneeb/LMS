@@ -1,11 +1,11 @@
 import React from 'react';
-import { styles } from '../styles';
-import { UserImg } from '../../../../../../../ThumbNail';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { whiteThemeColors } from '../../../../../../../../Utilities';
-import { _Text, _VectorIcons, _View } from '../../../../../../../../components';
-import { EditDiscussion } from '../../../EditDiscussion';
-import { CommentSectionBottomInterface } from '../../../../../../../../interfaces';
+import {styles} from '../styles';
+import {UserImg} from '../../../../../../../ThumbNail';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {whiteThemeColors} from '../../../../../../../../Utilities';
+import {_Text, _VectorIcons, _View} from '../../../../../../../../components';
+import {EditDiscussion} from '../../../EditDiscussion';
+import {CommentSectionBottomInterface} from '../../../../../../../../interfaces';
 import CommonStyles from '../../../../../../../CommonStyles';
 
 export const CommentSectionBottom: React.FC<CommentSectionBottomInterface> = ({
@@ -23,15 +23,13 @@ export const CommentSectionBottom: React.FC<CommentSectionBottomInterface> = ({
       style={{
         marginTop: 10,
         paddingRight: 10,
-      }}
-    >
+      }}>
       <_Text style={styles.replyingUserNameTxt}>{rObj.userName}</_Text>
       <_View
         style={{
           flexDirection: 'row',
           justifyContent: 'flex-end',
-        }}
-      >
+        }}>
         <_View style={styles.commentReplyContainer}>
           {checkHref(rObj.comment)}
         </_View>
@@ -51,8 +49,8 @@ export const CommentSectionBottom: React.FC<CommentSectionBottomInterface> = ({
       <_View style={[styles.replyingFooterContainer]}>
         <TouchableOpacity onPress={onPressEdit}>
           <_VectorIcons
-            type='FontAwesome'
-            name='pencil'
+            type="FontAwesome"
+            name="pencil"
             size={13}
             color={whiteThemeColors.greyDark}
             style={{
@@ -61,13 +59,10 @@ export const CommentSectionBottom: React.FC<CommentSectionBottomInterface> = ({
             }}
           />
         </TouchableOpacity>
-        <TouchableOpacity
-          onPress={onPressLike}
-          style={{ flexDirection: 'row' }}
-        >
+        <TouchableOpacity onPress={onPressLike} style={{flexDirection: 'row'}}>
           <_VectorIcons
-            type='AntDesign'
-            name='like1'
+            type="AntDesign"
+            name="like1"
             size={13}
             color={
               rObj.isLiked
@@ -86,16 +81,15 @@ export const CommentSectionBottom: React.FC<CommentSectionBottomInterface> = ({
                 alignSelf: 'auto',
                 color: whiteThemeColors.black,
                 fontFamily: CommonStyles.fonts.regular,
-              }}
-            >
+              }}>
               {`(${rObj.likeCount})`}
             </_Text>
           )}
         </TouchableOpacity>
         <TouchableOpacity onPress={onPressDelete}>
           <_VectorIcons
-            type='MaterialIcons'
-            name='delete'
+            type="MaterialIcons"
+            name="delete"
             size={13}
             color={whiteThemeColors.greyDark}
             style={{

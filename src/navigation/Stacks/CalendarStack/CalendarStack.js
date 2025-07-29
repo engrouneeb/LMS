@@ -9,7 +9,7 @@ const Stack = createStackNavigator();
 const CalenderStack = () => {
   return (
     <Stack.Navigator
-      initialRouteName={DrawerNames.coursePlayer.name}
+      //initialRouteName={DrawerNames.coursePlayer.name}
       screenOptions={{
         animationTypeForReplace: 'pop',
         headerShown: false,

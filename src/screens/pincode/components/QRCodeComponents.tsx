@@ -3,7 +3,7 @@ import moment from 'moment';
 import React, { FC } from 'react';
 import { StyleSheet } from 'react-native';
 import CommonStyles from '../../../screens/CommonStyles';
-import { whiteThemeColors } from 'utilities/colors';
+import { whiteThemeColors } from '../../../Utilities/colors';
 import { DetailSingleRow, FooterNote } from '.';
 
 interface QRDetails {

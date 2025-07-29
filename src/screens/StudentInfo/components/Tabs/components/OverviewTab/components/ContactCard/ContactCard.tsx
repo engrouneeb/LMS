@@ -1,14 +1,17 @@
-import { ContactCardInterface } from '../../../../../../../../interfaces';
-import React, { FC, Fragment, useEffect, useState } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-import { useSelector } from 'react-redux';
+import {ContactCardInterface} from '../../../../../../../../interfaces';
+import React, {FC, Fragment, useEffect, useState} from 'react';
+import {Pressable, StyleSheet} from 'react-native';
+import {useSelector} from 'react-redux';
 import CommonStyles from '../../../../../../../../screens/CommonStyles';
-import { collapsiableAnimation, whiteThemeColors } from '../../../../../../../../Utilities';
-import { _Text, _VectorIcons, _View } from '../../../../../../../../components';
-import { useAppModulePermission } from '../../../../../../../../customHooks';
-import { UserImg } from '../../../../../../../ThumbNail';
-import { EditAddModal } from './components';
-import { DetailsRow } from './components/DetailsRow';
+import {
+  collapsiableAnimation,
+  whiteThemeColors,
+} from '../../../../../../../../Utilities';
+import {_Text, _VectorIcons, _View} from '../../../../../../../../components';
+import {useAppModulePermission} from '../../../../../../../../customHooks';
+import {UserImg} from '../../../../../../../ThumbNail';
+import {EditAddModal} from './components';
+import {DetailsRow} from './components/DetailsRow';
 
 export const ContactCard: FC<ContactCardInterface> = ({
   item,
@@ -26,12 +29,12 @@ export const ContactCard: FC<ContactCardInterface> = ({
     contactPassword,
     contactConfirmPassword,
   } = item;
-  const { filterMenuOptions } = useAppModulePermission();
-    let isAddContact=filterMenuOptions("AddContact");
+  const {filterMenuOptions} = useAppModulePermission();
+  let isAddContact = filterMenuOptions('AddContact');
   const [showInfo, setShowInfo] = useState<boolean>(false);
   const [showModal, setShowModal] = useState(false);
   const [rePopulate, setRePopulate] = useState(false);
-  let { roleName } = useSelector((state: any) => state.User.UserInfo);
+  let {roleName} = useSelector((state: any) => state.User.UserInfo);
 
   const [userData, setUserData] = useState({
     firstName: contactFirstName || '',
@@ -69,8 +72,7 @@ export const ContactCard: FC<ContactCardInterface> = ({
             borderEndEndRadius: showInfo ? 0 : 20,
           },
           styles.container,
-        ]}
-      >
+        ]}>
         <UserImg
           UserInfo={{
             FirstName: contactFirstName,
@@ -92,11 +94,10 @@ export const ContactCard: FC<ContactCardInterface> = ({
             onPress={() => {
               setShowModal(true);
             }}
-            style={styles.editBtn}
-          >
+            style={styles.editBtn}>
             <_VectorIcons
-              type='FontAwesome'
-              name='pencil-square-o'
+              type="FontAwesome"
+              name="pencil-square-o"
               size={20}
               color={whiteThemeColors.primary}
             />
@@ -109,10 +110,9 @@ export const ContactCard: FC<ContactCardInterface> = ({
               ? (collapsiableAnimation(), setShowInfo(false))
               : (collapsiableAnimation(), setShowInfo(true));
           }}
-          style={styles.collapserIconBtn}
-        >
+          style={styles.collapserIconBtn}>
           <_VectorIcons
-            type='Feather'
+            type="Feather"
             name={showInfo ? 'chevron-up' : 'chevron-down'}
             size={20}
             color={whiteThemeColors.primary}
@@ -122,8 +122,7 @@ export const ContactCard: FC<ContactCardInterface> = ({
       {showInfo && (
         <Pressable
           onPress={() => (collapsiableAnimation(), setShowInfo(false))}
-          style={styles.detailsContainer}
-        >
+          style={styles.detailsContainer}>
           <_View style={styles.detailsSubContainer}>
             <DetailsRow title={'Work'} value={work || 'N/A'} />
             <DetailsRow title={'Phone'} value={cell || 'N/A'} />

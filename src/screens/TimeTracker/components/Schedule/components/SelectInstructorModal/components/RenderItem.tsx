@@ -1,9 +1,9 @@
-import { SelectInstructorModalRenderItemInterface } from '../../../../../../../interfaces';
-import React, { FC } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { _Text, _VectorIcons, _View } from '../../../../../../../components';
-import { UserImg } from '../../../../../../ThumbNail';
+import {SelectInstructorModalRenderItemInterface} from '../../../../../../../interfaces';
+import React, {FC} from 'react';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_Text, _VectorIcons, _View} from '../../../../../../../components';
+import {UserImg} from '../../../../../../ThumbNail';
 import CommonStyles from '../../../../../../../screens/CommonStyles';
 
 export const RenderItem: FC<SelectInstructorModalRenderItemInterface> = ({
@@ -16,8 +16,7 @@ export const RenderItem: FC<SelectInstructorModalRenderItemInterface> = ({
       <TouchableOpacity
         disabled={selectedInstructor?.value == item?.value}
         onPress={() => fetchWages(item)}
-        style={styles.cardContainer}
-      >
+        style={styles.cardContainer}>
         <UserImg
           UserInfo={{
             FirstName: item?.text?.split(' ')[0][0],
@@ -31,7 +30,7 @@ export const RenderItem: FC<SelectInstructorModalRenderItemInterface> = ({
         {selectedInstructor?.value == item?.value ? (
           <_VectorIcons
             type={'Entypo'}
-            name='check'
+            name="check"
             size={20}
             color={whiteThemeColors.primary}
             style={styles.iconStyle}

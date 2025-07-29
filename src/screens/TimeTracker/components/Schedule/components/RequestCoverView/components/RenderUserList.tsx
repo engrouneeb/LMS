@@ -1,9 +1,9 @@
-import { RequestCoverUserRenderListInterface } from '../../../../../../../interfaces';
+import {RequestCoverUserRenderListInterface} from '../../../../../../../interfaces';
 import React from 'react';
-import { Pressable, StyleSheet, Switch } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { _Text, _View } from '../../../../../../../components';
-import { UserImg } from '../../../../../../ThumbNail';
+import {Pressable, StyleSheet, Switch} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_Text, _View} from '../../../../../../../components';
+import {UserImg} from '../../../../../../ThumbNail';
 
 const RenderUserList: React.FC<RequestCoverUserRenderListInterface> = ({
   user,
@@ -14,9 +14,8 @@ const RenderUserList: React.FC<RequestCoverUserRenderListInterface> = ({
     <_View key={index} style={styles.listStyle}>
       <Pressable
         style={styles.userBtn}
-        onPress={() => onSelectUser(user?.isSelected, index)}
-      >
-        <_View style={{ flex: 0.25 }}>
+        onPress={() => onSelectUser(user?.isSelected, index)}>
+        <_View style={{flex: 0.25}}>
           <_View style={styles.listLeftUserIcon}>
             <UserImg
               UserInfo={{
@@ -29,7 +28,7 @@ const RenderUserList: React.FC<RequestCoverUserRenderListInterface> = ({
             />
           </_View>
         </_View>
-        <_View style={{ flex: 1 }}>
+        <_View style={{flex: 1}}>
           <_View style={styles.userBody}>
             <_View style={styles.listBodyTextView}>
               <_Text style={styles.userName}>
@@ -47,7 +46,7 @@ const RenderUserList: React.FC<RequestCoverUserRenderListInterface> = ({
               value={user.isSelected}
               style={{
                 alignSelf: 'center',
-                transform: [{ scaleX: 0.8 }, { scaleY: 0.8 }],
+                transform: [{scaleX: 0.8}, {scaleY: 0.8}],
               }}
               onValueChange={() => onSelectUser(user?.isSelected, index)}
             />
@@ -57,7 +56,7 @@ const RenderUserList: React.FC<RequestCoverUserRenderListInterface> = ({
     </_View>
   );
 };
-export { RenderUserList };
+export {RenderUserList};
 const styles = StyleSheet.create({
   listStyle: {
     height: 80,

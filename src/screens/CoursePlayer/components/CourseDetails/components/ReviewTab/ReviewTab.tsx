@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   _Text,
   _View,
@@ -7,13 +7,13 @@ import {
   PercentageBar,
   _Image,
 } from '../../../../../../components';
-import { styles } from './styles';
+import {styles} from './styles';
 import Rating from '../../../../../Ratings';
 // import Stars from 'react-native-star-rating';
-import { UserImg } from '../../../../../ThumbNail';
-import { Alert, Image, TouchableOpacity } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { DataAccess } from '../../../../../../../data/DAL';
+import {UserImg} from '../../../../../ThumbNail';
+import {Alert, Image, TouchableOpacity} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import {DataAccess} from '../../../../../../../data/DAL';
 import img1 from '../../../../../../../assets/courseDefault.jpg';
 import ApiEndPoint from '../../../../../../../data/ApiEndpoints';
 import {
@@ -25,7 +25,7 @@ import {
   TerminologyMap,
   whiteThemeColors,
 } from '../../../../../../Utilities';
-import { ReviewTabInterface } from '../../../../../../interfaces';
+import {ReviewTabInterface} from '../../../../../../interfaces';
 import CommonStyles from '../../../../../CommonStyles';
 const defaultImgPath = '/Content/Images/courseImage.png';
 var clrCode = -1;
@@ -34,7 +34,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
   isActive,
   reviewsResponse,
 }) => {
-  const { PostSecured } = DataAccess();
+  const {PostSecured} = DataAccess();
   const [reviews, setReviews] = useState<any>({
     listOfCourseReviews: [],
     ratingDetail: {},
@@ -172,29 +172,26 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
                 starStyle={{ marginLeft: 10 }}
               /> */}
             </_View>
-            <_View style={{ flexDirection: 'row' }}>
+            <_View style={{flexDirection: 'row'}}>
               <_TextInput
                 multiline
-                textAlignVertical='top'
+                textAlignVertical="top"
                 width={'100%'}
                 style={[styles.textArea]}
                 value={studentReview}
-                onChangeText={(review) => setStudentReview(review)}
+                onChangeText={review => setStudentReview(review)}
               />
             </_View>
             <TouchableOpacity
               onPress={() => checkReview()}
-              style={styles.btnStyle}
-            >
+              style={styles.btnStyle}>
               <_VectorIcons
-                name='content-save-move-outline'
+                name="content-save-move-outline"
                 type={'MaterialCommunityIcons'}
                 size={20}
-                color='#fff'
+                color="#fff"
               />
-              <_Text
-                style={{ paddingLeft: 5, paddingRight: 5, color: 'white' }}
-              >
+              <_Text style={{paddingLeft: 5, paddingRight: 5, color: 'white'}}>
                 {'Submit Review'}
               </_Text>
             </TouchableOpacity>
@@ -204,20 +201,19 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
     </_View>
   ) : (
     <ScrollView
-      style={{ backgroundColor: whiteThemeColors.background }}
-      showsVerticalScrollIndicator={false}
-    >
+      style={{backgroundColor: whiteThemeColors.background}}
+      showsVerticalScrollIndicator={false}>
       <_View style={styles.container}>
         <_View style={styles.reviewContainer}>
           <_Text
-            style={styles.title}
-          >{`${terminologies['Course']?.label} Reviews`}</_Text>
+            style={
+              styles.title
+            }>{`${terminologies['Course']?.label} Reviews`}</_Text>
           <_View style={styles.totalWrap}>
             <_View
               style={{
                 flexDirection: 'row',
-              }}
-            >
+              }}>
               <Rating
                 rating={reviews.ratingDetail?.finalRating}
                 maxStars={5}
@@ -225,7 +221,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
                 reviewsCount={reviews.listOfCourseReviews.length}
               />
             </_View>
-            <_Text style={{ fontFamily: CommonStyles.fonts.medium }}>
+            <_Text style={{fontFamily: CommonStyles.fonts.medium}}>
               {reviews.listOfCourseReviews.length} {'out of '}
               {reviews.listOfCourseReviews.length}
             </_Text>
@@ -233,10 +229,10 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
           <_Text style={styles.amountText}>
             {reviews.listOfCourseReviews.length} {"Student's Rating"}
           </_Text>
-          <_View style={{ marginTop: 20 }}>
+          <_View style={{marginTop: 20}}>
             <_View style={styles.spacer}>
               <PercentageBar
-                starText='5 star'
+                starText="5 star"
                 percentage={progress[0]}
                 starTextDisplay={'flex'}
                 barColor={whiteThemeColors.orange}
@@ -244,7 +240,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
             </_View>
             <_View style={styles.spacer}>
               <PercentageBar
-                starText='4 star'
+                starText="4 star"
                 percentage={progress[1]}
                 starTextDisplay={'flex'}
                 barColor={whiteThemeColors.orange}
@@ -252,7 +248,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
             </_View>
             <_View style={styles.spacer}>
               <PercentageBar
-                starText='3 star'
+                starText="3 star"
                 percentage={progress[2]}
                 starTextDisplay={'flex'}
                 barColor={whiteThemeColors.orange}
@@ -260,7 +256,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
             </_View>
             <_View style={styles.spacer}>
               <PercentageBar
-                starText='2 star'
+                starText="2 star"
                 percentage={progress[3]}
                 starTextDisplay={'flex'}
                 barColor={whiteThemeColors.orange}
@@ -268,7 +264,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
             </_View>
             <_View style={styles.spacer}>
               <PercentageBar
-                starText='1 star'
+                starText="1 star"
                 percentage={progress[4]}
                 starTextDisplay={'flex'}
                 barColor={whiteThemeColors.orange}
@@ -280,7 +276,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
           clrCode++;
           if (clrCode == 7) clrCode = 0;
           return (
-            <_View style={{ width: '95%' }}>
+            <_View style={{width: '95%'}}>
               <_View style={styles.courseReviews}>
                 <_View style={styles.headerView}>
                   <UserImg
@@ -291,9 +287,9 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
                       UserImageColor: _findColor(clrCode),
                     }}
                     size={30}
-                    style={{ marginLeft: 10 }}
+                    style={{marginLeft: 10}}
                   />
-                  <_View style={{ flex: 0.7, marginLeft: 10 }}>
+                  <_View style={{flex: 0.7, marginLeft: 10}}>
                     <_Text style={styles.userName}>{Obj.userFullName}</_Text>
                     <Rating
                       size={13}
@@ -306,8 +302,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
                 <_View style={styles.bottomView}>
                   <ScrollView
                     showsVerticalScrollIndicator={false}
-                    nestedScrollEnabled
-                  >
+                    nestedScrollEnabled>
                     <_Text numberOfLines={2} style={styles.reviewText}>
                       {Obj.review}
                     </_Text>

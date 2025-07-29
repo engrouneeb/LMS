@@ -1,16 +1,16 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
-import { _ActivityIndicator } from '../../../../../../Loader';
+import React, {useEffect, useReducer, useRef, useState} from 'react';
+import {ScrollView, StyleSheet} from 'react-native';
+import {_ActivityIndicator} from '../../../../Loader/_ActivityIndicator';
 import {
   getTerminologyLabel,
   TerminologyMap,
   whiteThemeColors,
 } from '../../../../../Utilities';
-import { AssessmentChart, Challenge, HomeworkChart } from '.';
+import {AssessmentChart, Challenge, HomeworkChart} from '.';
 import ApiEndpoints from '../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../data/DAL';
+import {DataAccess} from '../../../../../../data/DAL';
 import {
-  _ModalDropdown,
+  // _ModalDropdown,
   _Screen,
   _Text,
   _View,
@@ -46,23 +46,23 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
   const reducer = (state: any, action: any) => {
     switch (action.type) {
       case 'courseId':
-        return { ...state, courseId: action.data };
+        return {...state, courseId: action.data};
       case 'courseList':
-        return { ...state, courseList: action.data };
+        return {...state, courseList: action.data};
       case 'levelList':
-        return { ...state, levelList: action.data };
+        return {...state, levelList: action.data};
       case 'courseName':
-        return { ...state, courseName: action.data };
+        return {...state, courseName: action.data};
       case 'levelName':
-        return { ...state, levelName: action.data };
+        return {...state, levelName: action.data};
       case 'challengeData':
-        return { ...state, challengeData: action.data };
+        return {...state, challengeData: action.data};
       case 'assessmentViewData':
-        return { ...state, assessmentViewData: action.data };
+        return {...state, assessmentViewData: action.data};
       case 'homeWorkChartData':
-        return { ...state, homeWorkChartData: action.data };
+        return {...state, homeWorkChartData: action.data};
       case 'loading':
-        return { ...state, loading: action.data };
+        return {...state, loading: action.data};
       default:
         return state;
     }
@@ -70,10 +70,10 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
 
   const [state, setState] = useReducer(reducer, initialState);
 
-  const { studentId, isFromStd: isFromStudent } = route.params;
+  const {studentId, isFromStd: isFromStudent} = route.params;
   const levelRef = useRef(undefined);
   const [levelLoader, setLevelLoader] = useState(false);
-  const { Get } = DataAccess();
+  const {Get} = DataAccess();
   const [terminologies, setTerminologies] = useState<Partial<TerminologyMap>>(
     {},
   );
@@ -86,7 +86,7 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
   }, []);
   useEffect(() => {
     if (isFromStudent) {
-      setState({ type: 'courseId', data: route.params?.courseId });
+      setState({type: 'courseId', data: route.params?.courseId});
       getDataFirstTime(route.params?.courseId);
     } else {
       getStudentProgressDetails();
@@ -96,9 +96,9 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
   const getStudentProgressDetails = () => {
     var EndPoint: endpoint = ApiEndpoints.GetStudentProgressDetails;
     EndPoint.params = `?studentId=${studentId}`;
-    setState({ type: 'loading', data: true });
+    setState({type: 'loading', data: true});
     Get(EndPoint).then((res: any) => {
-      setState({ type: 'loading', data: false });
+      setState({type: 'loading', data: false});
       if (!res.error) {
         setState({
           type: 'courseList',
@@ -134,7 +134,7 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
   };
 
   const onValueChange = (id: any) => {
-    setState({ type: 'courseId', data: id });
+    setState({type: 'courseId', data: id});
     getCoursesLevels(id);
     getChallengeData(id, false);
     getAssessmentView(id);
@@ -142,7 +142,7 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
   };
 
   const getCoursesLevels = (id: any) => {
-    setState({ type: 'loading', data: true });
+    setState({type: 'loading', data: true});
     var levelNames: any = [];
     var levelIds: any = [];
     var EndPoint: endpoint = ApiEndpoints.GetCoursesLevels;
@@ -150,7 +150,7 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
     setLevelLoader(true);
     Get(EndPoint)
       .then((res: any) => {
-        setState({ type: 'loading', data: false });
+        setState({type: 'loading', data: false});
         if (!res.error) {
           res.map((obj: any) => {
             levelNames.push(obj.featureName);
@@ -178,7 +178,7 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
           return;
         }
       })
-      .catch((Error: any) => console.log({ Error }))
+      .catch((Error: any) => console.log({Error}))
       .finally(() => setLevelLoader(false));
   };
   const onLevelSelect = (id: any) => {
@@ -187,11 +187,11 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
     getHomeWorkChart(id);
   };
   const getHomeWorkChart = (id: any) => {
-    setState({ type: 'loading', data: true });
+    setState({type: 'loading', data: true});
     var EndPoint: endpoint = ApiEndpoints.GetHomeWorkChart;
     EndPoint.params = `?userId=${studentId}&backlogId=${id}`;
     Get(EndPoint).then((res: any) => {
-      setState({ type: 'loading', data: false });
+      setState({type: 'loading', data: false});
       if (!res.error) {
         setState({
           type: 'homeWorkChartData',
@@ -202,11 +202,11 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
     });
   };
   const getAssessmentView = (id: any) => {
-    setState({ type: 'loading', data: true });
+    setState({type: 'loading', data: true});
     var EndPoint: endpoint = ApiEndpoints.GetAssessmentView;
     EndPoint.params = `?userId=${studentId}&backlogId=${id}`;
     Get(EndPoint).then((res: any) => {
-      setState({ type: 'loading', data: false });
+      setState({type: 'loading', data: false});
       if (!res.error) {
         setState({
           type: 'assessmentViewData',
@@ -218,13 +218,13 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
   };
 
   const getChallengeData = (id: any, isfromLevel: any) => {
-    setState({ type: 'loading', data: true });
+    setState({type: 'loading', data: true});
     let levelId = isfromLevel ? id : -1;
     let courseID = isfromLevel ? state.courseId : id;
     var EndPoint: endpoint = ApiEndpoints.GetChallengeData;
     EndPoint.params = `?UserId=${studentId}&CourseId=${courseID}&LevelId=${levelId}`;
     Get(EndPoint).then((res: any) => {
-      setState({ type: 'loading', data: false });
+      setState({type: 'loading', data: false});
       if (!res.error) {
         setState({
           type: 'challengeData',
@@ -237,7 +237,7 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
   const getModalObject = (data: any) => {
     var count: any = [];
     var state: any = [];
-    var modalObject = { labels: [], data: [] };
+    var modalObject = {labels: [], data: []};
     data.map((obj: any) => {
       state.push(obj.state);
       count.push(obj.count);
@@ -275,23 +275,20 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
       hideTopSafeArea
       onAndroidBack={onBackPress}
       flex={1}
-      backgroundColor={whiteThemeColors.background}
-    >
+      backgroundColor={whiteThemeColors.background}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={styles.ContentStyle}
-      >
+        style={styles.ContentStyle}>
         <_View
           style={[
             {
               display: isFromStudent ? 'none' : 'flex',
             },
             styles.challengeAssessmentView,
-          ]}
-        >
+          ]}>
           <_Text style={styles.dropdownLabel}>Course</_Text>
           <_View style={styles.dropDownStyle}>
-            {state.courseList != undefined && (
+            {/* {state.courseList != undefined && (
               <_ModalDropdown
                 isborder={false}
                 isdisable={state.courseList.length == 0}
@@ -315,22 +312,21 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
                 ]}
                 dropdownTextHighlightStyle={styles.dropdownTextHighlight}
                 dropdownTextStyle={styles.dropDownText}
-                onselected={(val) => {
+                onselected={val => {
                   levelRef?.current?.select(-1);
                   onValueChange(state.courseList[val].epicId);
                 }}
                 textStyle={[CommonStyles.className, styles.dropDownTextStyle]}
               />
-            )}
+            )} */}
           </_View>
         </_View>
-        <_View
+        {/* <_View
           style={{
             ...styles.challengeAssessmentView,
             marginTop: 5,
             marginBottom: 15,
-          }}
-        >
+          }}>
           <_Text style={styles.dropdownLabel}>Level</_Text>
           <_View style={styles.dropDownStyle}>
             {levelLoader ? (
@@ -365,14 +361,14 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
                 ]}
                 dropdownTextStyle={styles.dropDownText}
                 dropdownTextHighlightStyle={styles.dropdownTextHighlight}
-                onselected={(val) => {
+                onselected={val => {
                   onLevelSelect(state.levelList[val]);
                 }}
                 textStyle={[CommonStyles.className, styles.dropDownTextStyle]}
               />
             )}
           </_View>
-        </_View>
+        </_View> */}
 
         <Challenge challengeData={state.challengeData} />
         <HomeworkChart homeWorkChartData={state.homeWorkChartData} />

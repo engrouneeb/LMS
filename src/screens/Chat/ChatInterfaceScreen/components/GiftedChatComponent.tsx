@@ -20,7 +20,7 @@ import {
 } from 'react-native-gifted-chat';
 import { useDispatch, useSelector } from 'react-redux';
 import { VideoPlayer, isTablet, whiteThemeColors } from '../../../../Utilities';
-import { DocumentPdfReader } from '..';
+import { DocumentPdfReader } from '../index';
 import { SendIcon } from '../../../../../assets/Icons';
 import {
   fileFormateType,
@@ -51,7 +51,7 @@ import { styles } from './GiftedChatComponentStyle';
 import { TypingIndicator } from './TypingIndicator';
 import CommonStyles from '../../../../screens/CommonStyles';
 
-import { useLogin } from 'navigation/MainNav';
+import { useLogin } from '../../../../navigation/MainNav';
 
 export const renderAvatar = (
   Obj: any,

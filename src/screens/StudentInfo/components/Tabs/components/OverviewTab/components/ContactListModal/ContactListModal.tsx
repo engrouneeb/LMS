@@ -94,7 +94,7 @@ export const ContactListModal: FC<ContactListModalInterface> = ({
           <Pressable onPress={close} style={styles.backBtn}>
             <_VectorIcons
               type='Ionicons'
-              name='ios-arrow-back'
+              name='arrow-back'
               size={25}
               color={whiteThemeColors.white}
             />

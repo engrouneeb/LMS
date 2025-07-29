@@ -1,7 +1,7 @@
 //region References
 // Header for remaing Variants
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Platform,
   Pressable,
@@ -10,9 +10,9 @@ import {
   TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { CustomAlert, isStaff, whiteThemeColors } from '../../Utilities';
-import { StudentIcon } from '../../../assets/Icons';
+import {useDispatch, useSelector} from 'react-redux';
+import {CustomAlert, isStaff, whiteThemeColors} from '../../Utilities';
+import {StudentIcon} from '../../../assets/Icons';
 import {
   isPortrait,
   isTablet,
@@ -20,11 +20,10 @@ import {
   _VectorIcons,
   _View,
 } from '../../components';
-import { hp, wp } from '../../Helpers/Responsiveness';
-import { useLogin } from '../../navigation/MainNav';
+import {hp, wp} from '../../Helpers/Responsiveness';
+import {useLogin} from '../../navigation/MainNav';
 import CommonStyles from '../CommonStyles';
-import { showHideTimer } from '../../actions/TimerAction';
-//endregion
+import {showHideTimer} from '../../actions/TimerAction';
 var language;
 
 function MasterHeader(props) {
@@ -35,21 +34,21 @@ function MasterHeader(props) {
   const [showAlert, setShowAlert] = useState(false);
   const [firstBtn, setFirstBtn] = useState(undefined);
   const [secondBtn, setSecondBtn] = useState(undefined);
-  const { UserInfo, dashboardScreen, isShow } = useSelector((state) => ({
+  const {UserInfo, dashboardScreen, isShow} = useSelector(state => ({
     UserInfo: state.User.UserInfo,
     dashboardScreen: state.language.dashboardScreen,
-    isShow: state.timerReducer.isShow,
+    //  isShow: state.timerReducer.isShow,
   }));
-  const { orientation } = useLogin();
+  const {orientation} = useLogin();
   useEffect(() => {
     if (orientation) setOrientation(orientation);
   }, [orientation]);
   useEffect(() => {
     AsyncStorage.getItem('@LanguageSettings')
-      .then((data) => {
+      .then(data => {
         language = data;
       })
-      .catch((err) => {
+      .catch(err => {
         return error(err.message || 'ERROR');
       });
   }, []);
@@ -59,11 +58,10 @@ function MasterHeader(props) {
         <TouchableOpacity
           transparent
           style={styles.iconContainer}
-          onPress={props.OpenMenu}
-        >
+          onPress={props.OpenMenu}>
           <_VectorIcons
-            name='menu'
-            type='MaterialCommunityIcons'
+            name="menu"
+            type="MaterialCommunityIcons"
             size={25}
             color={whiteThemeColors.white}
           />
@@ -76,11 +74,10 @@ function MasterHeader(props) {
       return (
         <Pressable
           style={CommonStyles.backbtn}
-          onPress={props.onPressOptionsMenu}
-        >
+          onPress={props.onPressOptionsMenu}>
           <_VectorIcons
-            name='dots-vertical'
-            type='MaterialCommunityIcons'
+            name="dots-vertical"
+            type="MaterialCommunityIcons"
             size={25}
             color={whiteThemeColors.primary}
           />
@@ -97,11 +94,10 @@ function MasterHeader(props) {
           background={TouchableNativeFeedback.Ripple(
             'rgba(0, 112, 210, 0.8)',
             true,
-          )}
-        >
+          )}>
           <_VectorIcons
-            name='close'
-            type='AntDesign'
+            name="close"
+            type="AntDesign"
             size={25}
             color={whiteThemeColors.white}
           />
@@ -114,16 +110,14 @@ function MasterHeader(props) {
       return (
         <TouchableOpacity
           onPress={props.OpenStudents}
-          style={[styles.iconContainer, {}]}
-        >
+          style={[styles.iconContainer, {}]}>
           <_View
             transparent
             style={CommonStyles.backbtn}
             background={TouchableNativeFeedback.Ripple(
               'rgba(0, 112, 210, 0.8)',
               true,
-            )}
-          >
+            )}>
             <StudentIcon size={20} color={whiteThemeColors.white} />
           </_View>
         </TouchableOpacity>
@@ -136,19 +130,17 @@ function MasterHeader(props) {
       return (
         <TouchableOpacity
           onPress={props.OpenMenu}
-          style={[styles.iconContainer, { marginLeft: 20 }]}
-        >
+          style={[styles.iconContainer, {marginLeft: 20}]}>
           <_View
             transparent
             style={CommonStyles.backbtn}
             background={TouchableNativeFeedback.Ripple(
               'rgba(0, 112, 210, 0.8)',
               true,
-            )}
-          >
+            )}>
             <_VectorIcons
-              name='menu'
-              type='Entypo'
+              name="menu"
+              type="Entypo"
               color={whiteThemeColors.white}
               size={20}
             />
@@ -163,12 +155,11 @@ function MasterHeader(props) {
       return (
         <TouchableOpacity
           style={styles.iconContainer}
-          onPress={props.OpenSearch}
-        >
+          onPress={props.OpenSearch}>
           <_View transparent style={[CommonStyles.backbtn, {}]}>
             <_VectorIcons
               type={'MaterialIcons'}
-              name='search'
+              name="search"
               color={whiteThemeColors.white}
               size={20}
             />
@@ -182,19 +173,18 @@ function MasterHeader(props) {
     if (props.isBack) {
       return (
         <TouchableOpacity
-          style={[styles.iconContainer, { marginLeft: 5 }]}
+          style={[styles.iconContainer, {marginLeft: 5}]}
           onPress={() => {
             if (props.goBack) {
               props.goBack();
             } else {
               props.GoBack();
             }
-          }}
-        >
+          }}>
           <_View transparent style={[CommonStyles.backbtn, {}]}>
             <_VectorIcons
               type={'Ionicons'}
-              name='ios-arrow-back'
+              name="arrow-back"
               color={whiteThemeColors.white}
               size={20}
             />
@@ -217,8 +207,8 @@ function MasterHeader(props) {
         <TouchableOpacity style={styles.iconContainer} onPress={_showAlert}>
           <_View transparent style={CommonStyles.backbtn}>
             <_VectorIcons
-              type='FontAwesome'
-              name='power-off'
+              type="FontAwesome"
+              name="power-off"
               size={18}
               color={whiteThemeColors.white}
             />
@@ -232,12 +222,11 @@ function MasterHeader(props) {
     return (
       <TouchableOpacity
         style={styles.iconContainer}
-        onPress={props.NotifictionIconClicked}
-      >
+        onPress={props.NotifictionIconClicked}>
         <_View transparent style={[CommonStyles.backbtn, {}]}>
           <_VectorIcons
             type={'MaterialIcons'}
-            name='notifications'
+            name="notifications"
             color={whiteThemeColors.white}
             size={20}
           />
@@ -256,11 +245,10 @@ function MasterHeader(props) {
           background={TouchableNativeFeedback.Ripple(
             'rgba(0, 112, 210, 0.8)',
             true,
-          )}
-        >
+          )}>
           <_VectorIcons
-            type='FontAwesome'
-            name='user'
+            type="FontAwesome"
+            name="user"
             color={whiteThemeColors.white}
             size={24}
           />
@@ -274,8 +262,8 @@ function MasterHeader(props) {
       return (
         <TouchableOpacity transparent onPress={props.OpenAddModal}>
           <_VectorIcons
-            type='FontAwesome'
-            name='plus'
+            type="FontAwesome"
+            name="plus"
             size={16}
             color={whiteThemeColors.white}
             style={{
@@ -290,14 +278,13 @@ function MasterHeader(props) {
   const TimerIcon = () => {
     return (
       <TouchableOpacity
-        style={{ ...styles.iconContainer, marginRight: 5 }}
+        style={{...styles.iconContainer, marginRight: 5}}
         onPress={() => {
-          dispatch(showHideTimer(!isShow));
-        }}
-      >
+          // dispatch(showHideTimer(!isShow));
+        }}>
         <_VectorIcons
-          type='AntDesign'
-          name='clockcircleo'
+          type="AntDesign"
+          name="clockcircleo"
           color={whiteThemeColors.white}
           size={24}
         />
@@ -324,8 +311,7 @@ function MasterHeader(props) {
                   : 0
                 : 5,
           },
-        ]}
-      >
+        ]}>
         <_View style={styles.leftContainer}>
           {_getBackBtn()}
           {_getMenuBtn()}

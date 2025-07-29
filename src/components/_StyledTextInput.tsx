@@ -43,7 +43,7 @@ export const _StyledTextInput: FC<StyleTextBoxProps> = (props) => {
           <_VectorIcons
             type={'Ionicons'}
             name={
-              props.secureTextEntry ? 'md-eye-outline' : 'md-eye-off-outline'
+              props.secureTextEntry ? 'eye' : 'eye-off'
             }
             size={25}
             color={whiteThemeColors.white}

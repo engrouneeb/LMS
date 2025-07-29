@@ -1,7 +1,7 @@
 import React from 'react';
-import { _View } from '../../../../../../../components';
+import {_View} from '../../../../../../../components';
 import CustomLoader from '../../../../../../Loader/loader';
-import { whiteThemeColors } from '../../../../../../../Utilities';
+import {whiteThemeColors} from '../../../../../../../Utilities';
 
 export const Loader = () => {
   return (
@@ -12,8 +12,7 @@ export const Loader = () => {
         justifyContent: 'center',
         alignItems: 'center',
         paddingVertical: 100,
-      }}
-    >
+      }}>
       <CustomLoader
         bgColor={whiteThemeColors.white}
         size={'large'}

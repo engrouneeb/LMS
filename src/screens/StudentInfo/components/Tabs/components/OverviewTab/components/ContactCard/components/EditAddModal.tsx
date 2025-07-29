@@ -1,14 +1,20 @@
-import { ItemProps, addUpdateStudentInfoInterface } from '../../../../../../../../../interfaces';
-import { FC, useEffect, useState } from 'react';
-import { Alert, Keyboard, Modal, Pressable, StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { CustomAlert, whiteThemeColors } from '../../../../../../../../../Utilities';
-import { loading } from '../.../../../../../../../../../../actions/AsyncStorage';
+import {
+  ItemProps,
+  addUpdateStudentInfoInterface,
+} from '../../../../../../../../../interfaces';
+import {FC, useEffect, useState} from 'react';
+import {Alert, Keyboard, Modal, Pressable, StyleSheet} from 'react-native';
+import {useDispatch} from 'react-redux';
+import {
+  CustomAlert,
+  whiteThemeColors,
+} from '../../../../../../../../../Utilities';
+import {loading} from '../.../../../../../../../../../../actions/AsyncStorage';
 import ApiEndpoints from '../../../../../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../../../../../data/DAL';
-import { _Text, _View } from '../../../../../../../../../components';
+import {DataAccess} from '../../../../../../../../../../data/DAL';
+import {_Text, _View} from '../../../../../../../../../components';
 import Loading from '../../../../../../../../Loader/Loading';
-import { SingleTextInput } from './SingleTextInput';
+import {SingleTextInput} from './SingleTextInput';
 import WhiteLabelConfig from '../../../../../../../../../WhiteLabelConfig';
 
 interface userData {
@@ -51,7 +57,7 @@ export const EditAddModal: FC<EditAddModalProps> = ({
   const [alertTitle, setAlertTitle] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
   const [showAlert, setShowAlert] = useState(false);
-  const { PostSecured } = DataAccess();
+  const {PostSecured} = DataAccess();
   const dispatch = useDispatch();
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -143,8 +149,7 @@ export const EditAddModal: FC<EditAddModalProps> = ({
       transparent
       visible={visible}
       animationType={'slide'}
-      onRequestClose={handleModalClose}
-    >
+      onRequestClose={handleModalClose}>
       <_View style={styles.container}>
         <_View
           style={[
@@ -152,8 +157,7 @@ export const EditAddModal: FC<EditAddModalProps> = ({
               height: isKeyboardOpened ? '95%' : '80%',
             },
             styles.subContainer,
-          ]}
-        >
+          ]}>
           <_View style={styles.topBarContainer}>
             <_View style={styles.topBar} />
           </_View>
@@ -165,7 +169,7 @@ export const EditAddModal: FC<EditAddModalProps> = ({
 
           <_View style={styles.formContainer}>
             <SingleTextInput
-              icon={{ type: 'Ionicons', name: 'person' }}
+              icon={{type: 'Ionicons', name: 'person'}}
               placeholder={'Enter first Name'}
               value={userData.firstName}
               onChangeText={(value: string) =>
@@ -173,7 +177,7 @@ export const EditAddModal: FC<EditAddModalProps> = ({
               }
             />
             <SingleTextInput
-              icon={{ type: 'Ionicons', name: 'person' }}
+              icon={{type: 'Ionicons', name: 'person'}}
               placeholder={'Enter last Name'}
               value={userData.lastName}
               onChangeText={(value: string) =>
@@ -181,7 +185,7 @@ export const EditAddModal: FC<EditAddModalProps> = ({
               }
             />
             <SingleTextInput
-              icon={{ type: 'Fontisto', name: 'email' }}
+              icon={{type: 'Fontisto', name: 'email'}}
               placeholder={'Enter Email'}
               value={userData.email}
               onChangeText={(value: string) =>
@@ -189,7 +193,7 @@ export const EditAddModal: FC<EditAddModalProps> = ({
               }
             />
             <SingleTextInput
-              icon={{ type: 'Feather', name: 'phone-call' }}
+              icon={{type: 'Feather', name: 'phone-call'}}
               placeholder={'Enter Phone Number'}
               value={userData.phoneNumber}
               onChangeText={(value: string) =>
@@ -197,45 +201,48 @@ export const EditAddModal: FC<EditAddModalProps> = ({
               }
             />
             <SingleTextInput
-              icon={{ type: 'MaterialCommunityIcons', name: 'office-building' }}
+              icon={{type: 'MaterialCommunityIcons', name: 'office-building'}}
               placeholder={'Enter Work'}
               value={userData.work}
               onChangeText={(value: string) =>
                 handleOnChangeText('work', value)
               }
             />
-              {idAddNewUSer&&<><SingleTextInput
-              icon={{ type: 'Entypo', name: 'email' }}
-              placeholder={'Enter username for portal access'}
-              value={userData.userName}
-              onChangeText={(value: string) =>
-                handleOnChangeText('userName', value)
-              }
-            />
-            <SingleTextInput
-              icon={{ type: 'Fontisto', name: 'locked' }}
-              placeholder={'Enter password for portal access'}
-              value={userData.password}
-              onChangeText={(value: string) =>
-                handleOnChangeText('password', value)
-              }
-              isSecured
-            />
-                 <SingleTextInput
-              icon={{ type: 'Fontisto', name: 'locked' }}
-              placeholder={'Repeat Password'}
-              value={userData.confirmPassword}
-              onChangeText={(value: string) =>
-                handleOnChangeText('confirmPassword', value)
-              }
-              isSecured
-            /></>}
+            {idAddNewUSer && (
+              <>
+                <SingleTextInput
+                  icon={{type: 'Entypo', name: 'email'}}
+                  placeholder={'Enter username for portal access'}
+                  value={userData.userName}
+                  onChangeText={(value: string) =>
+                    handleOnChangeText('userName', value)
+                  }
+                />
+                <SingleTextInput
+                  icon={{type: 'Fontisto', name: 'locked'}}
+                  placeholder={'Enter password for portal access'}
+                  value={userData.password}
+                  onChangeText={(value: string) =>
+                    handleOnChangeText('password', value)
+                  }
+                  isSecured
+                />
+                <SingleTextInput
+                  icon={{type: 'Fontisto', name: 'locked'}}
+                  placeholder={'Repeat Password'}
+                  value={userData.confirmPassword}
+                  onChangeText={(value: string) =>
+                    handleOnChangeText('confirmPassword', value)
+                  }
+                  isSecured
+                />
+              </>
+            )}
           </_View>
           <_View style={styles.btnContainer}>
             <Pressable
               onPress={handleModalSubmission}
-              style={styles.saveChangesBtn}
-            >
+              style={styles.saveChangesBtn}>
               <_Text style={styles.saveChangesTxt}>Save Changes</_Text>
             </Pressable>
           </_View>
@@ -275,7 +282,7 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     width: '100%',
-    backgroundColor:whiteThemeColors.background,
+    backgroundColor: whiteThemeColors.background,
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
   },

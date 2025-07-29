@@ -1,14 +1,13 @@
-import React from "react";
-import Svg, { Circle, Ellipse, Path, Polygon, Rect } from "react-native-svg";
-import { whiteThemeColors } from './../src/Utilities';
+import React from 'react';
+import Svg, {Circle, Ellipse, Path, Polygon, Rect} from 'react-native-svg';
+import {whiteThemeColors} from './../src/Utilities';
 
-export default DebitCardSvg = ({ size }) => {
+export default DebitCardSvg = ({size}) => {
   return (
     <Svg
       width={size.width.toString()}
       height={size.height.toString()}
-      viewBox="0 0 773.97946 419.08428"
-    >
+      viewBox="0 0 773.97946 419.08428">
       <Path
         d="M633.01027,462.15071v.91a31.51524,31.51524,0,0,1-31.52,31.51h-355.77a31.513,31.513,0,0,1-31.50976-31.51v-.91Z"
         transform="translate(-213.01027 -240.45786)"

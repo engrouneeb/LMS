@@ -13,7 +13,7 @@ import CommonStyles from '../../../screens/CommonStyles';
 import ApiEndpoints from '../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../data/DAL';
 import { EndpointType } from '../../../interfaces';
-import Loader from '../../../../Loader/loader';
+import Loader from '../../Loader/loader';
 import { HistoryItemCard, NoHistory } from './components';
 
 interface CheckinOutCoursesListProps {}

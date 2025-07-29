@@ -14,7 +14,7 @@ import Header from '../../Headers';
 import { StoreItemForm } from './components';
 
 import { EndpointType } from '../../../interfaces';
-import { Appstate } from '../../../../reducers/Appstate';
+import { Appstate } from '../../../reducers/Appstate';
 import { tabOptions } from './TabsOptions';
 import { whiteThemeColors } from '../../../theme';
 

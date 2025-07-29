@@ -1,10 +1,10 @@
-import { WagesItemWageCardInterface } from '../../../../../../../../interfaces';
-import React, { FC } from 'react';
-import { TouchableHighlight, TouchableOpacity } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../../Utilities';
-import { _Text, _VectorIcons, _View } from '../../../../../../../../components';
-import { UserImg } from '../../../../../../../ThumbNail';
-import { styles } from './style';
+import {WagesItemWageCardInterface} from '../../../../../../../../interfaces';
+import React, {FC} from 'react';
+import {TouchableHighlight, TouchableOpacity} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../../Utilities';
+import {_Text, _VectorIcons, _View} from '../../../../../../../../components';
+import {UserImg} from '../../../../../../../ThumbNail';
+import {styles} from './style';
 
 export const WageCard: FC<WagesItemWageCardInterface> = ({
   onPressCard,
@@ -17,8 +17,7 @@ export const WageCard: FC<WagesItemWageCardInterface> = ({
     <TouchableHighlight
       underlayColor={whiteThemeColors.primary + '10'}
       onPress={onPressCard}
-      style={styles.mainContainer}
-    >
+      style={styles.mainContainer}>
       <_View style={styles.subContainer}>
         <_View style={styles.cardCont}>
           <UserImg
@@ -42,23 +41,21 @@ export const WageCard: FC<WagesItemWageCardInterface> = ({
             <TouchableOpacity
               activeOpacity={0.9}
               style={styles.summaryBtn}
-              onPress={onPressSummary}
-            >
+              onPress={onPressSummary}>
               <_Text style={styles.summaryText}>Summary</_Text>
               <_VectorIcons
-                type='FontAwesome5'
+                type="FontAwesome5"
                 style={styles.eyeIcon}
                 color={whiteThemeColors.primary}
                 size={11}
-                name='eye'
+                name="eye"
               />
             </TouchableOpacity>
           </_View>
         </_View>
         <TouchableOpacity
           style={styles.arrowBtnContainer}
-          onPress={onPressArrow}
-        >
+          onPress={onPressArrow}>
           <_VectorIcons
             name={expanded ? 'chevron-thin-up' : 'chevron-thin-down'}
             type={'Entypo'}

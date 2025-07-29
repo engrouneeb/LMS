@@ -3,23 +3,23 @@ import {
   FeedbackModalInterface,
   FeedbackTabInterface,
 } from '../../../../../../interfaces';
-import React, { FC, useState } from 'react';
-import { Modal, ScrollView, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
-import { _ActivityIndicator } from '../../../../../../../Loader';
-import { whiteThemeColors } from '../../../../../../Utilities';
-import { NoInfoSvg } from '../../../../../../../assets/Icons';
-import { _Text, _VectorIcons, _View } from '../../../../../../components';
+import React, {FC, useState} from 'react';
+import {Modal, ScrollView, TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
+import {Appstate} from '../../../../../../reducers/Appstate';
+import {_ActivityIndicator} from '../../../..';
+import {whiteThemeColors} from '../../../../../../Utilities';
+import {NoInfoSvg} from '../../../../../../../assets/Icons';
+import {_Text, _VectorIcons, _View} from '../../../../../../components';
 import FeedbackMessage from './components/FeedbackMessage';
-import { styles } from './styles';
-import { NoDataFound } from '../NoDataFound';
+import {styles} from './styles';
+import {NoDataFound} from '../NoDataFound';
 
 const _FeedBackTab: React.FC<FeedbackTabInterface> = ({
   classLabel,
   levleLabel,
 }) => {
-  const { feedback, loading }: any = useSelector((state: Appstate) => ({
+  const {feedback, loading}: any = useSelector((state: Appstate) => ({
     feedback: state.StudentInfoReducer.feedback[0]?.classesList || [],
     loading: state.StudentInfoReducer.isFeedbackLoading,
   }));
@@ -27,7 +27,7 @@ const _FeedBackTab: React.FC<FeedbackTabInterface> = ({
   return (
     <_View flex={1} backgroundColor={whiteThemeColors.background}>
       {loading ? (
-        <_ActivityIndicator size='large' />
+        <_ActivityIndicator size="large" />
       ) : !Boolean(feedback.length) ? (
         <NoDataFound />
       ) : (
@@ -80,8 +80,7 @@ const FeedbackCard: FC<FeebackTabCardInterface> = ({
             style={styles.btn}
             onPress={() => {
               showCenterFeedback(data?.centerFeedback);
-            }}
-          >
+            }}>
             <_View style={styles.btnView}>
               <_Text numberOfLines={1} style={styles.centerTxt}>
                 {'Center'}
@@ -93,8 +92,7 @@ const FeedbackCard: FC<FeebackTabCardInterface> = ({
             style={styles.btn}
             onPress={() => {
               showStudentFeedback(data.studentFeedback);
-            }}
-          >
+            }}>
             <_View style={styles.btnView}>
               <_Text style={styles.contactStd}>{'Contact/Student'}</_Text>
             </_View>
@@ -110,15 +108,14 @@ const FeedbackCard: FC<FeebackTabCardInterface> = ({
   );
 };
 
-const FeedbackModal: FC<FeedbackModalInterface> = ({ show, close, list }) => {
+const FeedbackModal: FC<FeedbackModalInterface> = ({show, close, list}) => {
   return (
     <Modal
       visible={show}
       transparent
       animationType={'slide'}
-      style={{ backgroundColor: 'red' }}
-      onRequestClose={close}
-    >
+      style={{backgroundColor: 'red'}}
+      onRequestClose={close}>
       <_View style={styles.modalMainContainer}>
         <_View style={styles.modalContainer}>
           <_View
@@ -126,8 +123,7 @@ const FeedbackModal: FC<FeedbackModalInterface> = ({ show, close, list }) => {
               list && list.length > 0
                 ? styles.modalHeaderContainer1
                 : styles.modalHeaderContainer
-            }
-          >
+            }>
             <_Text style={styles.modalHeaderText}>{'Feedback'}</_Text>
             <TouchableOpacity
               style={{
@@ -141,8 +137,7 @@ const FeedbackModal: FC<FeedbackModalInterface> = ({ show, close, list }) => {
                 marginTop: 10,
               }}
               activeOpacity={0.8}
-              onPress={close}
-            >
+              onPress={close}>
               <_VectorIcons
                 name={'close'}
                 type={'AntDesign'}
@@ -160,8 +155,7 @@ const FeedbackModal: FC<FeedbackModalInterface> = ({ show, close, list }) => {
             <_View style={styles.feedbackContainer}>
               <ScrollView
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ width: '100%' }}
-              >
+                contentContainerStyle={{width: '100%'}}>
                 {list.map((Obj: any) => {
                   return (
                     <FeedbackMessage

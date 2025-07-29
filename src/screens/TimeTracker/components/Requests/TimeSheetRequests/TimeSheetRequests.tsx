@@ -7,7 +7,7 @@ import { TimeSheetRequestInterfce } from '../../../../../interfaces';
 import { FC, useEffect, useMemo, useReducer } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../reducers/Appstate';
 import {
   AdminInterface,
   CustomAlert,

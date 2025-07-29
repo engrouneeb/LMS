@@ -3,7 +3,7 @@ import { WagesInstructorInterface } from '../../../../../../interfaces';
 import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, FlatList, Platform } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../reducers/Appstate';
 import { isInstructor, whiteThemeColors } from '../../../../../../Utilities';
 import { getWages } from '../../../../../../actions/TimeTrackerActions';
 import { _Screen, _View, isPortrait } from '../../../../../../components';

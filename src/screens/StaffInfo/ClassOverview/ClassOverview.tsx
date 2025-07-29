@@ -23,7 +23,7 @@ import CommonStyles from '../../../screens/CommonStyles';
 import ApiEndpoints from '../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../data/DAL';
 import { ClassOverviewDetail, EditClassOverview } from './ClassOverviewDetails';
-import Search from '../../../../Search';
+import Search from '../../Search';
 import { NoCourse } from '../../../../assets/NoCourse';
 
 interface ClassOverviewProps {}

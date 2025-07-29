@@ -1,5 +1,5 @@
-import { BottomTabInterface } from '../../../../../interfaces';
-import React, { useEffect, useRef, useState } from 'react';
+import {BottomTabInterface} from '../../../../../interfaces';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   // Animated,
   Dimensions,
@@ -8,21 +8,21 @@ import {
   View,
 } from 'react-native';
 import Animated from 'react-native-reanimated';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   AttachmentTypes,
   getTerminologyLabel,
   TerminologyMap,
   whiteThemeColors,
 } from '../../../../../Utilities';
-import { AttachmentTab, OverviewTab } from '..';
-import { _View } from '../../../../../components';
-import { useLogin } from '../../../../../navigation/MainNav';
-import { Appstate } from '../../../../../reducers/Appstate';
+import {AttachmentTab, OverviewTab} from '../index';
+import {_View} from '../../../../../components';
+import {useLogin} from '../../../../../navigation/MainNav';
+import {Appstate} from '../../../../../reducers/Appstate';
 import ScreensNames from '../../../../../screenNames';
-import { Steps } from '../../ChallengeDetails';
-import { CourseContent, ReviewTab } from '../../CourseDetails';
-import { DiscussionTab } from '../Discussion/components';
+import {Steps} from '../../ChallengeDetails';
+import {CourseContent, ReviewTab} from '../../CourseDetails';
+import {DiscussionTab} from '../Discussion/components';
 import {
   attrTypes,
   backlogColumnName,
@@ -31,7 +31,7 @@ import {
   scrollScreenAndTabs,
   setScreenSettings,
 } from './components/BottomTabsFunctions';
-import { Tab } from './components/Tab';
+import {Tab} from './components/Tab';
 interface RoutesInterface {
   backlogColumnName: number;
   key: string;
@@ -58,12 +58,12 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
   const [Attachments, setAttachments] = useState<any>([]);
   const [challengeSteps, setChallengeSteps] = useState<any>();
 
-  const { orientation } = useLogin();
+  const {orientation} = useLogin();
   const [currentScreenIndex, setCurrentScreenIndex] = useState(0);
   const [discussionComments, setDiscussionComments] = useState([]);
   const [width, setWidth] = useState(Dimensions.get('window').width);
   const [whiteBoardAttachment] = useState<any>([]);
-  const { courseContentScreen } = useSelector(
+  const {courseContentScreen} = useSelector(
     (state: Appstate) => state.language,
   );
   const flatlistRef: any = useRef();
@@ -114,9 +114,9 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
         backlogColumnName: 0,
       });
     const tabValues: any = [];
-    if (isCourse) tabValues.push({ fieldValue: null });
+    if (isCourse) tabValues.push({fieldValue: null});
     var tabs = tabBar ? tabBar : [];
-    tabs = tabs.filter((x) => Object.keys(x).length != 0);
+    tabs = tabs.filter(x => Object.keys(x).length != 0);
     for (let i = 0; i < tabs.length; i++) {
       if (
         tabs[i].attrType !== attrTypes.History &&
@@ -175,35 +175,33 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
     }
   };
   return (
-    <View style={{ backgroundColor: whiteThemeColors.background, flex: 1 }}>
+    <View style={{backgroundColor: whiteThemeColors.background, flex: 1}}>
       <Animated.ScrollView
         ref={screenRef}
         horizontal
-        onMomentumScrollEnd={(event) => {
+        onMomentumScrollEnd={event => {
           const x = Math.round(event.nativeEvent.contentOffset.x / width);
           scrollToIndex(x);
           Platform.OS == 'android' && x != currentScreenIndex && onTabPress(x);
         }}
         pagingEnabled={true}
         directionalLockEnabled
-        keyboardDismissMode='on-drag'
-        keyboardShouldPersistTaps='always'
-        overScrollMode='never'
+        keyboardDismissMode="on-drag"
+        keyboardShouldPersistTaps="always"
+        overScrollMode="never"
         scrollToOverflowEnabled
         scrollsToTop={false}
         showsHorizontalScrollIndicator={false}
         scrollEventThrottle={1}
         automaticallyAdjustContentInsets={false}
-        onScrollEndDrag={(event) => TabFun(event)}
-        style={{ height: '100%' }}
-      >
+        onScrollEndDrag={event => TabFun(event)}
+        style={{height: '100%'}}>
         {isCourse && (
           <_View
             style={{
               height: '100%',
               width,
-            }}
-          >
+            }}>
             <CourseContent
               navigation={navigation}
               route={routePath}
@@ -219,7 +217,7 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
               routes[i].backlogColumnName == backlogColumnName.CourseReviews
             ) {
               return (
-                <_View style={{ height: '100%', width }} key={i}>
+                <_View style={{height: '100%', width}} key={i}>
                   <ReviewTab
                     isActive
                     route={routePath}
@@ -231,7 +229,7 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
               routes[i].backlogColumnName == backlogColumnName.Discussion
             ) {
               return (
-                <_View style={{ height: '100%', width }} key={i}>
+                <_View style={{height: '100%', width}} key={i}>
                   <DiscussionTab
                     route={routePath}
                     Discussion={() =>
@@ -255,7 +253,7 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
               routes[i].backlogColumnName == backlogColumnName.Attachments
             ) {
               return (
-                <_View style={{ height: '100%', width }} key={i}>
+                <_View style={{height: '100%', width}} key={i}>
                   <AttachmentTab
                     isActive
                     attachment={Attachments}
@@ -268,7 +266,7 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
               backlogColumnName.WhiteBoardAttachments
             )
               return (
-                <_View style={{ height: '100%', width }} key={i}>
+                <_View style={{height: '100%', width}} key={i}>
                   <AttachmentTab
                     isActive
                     attachment={whiteBoardAttachment}
@@ -281,7 +279,7 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
               routes[i].backlogColumnName == backlogColumnName.Instructions
             ) {
               return (
-                <_View style={{ height: '100%', width }} key={i}>
+                <_View style={{height: '100%', width}} key={i}>
                   <Steps
                     isActive
                     route={routePath}
@@ -292,7 +290,7 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
               );
             } else
               return (
-                <_View style={{ height: '100%', width }} key={i}>
+                <_View style={{height: '100%', width}} key={i}>
                   <OverviewTab value={tabValue[i].fieldValue} isActive={true} />
                 </_View>
               );
@@ -308,7 +306,7 @@ const _TabViewComponent: React.FC<BottomTabInterface> = ({
             height: 50,
           }}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => (
+          renderItem={({item, index}) => (
             <Tab
               onPress={() => onTabPress(index)}
               item={item}

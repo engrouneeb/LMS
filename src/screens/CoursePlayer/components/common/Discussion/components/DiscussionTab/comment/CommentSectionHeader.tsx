@@ -1,10 +1,10 @@
 import React from 'react';
-import { styles } from '../styles';
-import { UserImg } from '../../../../../../../ThumbNail';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { whiteThemeColors } from '../../../../../../../../Utilities';
-import { _Text, _VectorIcons, _View } from '../../../../../../../../components';
-import { CommentSectionHeaderInterface } from '../../../../../../../../interfaces';
+import {styles} from '../styles';
+import {UserImg} from '../../../../../../../ThumbNail';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import {whiteThemeColors} from '../../../../../../../../Utilities';
+import {_Text, _VectorIcons, _View} from '../../../../../../../../components';
+import {CommentSectionHeaderInterface} from '../../../../../../../../interfaces';
 
 export const CommentSectionHeader: React.FC<CommentSectionHeaderInterface> = ({
   obj,
@@ -16,9 +16,9 @@ export const CommentSectionHeader: React.FC<CommentSectionHeaderInterface> = ({
   onPressDeleteComment,
 }) => {
   return (
-    <_View style={{ flexDirection: 'column', paddingLeft: 10 }}>
+    <_View style={{flexDirection: 'column', paddingLeft: 10}}>
       <_Text style={styles.userNameTxt}>{obj.userName}</_Text>
-      <_View style={{ flexDirection: 'row', alignItems: 'center' }}>
+      <_View style={{flexDirection: 'row', alignItems: 'center'}}>
         <UserImg
           UserInfo={{
             FirstName: obj.userName,
@@ -27,7 +27,7 @@ export const CommentSectionHeader: React.FC<CommentSectionHeaderInterface> = ({
             UserImageColor: obj.userColor,
           }}
           size={30}
-          style={{ marginLeft: 10 }}
+          style={{marginLeft: 10}}
         />
         <_View style={styles.singleCommentContainer}>
           {checkHref(obj.comment)}
@@ -40,8 +40,8 @@ export const CommentSectionHeader: React.FC<CommentSectionHeaderInterface> = ({
         {obj.createdById == UserData.userID && (
           <TouchableOpacity style={styles.actionIcon} onPress={onPressEdit}>
             <_VectorIcons
-              type='FontAwesome'
-              name='pencil'
+              type="FontAwesome"
+              name="pencil"
               size={13}
               color={whiteThemeColors.white}
             />
@@ -49,8 +49,8 @@ export const CommentSectionHeader: React.FC<CommentSectionHeaderInterface> = ({
         )}
         <TouchableOpacity onPress={onPressLike} style={styles.actionIcon}>
           <_VectorIcons
-            type='AntDesign'
-            name='like1'
+            type="AntDesign"
+            name="like1"
             size={13}
             color={
               obj.isLiked ? whiteThemeColors.primary : whiteThemeColors.white
@@ -63,11 +63,10 @@ export const CommentSectionHeader: React.FC<CommentSectionHeaderInterface> = ({
         <TouchableOpacity
           onPress={onPressReply}
           style={styles.actionIcon}
-          activeOpacity={1}
-        >
+          activeOpacity={1}>
           <_VectorIcons
-            type='FontAwesome'
-            name='reply'
+            type="FontAwesome"
+            name="reply"
             size={13}
             color={whiteThemeColors.white}
           />
@@ -78,11 +77,10 @@ export const CommentSectionHeader: React.FC<CommentSectionHeaderInterface> = ({
         {obj.createdById == UserData.userID && (
           <TouchableOpacity
             style={styles.actionIcon}
-            onPress={onPressDeleteComment}
-          >
+            onPress={onPressDeleteComment}>
             <_VectorIcons
-              type='MaterialIcons'
-              name='delete'
+              type="MaterialIcons"
+              name="delete"
               size={13}
               color={whiteThemeColors.white}
             />

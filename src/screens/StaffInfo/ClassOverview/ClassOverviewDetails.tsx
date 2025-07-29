@@ -1,7 +1,7 @@
 import { _Text, _VectorIcons, _View, endpoint } from '../../../components';
 import React, { useEffect, useState } from 'react';
 import { Modal, Pressable, ScrollView, TouchableOpacity } from 'react-native';
-import { _ActivityIndicator } from '../../../../Loader/_ActivityIndicator';
+import { _ActivityIndicator } from '../../Loader/_ActivityIndicator';
 import {
   getTerminologyLabel,
   removeStyling,

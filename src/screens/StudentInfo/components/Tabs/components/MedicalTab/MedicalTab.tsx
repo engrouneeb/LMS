@@ -3,21 +3,21 @@ import {
   HIC_CardInterface,
   SpecialN_CardInterface,
 } from '../../../../../../interfaces';
-import React, { FC } from 'react';
-import { Dimensions, ScrollView } from 'react-native';
-import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
-import { _ActivityIndicator } from '../../../../../../../Loader';
-import { RemoveHTML } from '../../../../../../Utilities';
-import { NoInfoSvg } from '../../../../../../../assets/Icons';
-import { _Text, _View } from '../../../../../../components';
-import { styles } from './styles';
-import { whiteThemeColors } from '../../../../../../Utilities';
+import React, {FC} from 'react';
+import {Dimensions, ScrollView} from 'react-native';
+import {useSelector} from 'react-redux';
+import {Appstate} from '../../../../../../reducers/Appstate';
+import {_ActivityIndicator} from '../../../../../Loader/_ActivityIndicator';
+import {RemoveHTML} from '../../../../../../Utilities';
+import {NoInfoSvg} from '../../../../../../../assets/Icons';
+import {_Text, _View} from '../../../../../../components';
+import {styles} from './styles';
+import {whiteThemeColors} from '../../../../../../Utilities';
 
-const { width, height } = Dimensions.get('screen');
+const {width, height} = Dimensions.get('screen');
 const _MedicalTab = () => {
   const {
-    medical: { allergies, specialNeeds, healthInsuranceCarrier },
+    medical: {allergies, specialNeeds, healthInsuranceCarrier},
     loading,
   } = useSelector((state: Appstate) => ({
     medical: state.StudentInfoReducer.medical,
@@ -26,11 +26,10 @@ const _MedicalTab = () => {
 
   return (
     <_View
-      style={{ width, height, backgroundColor: whiteThemeColors.background }}
-    >
+      style={{width, height, backgroundColor: whiteThemeColors.background}}>
       {loading ? (
-        <_View flex={1} justify='center' alignItems='center'>
-          <_ActivityIndicator size='large' />
+        <_View flex={1} justify="center" alignItems="center">
+          <_ActivityIndicator size="large" />
         </_View>
       ) : (
         <ScrollView nestedScrollEnabled showsVerticalScrollIndicator={false}>
@@ -43,7 +42,7 @@ const _MedicalTab = () => {
   );
 };
 
-const AllergyCard: FC<AllergyCardInterface> = ({ text }) => {
+const AllergyCard: FC<AllergyCardInterface> = ({text}) => {
   return (
     <_View style={styles.cardContainer}>
       <_View style={styles.headerContainer}>
@@ -53,8 +52,7 @@ const AllergyCard: FC<AllergyCardInterface> = ({ text }) => {
         <ScrollView
           showsVerticalScrollIndicator={false}
           nestedScrollEnabled
-          contentContainerStyle={styles.textContainer}
-        >
+          contentContainerStyle={styles.textContainer}>
           {!text && (
             <_View style={styles.noInfoView}>
               <NoInfoSvg size={50} opacity={0.5} />
@@ -68,7 +66,7 @@ const AllergyCard: FC<AllergyCardInterface> = ({ text }) => {
   );
 };
 
-const SpecialN_Card: FC<SpecialN_CardInterface> = ({ text }) => {
+const SpecialN_Card: FC<SpecialN_CardInterface> = ({text}) => {
   return (
     <_View style={styles.cardContainer}>
       <_View style={styles.headerContainer}>
@@ -77,8 +75,7 @@ const SpecialN_Card: FC<SpecialN_CardInterface> = ({ text }) => {
       <_View style={styles.innerContainer}>
         <ScrollView
           nestedScrollEnabled
-          contentContainerStyle={styles.textContainer}
-        >
+          contentContainerStyle={styles.textContainer}>
           {!text && (
             <_View style={styles.noInfoView}>
               <NoInfoSvg size={50} opacity={0.5} />
@@ -92,17 +89,16 @@ const SpecialN_Card: FC<SpecialN_CardInterface> = ({ text }) => {
   );
 };
 
-const HIC_Card: FC<HIC_CardInterface> = ({ text }) => {
+const HIC_Card: FC<HIC_CardInterface> = ({text}) => {
   return (
-    <_View style={[styles.cardContainer, { marginBottom: 190 }]}>
+    <_View style={[styles.cardContainer, {marginBottom: 190}]}>
       <_View style={styles.headerContainer}>
         <_Text style={styles.headerText}>{'Health Insurance Center'}</_Text>
       </_View>
       <_View style={styles.innerContainer}>
         <ScrollView
           nestedScrollEnabled
-          contentContainerStyle={styles.textContainer}
-        >
+          contentContainerStyle={styles.textContainer}>
           {!text && (
             <_View style={styles.noInfoView}>
               <NoInfoSvg size={50} opacity={0.5} />

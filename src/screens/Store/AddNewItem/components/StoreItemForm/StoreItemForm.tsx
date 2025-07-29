@@ -9,7 +9,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../reducers/Appstate';
 import {
   CustomAlert,
   isAdmin,
@@ -22,7 +22,7 @@ import { DataAccess } from '../../../../../../data/DAL';
 import {
   _Button,
   _Image,
-  _ModalDropdown,
+  //_ModalDropdown,
   _Text,
   _TextInput,
   _View,
@@ -33,7 +33,7 @@ import { AddTags } from './components/AddTags';
 import { CameraButton } from './components/CameraButton';
 import { FormMiddle } from './components/FormMiddle';
 import { styles } from './styles';
-import ModalDropdown from 'react-native-modal-dropdown';
+//import ModalDropdown from 'react-native-modal-dropdown';
 interface Props {
   Showtab: boolean;
   isEditing: boolean;
@@ -306,7 +306,7 @@ export const StoreItemForm: FC<Props> = ({
         />
 
         <_Text style={styles.textboxTitle}>{'Status'}</_Text>
-        <ModalDropdown
+        {/* <ModalDropdown
           options={allStatus}
           defaultValue={defaultStatus}
           dropdownStyle={styles.dropdownStyle}
@@ -331,10 +331,10 @@ export const StoreItemForm: FC<Props> = ({
               </_View>
             );
           }}
-        />
+        /> */}
         <_Text style={styles.textboxTitle}>{'Category'}</_Text>
         <_View style={styles.catContainer}>
-          <ModalDropdown
+          {/* <ModalDropdown
             disabled={isUserAdmin && !isShipmentItem ? false : true}
             options={inventoryCategories}
             defaultValue={editingCategory && editingCategory[0]?.name} //"Select Category"
@@ -358,7 +358,7 @@ export const StoreItemForm: FC<Props> = ({
                 </_View>
               );
             }}
-          />
+          /> */}
           <_Button
             isBlock={isUserAdmin && !isShipmentItem ? false : true}
             borderRadius={10}

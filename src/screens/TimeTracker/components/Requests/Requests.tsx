@@ -7,7 +7,7 @@ import { ItemInterface, UserAndBadgesInterface } from '../../../../interfaces';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../reducers/Appstate';
+import { Appstate } from '../../../../reducers/Appstate';
 import { whiteThemeColors } from '../../../../Utilities';
 import { Clock2Svg, ClockSvg } from '../../../../../assets/Icons';
 import { _Screen, _Text, _VectorIcons, _View, NoPermission } from '../../../../components';

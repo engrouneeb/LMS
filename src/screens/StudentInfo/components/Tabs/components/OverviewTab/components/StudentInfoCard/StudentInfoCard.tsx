@@ -1,21 +1,24 @@
-import {
-  StudentInfoCardInterface,
-} from '../../../../../../../../interfaces';
+import {StudentInfoCardInterface} from '../../../../../../../../interfaces';
 import moment from 'moment';
-import React, { FC, useState } from 'react';
-import { Modal, Pressable, StyleSheet } from 'react-native';
-import { whiteThemeColors,isParent } from '../../../../../../../Utilities';
+import React, {FC, useState} from 'react';
+import {Modal, Pressable, StyleSheet} from 'react-native';
+import {whiteThemeColors, isParent} from '../../../../../../../../Utilities';
 import ApiEndpoints from '../../../../../../../../../data/ApiEndpoints';
-import { _Button, _Text, _VectorIcons, _View } from '../../../../../../../../components';
-import { UserImg } from '../../../../../../../ThumbNail';
-import { Row } from '../FamilyInfoCard/components';
-import { StudentInfoUpdateModal } from '../StudentInfoUpdateModal/StudentInfoUpdateModal';
+import {
+  _Button,
+  _Text,
+  _VectorIcons,
+  _View,
+} from '../../../../../../../../components';
+import {UserImg} from '../../../../../../../ThumbNail';
+import {Row} from '../FamilyInfoCard/components';
+import {StudentInfoUpdateModal} from '../StudentInfoUpdateModal/StudentInfoUpdateModal';
 
-import { useAppModulePermission } from '../../../../../../../../customHooks';
-import { styles } from './styles';
-import { DataAccess } from '../../../../../../../../../data/DAL';
-import { StudentInfoType } from 'interfaces/screensInterfaces/StudentInfoInterfaces/TabsInterfaces/OverviewInterfaces/StudentInfoCardInterfaces';
-import { string } from 'prop-types';
+import {useAppModulePermission} from '../../../../../../../../customHooks';
+import {styles} from './styles';
+import {DataAccess} from '../../../../../../../../../data/DAL';
+import {StudentInfoType} from '../../../../../../../../interfaces/screensInterfaces/StudentInfoInterfaces/TabsInterfaces/OverviewInterfaces/StudentInfoCardInterfaces';
+import {string} from 'prop-types';
 
 type StudentInfoWithPinStatus = StudentInfoCardInterface & {
   kioskPin?: string;
@@ -29,26 +32,24 @@ const GenderLookup = {
   '4': 'Prefer not to say',
 };
 
-export const StudentInfoCard: FC<StudentInfoCardInterface & { quickLinkConfig?: any[]; roleName?: string }> = ({
-  studentInfo,
-  onPress,
-  quickLinkConfig = [],
-  roleName = '',
-}) => {
-  const { filterMenuOptions } = useAppModulePermission();
-      let isUpdateStudentInfo=filterMenuOptions("UpdateStudentInfo");
-      let isShowContacts=filterMenuOptions("ShowContacts");
+export const StudentInfoCard: FC<
+  StudentInfoCardInterface & {quickLinkConfig?: any[]; roleName?: string}
+> = ({studentInfo, onPress, quickLinkConfig = [], roleName = ''}) => {
+  const {filterMenuOptions} = useAppModulePermission();
+  let isUpdateStudentInfo = filterMenuOptions('UpdateStudentInfo');
+  let isShowContacts = filterMenuOptions('ShowContacts');
   // Show Kiosk PIN only for parent role and if Kiosk PINs quick link is enabled
-  const isShowKioskPin =isParent(roleName) &&
+  const isShowKioskPin =
+    isParent(roleName) &&
     quickLinkConfig.some(
-      (item: any) => item.name === 'Kiosk PINs' && item.status === true
+      (item: any) => item.name === 'Kiosk PINs' && item.status === true,
     );
   const [studentInfoModal, setStudentInfoModal] = useState(false);
   const [stdInfo, setStdInfo] = useState<StudentInfoType>(studentInfo);
   const [showKioskPinModal, setShowKioskPinModal] = useState(false);
   const [kioskPin, setKioskPin] = useState<string | null>(null);
   const [pinLoading, setPinLoading] = useState(false);
-  const { Get } = DataAccess();
+  const {Get} = DataAccess();
   const onCloseModal = () => {
     setStudentInfoModal(false);
   };
@@ -61,7 +62,10 @@ export const StudentInfoCard: FC<StudentInfoCardInterface & { quickLinkConfig?: 
     setPinLoading(true);
     setKioskPin(null);
     try {
-      const Endpoint = { ...ApiEndpoints.GetPinDetailByUserId, params: `?userId=${studentInfo?.userId ?? studentInfo?.studentId}` };
+      const Endpoint = {
+        ...ApiEndpoints.GetPinDetailByUserId,
+        params: `?userId=${studentInfo?.userId ?? studentInfo?.studentId}`,
+      };
       const res = await Get(Endpoint);
       setKioskPin(res?.user?.pinCode ?? '------');
     } catch (e) {
@@ -70,7 +74,7 @@ export const StudentInfoCard: FC<StudentInfoCardInterface & { quickLinkConfig?: 
     setPinLoading(false);
   };
   console.log({stdInfo});
-  
+
   return studentInfo === undefined ? null : (
     <_View style={styles.cardContainer}>
       <_View style={styles.imageContainer}>
@@ -85,17 +89,22 @@ export const StudentInfoCard: FC<StudentInfoCardInterface & { quickLinkConfig?: 
         />
       </_View>
       <_Text
-        style={styles.headerText}
-      >{`${stdInfo?.firstName} ${stdInfo?.lastName}`}</_Text>
+        style={
+          styles.headerText
+        }>{`${stdInfo?.firstName} ${stdInfo?.lastName}`}</_Text>
       {isShowKioskPin && (
         <Pressable
           onPress={handleViewKioskPin}
-          style={{ ...styles.showBtn, backgroundColor: whiteThemeColors.white, marginBottom: 10, marginTop: 0 }}
-        >
+          style={{
+            ...styles.showBtn,
+            backgroundColor: whiteThemeColors.white,
+            marginBottom: 10,
+            marginTop: 0,
+          }}>
           <_VectorIcons
-            style={{ alignSelf: 'center' }}
+            style={{alignSelf: 'center'}}
             type={'MaterialCommunityIcons'}
-            name='account-arrow-left'
+            name="account-arrow-left"
             color={whiteThemeColors.primaryDark}
             size={20}
           />
@@ -108,12 +117,14 @@ export const StudentInfoCard: FC<StudentInfoCardInterface & { quickLinkConfig?: 
         visible={showKioskPinModal}
         transparent
         animationType="fade"
-        onRequestClose={() => setShowKioskPinModal(false)}
-      >
+        onRequestClose={() => setShowKioskPinModal(false)}>
         <_View style={modalStyles.overlay}>
           <_View style={modalStyles.modalContainer}>
             <_Text style={modalStyles.modalTitle}>Kiosk PIN</_Text>
-            <_Text style={modalStyles.modalName}>{`${stdInfo?.firstName} ${stdInfo?.lastName}`}</_Text>
+            <_Text
+              style={
+                modalStyles.modalName
+              }>{`${stdInfo?.firstName} ${stdInfo?.lastName}`}</_Text>
             {pinLoading ? (
               <_Text style={modalStyles.modalPin}>Loading...</_Text>
             ) : (
@@ -124,9 +135,13 @@ export const StudentInfoCard: FC<StudentInfoCardInterface & { quickLinkConfig?: 
               <_Text
                 style={[
                   modalStyles.statusValue,
-                  { color: stdInfo?.status === 'Active' ? whiteThemeColors.green : whiteThemeColors.red },
-                ]}
-              >
+                  {
+                    color:
+                      stdInfo?.status === 'Active'
+                        ? whiteThemeColors.green
+                        : whiteThemeColors.red,
+                  },
+                ]}>
                 {stdInfo?.status || ''}
               </_Text>
             </_View>
@@ -150,31 +165,29 @@ export const StudentInfoCard: FC<StudentInfoCardInterface & { quickLinkConfig?: 
           width: '90%',
           borderRadius: 25,
           backgroundColor: whiteThemeColors.white + 90,
-        }}
-      >
+        }}>
         <Row
-          label1='Name'
+          label1="Name"
           value1={`${stdInfo?.firstName} ${stdInfo?.lastName}`}
           label2={'Gender'}
           value2={GenderLookup[stdInfo?.gender] || 'not specified'}
         />
         <Row
-          label1='Email'
+          label1="Email"
           value1={stdInfo?.email}
           label2={'Birth Date'}
           value2={moment(stdInfo?.dob).format('DD MMM, YYYY')}
         />
 
-        <_View style={{ paddingHorizontal: 10 }}>
+        <_View style={{paddingHorizontal: 10}}>
           {isUpdateStudentInfo && (
             <Pressable
               onPress={() => setStudentInfoModal(true)}
-              style={styles.updateInfoBtn}
-            >
+              style={styles.updateInfoBtn}>
               <_VectorIcons
-                style={{ alignSelf: 'center' }}
+                style={{alignSelf: 'center'}}
                 type={'FontAwesome'}
-                name='edit'
+                name="edit"
                 color={whiteThemeColors.primary}
                 size={18}
               />
@@ -182,16 +195,18 @@ export const StudentInfoCard: FC<StudentInfoCardInterface & { quickLinkConfig?: 
             </Pressable>
           )}
 
-          {isShowContacts&&<Pressable onPress={onPress} style={styles.showBtn}>
-            <_VectorIcons
-              style={{ alignSelf: 'center' }}
-              type={'MaterialCommunityIcons'}
-              name='account-details'
-              color={whiteThemeColors.primaryDark}
-              size={20}
-            />
-            <_Text style={styles.showBtnTxt}>{'Show Contacts'}</_Text>
-          </Pressable>}
+          {isShowContacts && (
+            <Pressable onPress={onPress} style={styles.showBtn}>
+              <_VectorIcons
+                style={{alignSelf: 'center'}}
+                type={'MaterialCommunityIcons'}
+                name="account-details"
+                color={whiteThemeColors.primaryDark}
+                size={20}
+              />
+              <_Text style={styles.showBtnTxt}>{'Show Contacts'}</_Text>
+            </Pressable>
+          )}
         </_View>
       </_View>
 
@@ -221,7 +236,7 @@ const modalStyles = StyleSheet.create({
     padding: 24,
     alignItems: 'center',
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 5,

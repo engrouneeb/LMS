@@ -8,20 +8,20 @@ import {
   DataInterface,
   TAG_COLORInterface,
 } from '../../../../../../../interfaces';
-import { FC, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { _Text, _View } from '../../../../../../../components';
-import { CoverRequestConstants } from '../../../../../../../constants';
+import {FC, useState} from 'react';
+import {TouchableOpacity} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_Text, _View} from '../../../../../../../components';
+import {CoverRequestConstants} from '../../../../../../../constants';
 import ScreensNames from '../../../../../../../screenNames';
 import {
   TimeTrackerTabs,
   englishRequests,
 } from '../../../../../../Strings/english';
-import { UserImg } from '../../../../../../ThumbNail';
-import { CoverTradeShiftStatus } from '../../../../../../values/english';
-import { CoverCommentModal } from '../../../components/CoverCommentModal';
-import { styles } from './style';
+import {UserImg} from '../../../../../../ThumbNail';
+import {CoverTradeShiftStatus} from '../../../../../../values/english';
+import {CoverCommentModal} from '../../../components/CoverCommentModal';
+import {styles} from './style';
 
 const TAG_COLOR: TAG_COLORInterface = {
   [CoverRequestConstants.Submitted]: '#004bc0',
@@ -60,7 +60,7 @@ export const CoverRequestCard: FC<CoverRequestCardInterface> = ({
       : UpdateApprovalsDetails(
           item,
           CoverRequestConstants.Approved,
-          modalComment
+          modalComment,
         );
     setShowModal(false);
     setModalComment('');
@@ -71,7 +71,7 @@ export const CoverRequestCard: FC<CoverRequestCardInterface> = ({
       : UpdateApprovalsDetails(
           item,
           CoverRequestConstants.Rejected,
-          modalComment
+          modalComment,
         );
     setShowModal(false);
     setModalComment('');
@@ -84,8 +84,7 @@ export const CoverRequestCard: FC<CoverRequestCardInterface> = ({
           data: item,
           type: CoverRequestConstants.Cover,
         })
-      }
-    >
+      }>
       <_View style={styles.innerCont}>
         <UserImg
           UserInfo={{
@@ -108,12 +107,11 @@ export const CoverRequestCard: FC<CoverRequestCardInterface> = ({
                   backgroundColor:
                     TAG_COLOR[item.status] || whiteThemeColors.red,
                 },
-              ]}
-            >
+              ]}>
               <_Text style={styles.tagText}>{item.status}</_Text>
             </_View>
           </_View>
-          <_View flexDirection='row' width={'100%'}>
+          <_View flexDirection="row" width={'100%'}>
             <_Text numberOfLines={1} style={styles.details}>
               {isCoverageTabActive &&
               activeTab.name == TimeTrackerTabs.Approvals
@@ -133,8 +131,9 @@ export const CoverRequestCard: FC<CoverRequestCardInterface> = ({
           </_View>
           <_Text style={styles.details}>{item.startDateTemp}</_Text>
           <_Text
-            style={styles.details}
-          >{`${item?.startTimeDisplay} - ${item?.endTimeDisplay}`}</_Text>
+            style={
+              styles.details
+            }>{`${item?.startTimeDisplay} - ${item?.endTimeDisplay}`}</_Text>
         </_View>
       </_View>
 
@@ -147,10 +146,9 @@ export const CoverRequestCard: FC<CoverRequestCardInterface> = ({
                 renderModal(
                   isCoverageTabActive
                     ? CoverRequestConstants.Decline
-                    : CoverRequestConstants.Reject
+                    : CoverRequestConstants.Reject,
                 )
-              }
-            >
+              }>
               <_Text style={styles.btnText}>
                 {isCoverageTabActive
                   ? englishRequests.Decline
@@ -164,11 +162,10 @@ export const CoverRequestCard: FC<CoverRequestCardInterface> = ({
               renderModal(
                 isCoverageTabActive
                   ? CoverRequestConstants.Accept
-                  : CoverRequestConstants.Approve
+                  : CoverRequestConstants.Approve,
               )
-            }
-          >
-            <_Text style={[styles.btnText, { color: whiteThemeColors.green }]}>
+            }>
+            <_Text style={[styles.btnText, {color: whiteThemeColors.green}]}>
               {isCoverageTabActive
                 ? englishRequests.Accept
                 : englishRequests.Approve}

@@ -2,7 +2,7 @@ import { _Text, _View } from '../../../../components';
 import { FC } from 'react';
 import { styles } from '../styles';
 import CommonStyles from '../../../CommonStyles';
-import { whiteThemeColors } from 'utilities/colors';
+import { whiteThemeColors } from '../../../../Utilities/colors';
 
 interface classTimingProps {
   timingArray: any[];

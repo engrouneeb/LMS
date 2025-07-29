@@ -1,16 +1,16 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   Dimensions,
   Keyboard,
   KeyboardAvoidingView,
   Pressable,
   ScrollView,
-  TextInput
+  TextInput,
+  TouchableOpacity,
 } from 'react-native';
-import { getUniqueId } from 'react-native-device-info';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
+import {getUniqueId} from 'react-native-device-info';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   CustomAlert,
   LoadLogoImage,
@@ -19,27 +19,24 @@ import {
   whiteThemeColors,
 } from '../../Utilities';
 import ApiEndpoints from '../../../data/ApiEndpoints';
-import { DataAccess } from '../../../data/DAL';
-import { doLogin } from '../../actions/AccountActions';
-import {setModuelPagesPermissions} from "../../actions/ModuelPagesPermissionsAction"
-import {
-  saveToken,
-  saveUserToken,
-} from '../../actions/AsyncStorage';
+import {DataAccess} from '../../../data/DAL';
+import {doLogin} from '../../actions/AccountActions';
+import {setModuelPagesPermissions} from '../../actions/ModuelPagesPermissionsAction';
+import {saveToken, saveUserToken} from '../../actions/AsyncStorage';
 import {
   _Button,
   _Text,
   _VectorIcons,
   _View,
-  loginInterface
+  loginInterface,
 } from '../../components';
 import DrawerScreen from '../../navigation/Drawer/DrawerScreenNames';
-import { languages } from '../../reducers/languages';
+import {languages} from '../../reducers/languages';
 import Screens from '../../screenNames';
-import CommonStyles, { appFont } from '../CommonStyles';
-import { styles } from "./";
-import { Appstate } from '../../../reducers/Appstate';
-import { useNavigation } from '@react-navigation/native';
+import CommonStyles, {appFont} from '../CommonStyles';
+import {styles} from './';
+import {Appstate} from '../../reducers/Appstate';
+import {useNavigation} from '@react-navigation/native';
 const english = 'English',
   arabic = 'Arabic';
 
@@ -62,7 +59,7 @@ export const SignInScreen: React.FC<loginInterface> = () => {
   const dispatch: any = useDispatch();
   const navigation = useNavigation();
 
-  const { Get } = DataAccess();
+  const {Get} = DataAccess();
   const checkLanguage = async () => {
     let lang = await AsyncStorage.getItem('@LanguageSettings');
     if (lang) {
@@ -126,6 +123,8 @@ export const SignInScreen: React.FC<loginInterface> = () => {
   };
   const checkInputs = () => {
     if (userName == '' && password == '') {
+      console.log('==============');
+
       _showAlert('Error', 'Please enter Username and Password', 'Retry');
     } else if (userName == '') {
       _showAlert('Error', 'Please Enter Your Username', 'Retry');
@@ -137,16 +136,29 @@ export const SignInScreen: React.FC<loginInterface> = () => {
   };
   const SubmitLogin = async () => {
     setSubmiting(false);
-    let deviceId = getUniqueId();
-    const res = await dispatch(doLogin(userName, password, deviceId));
-    if (!res?.data){
+    let deviceId = await getUniqueId();
+
+    try {
+      console.log('Login button clicked', userName, password, deviceId);
+      const res = await dispatch(doLogin(userName, password, deviceId));
+
+      console.log('Login Result:', res);
+
+      if (!res?.data) {
+        console.error('Login Failed - Response:', res);
+        _loginFailed();
+      } else {
+        console.log('Login Success - Data:', res.data);
+        _loginSuccess(res.data);
+      }
+    } catch (error) {
+      console.error('Login Error:', error);
       _loginFailed();
-    } 
-    else _loginSuccess(res.data);
+    }
   };
 
   const _loginSuccess = async (response: any) => {
-    AsyncStorage.getItem('isFirstTimeLogin').then((isFirstTimeLogin) => {
+    AsyncStorage.getItem('isFirstTimeLogin').then(isFirstTimeLogin => {
       // Currently hide Eula Screen for first time logged in of that user which uptill haven't accept Eula
       // if (!response.user.isAgreed && isFirstTimeLogin == 'false') {
       //   _reset().then(() => {
@@ -204,28 +216,25 @@ export const SignInScreen: React.FC<loginInterface> = () => {
     setFirstBtn(btn);
   };
 
-  const { loginScreen } = selectedLanguage;
+  const {loginScreen} = selectedLanguage;
   return (
     <ScrollView
-      style={{ backgroundColor: whiteThemeColors.background }}
-      keyboardShouldPersistTaps='handled'
-    >
+      style={{backgroundColor: whiteThemeColors.background}}
+      keyboardShouldPersistTaps="handled">
       <LoadLogoImage showLogo={showLogo} />
       <KeyboardAvoidingView
         style={{
           flex: 3,
           justifyContent: 'center',
         }}
-        behavior='padding'
-        enabled
-      >
+        behavior="padding"
+        enabled>
         <_View style={styles.container}>
           <TouchableOpacity
             onPress={() => userNameRef.current.focus()}
-            style={[CommonStyles.mh20, styles.userNameField]}
-          >
+            style={[CommonStyles.mh20, styles.userNameField]}>
             <_VectorIcons
-              type='MaterialCommunityIcons'
+              type="MaterialCommunityIcons"
               name={'account'}
               size={20}
               color={whiteThemeColors.primary}
@@ -244,16 +253,15 @@ export const SignInScreen: React.FC<loginInterface> = () => {
               blurOnSubmit={false}
               placeholderTextColor={whiteThemeColors.greyDark}
               placeholder={loginScreen.userName}
-              onChangeText={(text) => setUserName(text)}
+              onChangeText={text => setUserName(text)}
               onSubmitEditing={() => passwordRef.current.focus()}
             />
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => passwordRef.current.focus()}
-            style={[CommonStyles.mh20, styles.passwordField]}
-          >
+            style={[CommonStyles.mh20, styles.passwordField]}>
             <_VectorIcons
-              type='MaterialCommunityIcons'
+              type="MaterialCommunityIcons"
               name={'lock'}
               size={20}
               color={whiteThemeColors.primary}
@@ -273,8 +281,8 @@ export const SignInScreen: React.FC<loginInterface> = () => {
               placeholderTextColor={whiteThemeColors.greyDark}
               placeholder={loginScreen.password}
               secureTextEntry={!showPassword}
-              onChangeText={(text) => setPassword(text)}
-              returnKeyType='done'
+              onChangeText={text => setPassword(text)}
+              returnKeyType="done"
               onSubmitEditing={() => checkInputs()}
             />
             <_View
@@ -282,11 +290,10 @@ export const SignInScreen: React.FC<loginInterface> = () => {
                 language == english
                   ? styles.englishTextIcon
                   : styles.arabicTextIcon
-              }
-            >
+              }>
               <TouchableOpacity onPress={() => setShowPassword(!showPassword)}>
                 <_VectorIcons
-                  type='MaterialCommunityIcons'
+                  type="MaterialCommunityIcons"
                   name={showPassword ? 'eye-off' : 'eye'}
                   size={20}
                   color={whiteThemeColors.greyDark}
@@ -311,20 +318,18 @@ export const SignInScreen: React.FC<loginInterface> = () => {
               checkInputs();
             }}
           />
-          <_View style={{ justifyContent: 'flex-end', marginTop: 15 }}>
+          <_View style={{justifyContent: 'flex-end', marginTop: 15}}>
             <Pressable
-              style={{ marginTop: 20, alignSelf: 'center' }}
+              style={{marginTop: 20, alignSelf: 'center'}}
               onPress={() => {
                 navigation.navigate(Screens.forgotPassword.name);
-              }}
-            >
+              }}>
               <_Text
                 style={{
                   color: whiteThemeColors.primary,
                   fontFamily: CommonStyles.fonts.semiBold,
                   fontSize: 15,
-                }}
-              >{`Forgot Password?`}</_Text>
+                }}>{`Forgot Password?`}</_Text>
             </Pressable>
           </_View>
           {isMultiLang && (
@@ -334,7 +339,7 @@ export const SignInScreen: React.FC<loginInterface> = () => {
                 submitting={true}
                 loaderColor={whiteThemeColors.white}
                 BtnTxt={styles.buttonText}
-                width='45%'
+                width="45%"
                 style={[
                   styles.button,
                   {
@@ -357,7 +362,7 @@ export const SignInScreen: React.FC<loginInterface> = () => {
                 submitting={true}
                 loaderColor={whiteThemeColors.white}
                 BtnTxt={styles.buttonTxt}
-                width='45%'
+                width="45%"
                 style={[
                   styles.button,
                   {
@@ -394,5 +399,3 @@ export const SignInScreen: React.FC<loginInterface> = () => {
     </ScrollView>
   );
 };
-
-

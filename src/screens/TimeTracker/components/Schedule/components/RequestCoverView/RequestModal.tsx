@@ -3,7 +3,7 @@ import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import { FlatList, Modal } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../reducers/Appstate';
 import { CustomAlert } from '../../../../../../Utilities';
 import Endpoint from '../../../../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../../../../data/DAL';

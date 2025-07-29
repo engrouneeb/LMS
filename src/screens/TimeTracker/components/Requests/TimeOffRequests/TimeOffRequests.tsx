@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../reducers/Appstate';
 import { AdminInterface, isAdmin, whiteThemeColors } from '../../../../../Utilities';
 import ApiEndpoints from '../../../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../../../data/DAL';

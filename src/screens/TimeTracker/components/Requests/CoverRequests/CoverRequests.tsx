@@ -8,7 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../reducers/Appstate';
 import { AdminInterface, isAdmin, whiteThemeColors } from '../../../../../Utilities';
 import ApiEndpoints from '../../../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../../../data/DAL';

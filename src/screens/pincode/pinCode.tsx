@@ -4,7 +4,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { TouchableOpacity } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useDispatch, useSelector } from 'react-redux';
-import Loader from '../../../Loader/loader';
+import Loader from '../Loader/loader';
 import { CustomAlert, isStaff, isStudent, Orientation, whiteThemeColors } from '../../Utilities';
 import {
   CheckInOut,
@@ -63,7 +63,6 @@ export const PinComponent: FC = () => {
           res?.message ?? res?.error_description ?? 'Something Went Wrong',
         );
         setAlertModalVisible(true);
-
         clearAll();
       } else {
         setload(false);

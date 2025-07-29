@@ -1,10 +1,10 @@
-import { useFocusEffect } from '@react-navigation/native';
-import { ScreenInterfaces } from '../interfaces';
-import React, { FC } from 'react';
-import { BackHandler, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { whiteThemeColors } from '../Utilities';
-import { _View } from '.';
+import {useFocusEffect} from '@react-navigation/native';
+import {ScreenInterfaces} from '../interfaces';
+import React, {FC} from 'react';
+import {BackHandler, StyleSheet} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {whiteThemeColors} from '../Utilities';
+import {_View} from '.';
 
 export const _Screen: FC<ScreenInterfaces> = ({
   background,
@@ -35,13 +35,13 @@ export const _Screen: FC<ScreenInterfaces> = ({
 
     BackHandler.addEventListener('hardwareBackPress', callback);
 
-    return () => BackHandler.removeEventListener('hardwareBackPress', callback);
+   // return () => BackHandler.removeEventListener('hardwareBackPress', callback);
   });
   return (
     <>
       {background && <_View style={styles.container}>{background}</_View>}
       {!hideTopSafeArea && (
-        <SafeAreaView style={{ backgroundColor: topSafeAreaColor }} />
+        <SafeAreaView style={{backgroundColor: topSafeAreaColor}} />
       )}
       <_View
         // align={align}
@@ -53,8 +53,7 @@ export const _Screen: FC<ScreenInterfaces> = ({
         flex={1}
         style={style}
         backgroundColor={backgroundColor}
-        {...rest}
-      >
+        {...rest}>
         {header}
         {children}
       </_View>

@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { _View } from '../../../../../../../components';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { _ActivityIndicator } from '../../../../../../Loader';
-import { ScheduleUserListViewFooterLoaderInterface } from '../../../../../../../interfaces';
+import {StyleSheet} from 'react-native';
+import {_View} from '../../../../../../../components';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_ActivityIndicator} from '../../../../../../Loader/_ActivityIndicator';
+import {ScheduleUserListViewFooterLoaderInterface} from '../../../../../../../interfaces';
 
 const FooterLoader: React.FC<ScheduleUserListViewFooterLoaderInterface> = ({
   footerLoader,
@@ -14,7 +14,7 @@ const FooterLoader: React.FC<ScheduleUserListViewFooterLoaderInterface> = ({
     )}
   </_View>
 );
-export { FooterLoader };
+export {FooterLoader};
 
 const styles = StyleSheet.create({
   container: {

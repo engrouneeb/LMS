@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { WebView } from 'react-native-webview';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import {WebView} from 'react-native-webview';
 import {
   EmbedInHTML,
   EmptyHTML,
@@ -10,21 +10,21 @@ import {
   getWidth,
   whiteThemeColors,
 } from '../../../Utilities';
-import { _Screen, _Text, _VectorIcons, _View } from '../../../components';
+import {_Screen, _Text, _VectorIcons, _View} from '../../../components';
 import Header from '../../Headers';
 import FeedbackModal from './FeedbackModal';
-import { ArticleDetailsInterface } from '../../../interfaces';
+import {ArticleDetailsInterface} from '../../../interfaces';
 import CommonStyles from '../../CommonStyles';
 
 const ArticleDetails: React.FC<ArticleDetailsInterface> = ({
   navigation,
   route,
 }) => {
-  const { details } = route.params;
+  const {details} = route.params;
   const [modalVisible, setModalVisible] = useState(false);
   const [htmlContent, setHtmlContent] = useState(EmptyHTML());
   const parseIntoHTML = () => {
-    let { content } = details;
+    let {content} = details;
     if (content != null) {
       content = RemoveHTML(removeStyling(content));
       setHtmlContent(EmbedInHTML(content));
@@ -43,12 +43,12 @@ const ArticleDetails: React.FC<ArticleDetailsInterface> = ({
   };
 
   const _Title = () => {
-    const { title } = details;
+    const {title} = details;
     return (
       <_View style={styles.titleContainer}>
         <_VectorIcons
           type={'Ionicons'}
-          name={'md-newspaper-outline'}
+          name={'newspaper'}
           color={whiteThemeColors.primary}
           size={25}
         />
@@ -61,9 +61,9 @@ const ArticleDetails: React.FC<ArticleDetailsInterface> = ({
     return (
       <_View style={styles.webContainer}>
         <WebView
-          source={{ html: htmlContent }}
+          source={{html: htmlContent}}
           style={styles.webView}
-          cacheMode='LOAD_NO_CACHE'
+          cacheMode="LOAD_NO_CACHE"
           allowsLinkPreview
           domStorageEnabled
           javaScriptEnabled
@@ -77,8 +77,7 @@ const ArticleDetails: React.FC<ArticleDetailsInterface> = ({
     return (
       <TouchableOpacity
         onPress={() => setModalVisible(true)}
-        style={styles.button}
-      >
+        style={styles.button}>
         <_Text style={styles.text}>Feedback</_Text>
       </TouchableOpacity>
     );
@@ -98,8 +97,7 @@ const ArticleDetails: React.FC<ArticleDetailsInterface> = ({
       flex={1}
       hideTopSafeArea
       onAndroidBack={handleBack}
-      backgroundColor={whiteThemeColors.background}
-    >
+      backgroundColor={whiteThemeColors.background}>
       <_View style={styles.container}>
         <_Title />
         <_WebView />

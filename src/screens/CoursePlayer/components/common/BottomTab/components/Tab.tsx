@@ -1,10 +1,10 @@
-import { Bottom_TabInterface } from '../../../../../../interfaces';
-import { useCallback } from 'react';
-import { Pressable } from 'react-native';
+import {Bottom_TabInterface} from '../../../../../../interfaces';
+import {useCallback} from 'react';
+import {Pressable} from 'react-native';
 import CommonStyles from '../../../../../CommonStyles';
-import { whiteThemeColors } from '../../../../../../Utilities';
-import { _Text, _View } from '../../../../../../components';
-import { styles } from '../styles';
+import {whiteThemeColors} from '../../../../../../Utilities';
+import {_Text, _View} from '../../../../../../components';
+import {styles} from '../styles';
 
 export const Tab: React.FC<Bottom_TabInterface> = ({
   item,
@@ -19,7 +19,7 @@ export const Tab: React.FC<Bottom_TabInterface> = ({
           ? whiteThemeColors.white
           : whiteThemeColors.greyDark + 20,
     }),
-    [currentScreenIndex]
+    [currentScreenIndex],
   );
 
   const getActiveTabTextStyles = useCallback(
@@ -33,7 +33,7 @@ export const Tab: React.FC<Bottom_TabInterface> = ({
           ? whiteThemeColors.tabs.tabLabelActive
           : whiteThemeColors.tabs.tabLabelNotActive,
     }),
-    [currentScreenIndex]
+    [currentScreenIndex],
   );
 
   return (
@@ -41,8 +41,7 @@ export const Tab: React.FC<Bottom_TabInterface> = ({
       <_View style={[styles.tabContainer, getActiveTabBg()]}>
         <_Text
           numberOfLines={1}
-          style={[styles.tabLabel, getActiveTabTextStyles()]}
-        >
+          style={[styles.tabLabel, getActiveTabTextStyles()]}>
           {item?.label}
         </_Text>
       </_View>

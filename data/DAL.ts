@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import { endpoint } from '../src/components';
+import { endpoint } from '../src/components/Interfaces';
 import { getUniqueId } from 'react-native-device-info';
 import { Domain } from '../src/reducers/BaseUrl';
 import EndPoints from './ApiEndpoints';
@@ -19,7 +19,6 @@ let timeoffset = -(new Date().getTimezoneOffset() / 60) * 60;
 export const DataAccess = () => {
   const checkErrorCodes = async (error: any) => {
     if (error.response.status === 401) {
-      //server codes for catch
       const res = await RefreshToken();
       if (res) {
         return { status: true };
@@ -51,19 +50,27 @@ export const DataAccess = () => {
     }
   };
   const Post = async (URL: string, params: any) => {
-    try {
-      let response = await axios.post(Domain + URL, JSON.stringify(params), {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          TimeOffset: timeoffset.toString(),
-        },
-      });
-      return response?.data;
-    } catch (error) {
-      return false;
-    }
-  };
+  try {
+    console.log('[Post] POST to:', Domain + URL);
+    console.log('[Post] Params:', params);
+
+    let response = await axios.post(Domain + URL, JSON.stringify(params), {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        TimeOffset: timeoffset.toString(),
+      },
+    });
+
+    console.log('[Post] Raw Axios response:', response);
+
+    return response?.data;
+  } catch (error) {
+    console.log('[Post] Error in Axios:', error?.response?.data || error);
+    return false;
+  }
+};
+
   const PostSecured = async (
     FetchData: endpoint,
     params: any,

@@ -4,9 +4,9 @@ import moment from 'moment';
 import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../reducers/Appstate';
+import { Appstate } from '../../../reducers/Appstate';
 import { CustomAlert, isStaff } from '../../../Utilities';
-import { whiteThemeColors } from 'utilities/colors';
+import { whiteThemeColors } from '../../../Utilities/colors';
 import {
   CheckInOut,
   checkInSuccess,

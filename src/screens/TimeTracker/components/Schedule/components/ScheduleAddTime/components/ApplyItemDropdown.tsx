@@ -3,7 +3,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { whiteThemeColors } from '../../../../../../../Utilities';
 import {
-  _ModalDropdown,
+  // _ModalDropdown,
   _Text,
   _VectorIcons,
   _View,
@@ -22,7 +22,7 @@ export const ApplyItemDropdown: React.FC<
         <_Text style={styles.headText}>Apply for item</_Text>
       </_View>
       <_View style={styles.dropDownContainer}>
-        <_ModalDropdown
+        {/* <_ModalDropdown
           isdisable={option?.length === 0}
           item={option}
           style={{
@@ -83,7 +83,7 @@ export const ApplyItemDropdown: React.FC<
               </_View>
             );
           }}
-        />
+        /> */}
       </_View>
     </_View>
   );

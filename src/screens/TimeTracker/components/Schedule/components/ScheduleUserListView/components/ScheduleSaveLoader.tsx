@@ -1,12 +1,12 @@
-import { ScheduleUserListViewScheduleSaveLoaderInterface } from '../../../../../../../interfaces';
+import {ScheduleUserListViewScheduleSaveLoaderInterface} from '../../../../../../../interfaces';
 import React from 'react';
-import { _Text, _View } from '../../../../../../../components';
-import { _ActivityIndicator } from '../../../../../../Loader';
-import { styles } from '../style';
+import {_Text, _View} from '../../../../../../../components';
+import {_ActivityIndicator} from '../../../../../../Loader/_ActivityIndicator';
+import {styles} from '../style';
 
 export const ScheduleSaveLoader: React.FC<
   ScheduleUserListViewScheduleSaveLoaderInterface
-> = ({ text }) => {
+> = ({text}) => {
   return (
     <_View style={styles.savingScheduleContainer}>
       <_View style={styles.savingScheduleSubContainer}>

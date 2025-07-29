@@ -47,6 +47,7 @@ export const useStudentInfoTabs = () => {
       };
     });
   }, [terminologies, filterMenuOptions, UserData.fullName]);
+console.log('Generated Tabs Routes:', routes);
 
   return { routes, tabsLoading };
 };

@@ -1,12 +1,12 @@
-import { ScheduleUserListViewRenderItemInterface } from '../../../../../../../interfaces';
+import {ScheduleUserListViewRenderItemInterface} from '../../../../../../../interfaces';
 import React from 'react';
-import { Pressable } from 'react-native';
-import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../../reducers/Appstate';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { _Text, _View } from '../../../../../../../components';
-import { UserImg } from '../../../../../../ThumbNail';
-import { styles } from '../style';
+import {Pressable} from 'react-native';
+import {useSelector} from 'react-redux';
+import {Appstate} from '../../../../../../../reducers/Appstate';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_Text, _View} from '../../../../../../../components';
+import {UserImg} from '../../../../../../ThumbNail';
+import {styles} from '../style';
 
 export const RenderList: React.FC<ScheduleUserListViewRenderItemInterface> = ({
   user,
@@ -14,13 +14,12 @@ export const RenderList: React.FC<ScheduleUserListViewRenderItemInterface> = ({
   onPress,
   weekDaysShort,
 }) => {
-  const { adminSchedule } = useSelector((state: Appstate) => state.language);
+  const {adminSchedule} = useSelector((state: Appstate) => state.language);
   return (
     <_View key={index.toString() + '+---'} style={styles.card}>
       <Pressable
         style={styles.pressableStyle}
-        onPress={() => onPress(user.userID)}
-      >
+        onPress={() => onPress(user.userID)}>
         <UserImg
           UserInfo={{
             FirstName: user.fName,
@@ -55,11 +54,10 @@ export const RenderList: React.FC<ScheduleUserListViewRenderItemInterface> = ({
                         whiteThemeColors.scheduleWeekIcon[_index],
                       borderColor: whiteThemeColors.scheduleWeekIcon[_index],
                     },
-                  ]}
-                >
+                  ]}>
                   {day}
                 </_Text>
-              ) : null
+              ) : null,
             )}
           </_View>
         </_View>

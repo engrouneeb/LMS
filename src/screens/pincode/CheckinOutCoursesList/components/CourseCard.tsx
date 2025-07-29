@@ -2,7 +2,7 @@ import { _Image, _Text, _VectorIcons, _View } from '../../../../components';
 import React, { FC, useEffect, useState } from 'react';
 import { TouchableOpacity, StyleSheet } from 'react-native';
 import CommonStyles from '../../../../screens/CommonStyles';
-import { whiteThemeColors } from 'utilities/colors';
+import { whiteThemeColors } from '../../../../Utilities/colors';
 
 interface CourseCardProps {
   courseDetails: {

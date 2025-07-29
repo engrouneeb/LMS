@@ -1,31 +1,31 @@
-import { useFocusEffect } from '@react-navigation/native';
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
-import { Dimensions, FlatList, TouchableOpacity } from 'react-native';
-import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
-import { _ActivityIndicator } from '../../../../../../../Loader';
-import { CustomAlert, isStudent, whiteThemeColors } from '../../../../../../Utilities';
+import {useFocusEffect} from '@react-navigation/native';
+import React, {Fragment, useCallback, useEffect, useState} from 'react';
+import {Dimensions, FlatList, TouchableOpacity} from 'react-native';
+import {useSelector} from 'react-redux';
+import {Appstate} from '../../../../../../reducers/Appstate';
+import {_ActivityIndicator} from '../../../../../Loader/_ActivityIndicator';
+import {
+  CustomAlert,
+  isStudent,
+  whiteThemeColors,
+} from '../../../../../../Utilities';
 import PaymentSvg from '../../../../../../../assets/noPaymentSvg';
 import ApiEndpoints from '../../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../../data/DAL';
-import { _Text, _VectorIcons, _View } from '../../../../../../components';
+import {DataAccess} from '../../../../../../../data/DAL';
+import {_Text, _VectorIcons, _View} from '../../../../../../components';
 import ScreensNames from '../../../../../../screenNames';
 import BillItem from './components/BillItems';
-import { styles } from './styles';
-import { useAppModulePermission } from '../../../../../../customHooks';
+import {styles} from './styles';
+import {useAppModulePermission} from '../../../../../../customHooks';
 interface props {
   navigation: any;
   studentId: number;
   studentName: string;
 }
-const BillingTab: React.FC<props> = ({
-  navigation,
-  studentId,
-  studentName,
-}) => {
-  const { Get, PostSecuredWithParams, PostSecured } = DataAccess();
-  const { filterMenuOptions } = useAppModulePermission();
-  let isAddPaymentMethod=filterMenuOptions("AddPaymentMethod");
+const BillingTab: React.FC<props> = ({navigation, studentId, studentName}) => {
+  const {Get, PostSecuredWithParams, PostSecured} = DataAccess();
+  const {filterMenuOptions} = useAppModulePermission();
+  let isAddPaymentMethod = filterMenuOptions('AddPaymentMethod');
   const [billingList, setBillingList] = useState([]);
   const [primarySelected, setPrimarySelected] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -48,7 +48,7 @@ const BillingTab: React.FC<props> = ({
   const onAddPaymentPress = () => {
     navigation.navigate(ScreensNames.addPaymentMethod.name, {
       navigation: navigation,
-      onClose: { onClose },
+      onClose: {onClose},
       stripeKey: stripeKey,
       plaidToken: plaidToken,
       studentId: studentId,
@@ -133,8 +133,8 @@ const BillingTab: React.FC<props> = ({
           <_Text style={styles.heading}>Payment Details</_Text>
         </_View>
         {loading ? (
-          <_View flex={1} justify='center' alignItems='center'>
-            <_ActivityIndicator size='large' />
+          <_View flex={1} justify="center" alignItems="center">
+            <_ActivityIndicator size="large" />
           </_View>
         ) : (
           <FlatList
@@ -142,7 +142,7 @@ const BillingTab: React.FC<props> = ({
             data={billingList}
             keyExtractor={(item, index) => index.toString()}
             contentContainerStyle={styles.scrollContentView}
-            renderItem={({ item, index }) => (
+            renderItem={({item, index}) => (
               <BillItem
                 item={item}
                 index={index}
@@ -152,11 +152,9 @@ const BillingTab: React.FC<props> = ({
               />
             )}
             ListEmptyComponent={() => (
-              <_View flex={1} justify={'center'} alignItems='center'>
+              <_View flex={1} justify={'center'} alignItems="center">
                 <PaymentSvg size={width - 150} />
-                <_Text
-                  style={[styles.headText, { fontSize: 18, marginTop: 20 }]}
-                >
+                <_Text style={[styles.headText, {fontSize: 18, marginTop: 20}]}>
                   No Payment Details
                 </_Text>
               </_View>
@@ -167,8 +165,7 @@ const BillingTab: React.FC<props> = ({
           <TouchableOpacity
             disabled={loading}
             onPress={onAddPaymentPress}
-            style={styles.floatingButton}
-          >
+            style={styles.floatingButton}>
             <_View style={styles.stretchedView}>
               <_VectorIcons
                 name={'plus'}
@@ -196,4 +193,4 @@ const BillingTab: React.FC<props> = ({
     </_View>
   );
 };
-export { BillingTab };
+export {BillingTab};

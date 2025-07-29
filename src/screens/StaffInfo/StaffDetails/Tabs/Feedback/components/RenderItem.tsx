@@ -1,19 +1,18 @@
 import React from 'react';
-import { StyleSheet, Pressable } from 'react-native';
-import { whiteThemeColors } from '../../../../../../Utilities';
-import { _Text, _View, _VectorIcons } from '../../../../../../components';
-import { UserImg } from '../../../../../ThumbNail';
+import {StyleSheet, Pressable} from 'react-native';
+import {whiteThemeColors} from '../../../../../../Utilities';
+import {_Text, _View, _VectorIcons} from '../../../../../../components';
+import {UserImg} from '../../../../../ThumbNail';
 import CommonStyles from '../../../../../../screens/CommonStyles';
 interface props {
   item: any;
   hanleOnPress: (itm: any) => void;
 }
-const RenderItem: React.FC<props> = ({ item, hanleOnPress }) => {
+const RenderItem: React.FC<props> = ({item, hanleOnPress}) => {
   return (
     <Pressable
       onPress={() => hanleOnPress(item)}
-      style={styles.itemContainerList}
-    >
+      style={styles.itemContainerList}>
       <_View style={styles.avatarContainer}>
         <UserImg
           UserInfo={{
@@ -41,7 +40,7 @@ const RenderItem: React.FC<props> = ({ item, hanleOnPress }) => {
   );
 };
 
-export { RenderItem };
+export {RenderItem};
 
 const styles = StyleSheet.create({
   itemContainerList: {

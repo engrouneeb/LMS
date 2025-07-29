@@ -8,14 +8,14 @@ import {
   TimeTrackerRequestCardInterface,
   TotalHoursInterface,
 } from '../../../../../../interfaces';
-import { FC } from 'react';
-import { TouchableOpacity } from 'react-native';
-import { whiteThemeColors } from '../../../../../../Utilities';
-import { _Text, _View } from '../../../../../../components';
-import { CoverRequestConstants } from '../../../../../../constants';
+import {FC} from 'react';
+import {TouchableOpacity} from 'react-native';
+import {whiteThemeColors} from '../../../../../../Utilities';
+import {_Text, _View} from '../../../../../../components';
+import {CoverRequestConstants} from '../../../../../../constants';
 import ScreensNames from '../../../../../../screenNames';
-import { UserImg } from '../../../../../ThumbNail';
-import { styles } from './style';
+import {UserImg} from '../../../../../ThumbNail';
+import {styles} from './style';
 
 const TAG_COLOR: TAG_COLORInterface = {
   [CoverRequestConstants.Submitted]: '#004bc0',
@@ -24,7 +24,7 @@ const TAG_COLOR: TAG_COLORInterface = {
   [CoverRequestConstants.Approve]: whiteThemeColors.green,
 };
 
-const TotalHours: FC<TotalHoursInterface> = ({ totalHours, category }) => {
+const TotalHours: FC<TotalHoursInterface> = ({totalHours, category}) => {
   return <_Text style={styles.details}>{`${totalHours}h ${category}`}</_Text>;
 };
 
@@ -44,8 +44,7 @@ export const RequestCard: FC<TimeTrackerRequestCardInterface> = ({
           data: item,
           type: variant,
         })
-      }
-    >
+      }>
       <_View style={styles.innerCont}>
         <_View style={styles.innerContainer}>
           <UserImg
@@ -72,8 +71,7 @@ export const RequestCard: FC<TimeTrackerRequestCardInterface> = ({
                   backgroundColor:
                     TAG_COLOR[item?.status] || whiteThemeColors.red,
                 },
-              ]}
-            >
+              ]}>
               <_Text style={styles.tagText}>{item.status}</_Text>
             </_View>
           </_View>
@@ -100,16 +98,16 @@ export const RequestCard: FC<TimeTrackerRequestCardInterface> = ({
               style={styles.declineBtn}
               onPress={() =>
                 onButtonAction(item, CoverRequestConstants.Rejected)
-              }
-            >
+              }>
               <_Text style={styles.btnText}>Reject</_Text>
             </TouchableOpacity>
           )}
           <TouchableOpacity
             style={styles.approveBtn}
-            onPress={() => onButtonAction(item, CoverRequestConstants.Approved)}
-          >
-            <_Text style={[styles.btnText, { color: whiteThemeColors.green }]}>
+            onPress={() =>
+              onButtonAction(item, CoverRequestConstants.Approved)
+            }>
+            <_Text style={[styles.btnText, {color: whiteThemeColors.green}]}>
               Approve
             </_Text>
           </TouchableOpacity>

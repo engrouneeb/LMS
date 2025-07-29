@@ -123,8 +123,7 @@ const _TabIndex: React.FC<TabIndexInterface> = ({ navigation, route }) => {
       }
       flex={1}
       hideTopSafeArea
-      onAndroidBack={onBackPress}
-    >
+      onAndroidBack={onBackPress}>
       {isVisible && (
         <StudentsList
           // ref={studentRef}
@@ -137,7 +136,7 @@ const _TabIndex: React.FC<TabIndexInterface> = ({ navigation, route }) => {
         />
       )}
       {loading ? (
-        <_ActivityIndicator size='large' />
+        <_ActivityIndicator size="large" />
       ) : failed ? (
         <_View style={styles.container}>
           <_Text style={styles.text}>
@@ -148,10 +147,10 @@ const _TabIndex: React.FC<TabIndexInterface> = ({ navigation, route }) => {
         <TabViewComponent
           navigation={navigation}
           routePath={route}
-          tabBar={data.courseFeilds.backlogTabElementsList}
+          tabBar={data?.courseFeilds?.backlogTabElementsList || []}
           isCourse={true}
-          courseFeilds={data.courseFeilds.backlogFormElementsList}
-          courseContent={data.courseChilds.courseChilds}
+          courseFeilds={data?.courseFeilds?.backlogFormElementsList || []}
+          courseContent={data?.courseChilds?.courseChilds || []}
           role={route.params?.role}
         />
       ) : (

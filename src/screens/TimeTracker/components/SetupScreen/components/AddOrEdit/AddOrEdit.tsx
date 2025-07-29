@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { FlatList, Modal, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../reducers/Appstate';
 import { whiteThemeColors } from '../../../../../../Utilities';
 import Endpoint from '../../../../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../../../../data/DAL';

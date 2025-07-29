@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   FlatList,
   Modal,
@@ -6,11 +6,15 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from 'react-native';
-import { useSelector } from 'react-redux';
-import { CustomAlert, DownloadDocs, whiteThemeColors } from '../../../../../../../../Utilities';
-import { Approvels } from '../../../../../../../../../assets/Icons';
+import {useSelector} from 'react-redux';
+import {
+  CustomAlert,
+  DownloadDocs,
+  whiteThemeColors,
+} from '../../../../../../../../Utilities';
+import {Approvels} from '../../../../../../../../../assets/Icons';
 import ApiEndpoints from '../../../../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../../../../data/DAL';
+import {DataAccess} from '../../../../../../../../../data/DAL';
 import {
   _Text,
   _VectorIcons,
@@ -19,12 +23,12 @@ import {
 } from '../../../../../../../../components';
 import Screens from '../../../../../../../../screenNames';
 
-import { useNavigation } from '@react-navigation/native';
-import { _ActivityIndicator } from '../../../../../../../Loader';
-import { Appstate } from '../../../../../../../../reducers/Appstate';
-import { UploadAttachment } from '../../../../../ChallengeDetails/Homework/components/SubmitHomework/components';
-import { RenderList } from './components/RenderList';
-import { styles } from './styles';
+import {useNavigation} from '@react-navigation/native';
+import {_ActivityIndicator} from '../../../../../../../Loader/_ActivityIndicator';
+import {Appstate} from '../../../../../../../../reducers/Appstate';
+import {UploadAttachment} from '../../../../../ChallengeDetails/Homework/components/SubmitHomework/components';
+import {RenderList} from './components/RenderList';
+import {styles} from './styles';
 interface props {
   isFromCourseAttachment?: boolean;
   list: any;
@@ -55,7 +59,7 @@ const _Attachments: React.FC<props> = ({
   userId = undefined,
 }) => {
   console.log('===================================_Attachments=');
-  console.log({ userId, hideNodata });
+  console.log({userId, hideNodata});
   console.log('====================================');
   const navigation: any = useNavigation();
   const [attachmentList, setAttachmentList] = useState(list);
@@ -64,7 +68,7 @@ const _Attachments: React.FC<props> = ({
   const [alertMessage, setAlertMessage] = useState('');
   const [loading, setloading] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const { classNotesScreen } = useSelector((state: Appstate) => state.language);
+  const {classNotesScreen} = useSelector((state: Appstate) => state.language);
   const downloadDocsRef: any = useRef();
   const UserInfo: any = useSelector((state: Appstate) => state.User.UserInfo);
   const [deleteConfirmationFlag, setDeleteConfirmationFlag] = useState(false);
@@ -72,7 +76,7 @@ const _Attachments: React.FC<props> = ({
   const selectedStudent: any = useSelector(
     (state: Appstate) => state.courseAssignStudentsReducer.data,
   );
-  const { PostSecuredWithParams, Get } = DataAccess();
+  const {PostSecuredWithParams, Get} = DataAccess();
   const openCard = (user: any) => {
     if (!Boolean(user.filePath) || !Boolean(user.downloadbleLink)) {
       if (!attachmentList?.isViewable) {
@@ -113,13 +117,11 @@ const _Attachments: React.FC<props> = ({
     }
   };
 
-  const ListEmpty = ({ classNotesScreen }: any) => {
+  const ListEmpty = ({classNotesScreen}: any) => {
     return (
       <_View style={styles.emptyListContainer}>
         {!hideNodata && <Approvels />}
-        <_Text
-          style={[styles.emptyListTxt, { marginTop: hideNodata ? 0 : 200 }]}
-        >
+        <_Text style={[styles.emptyListTxt, {marginTop: hideNodata ? 0 : 200}]}>
           {attachmentList?.isViewable || attachmentList?.isViewable == undefined
             ? classNotesScreen.NoAttachmentsFound
             : 'No Permissions to View'}
@@ -139,7 +141,7 @@ const _Attachments: React.FC<props> = ({
     var newList = attachmentList.attachments?.filter((Obj: any) => {
       return Obj.id !== item.id;
     });
-    setAttachmentList({ ...attachmentList, attachments: newList });
+    setAttachmentList({...attachmentList, attachments: newList});
   };
 
   const deleteConfirmation = (user: any) => {
@@ -197,7 +199,7 @@ const _Attachments: React.FC<props> = ({
     var file = [...attachmentList.attachments];
     file.push(obj);
 
-    setAttachmentList({ ...attachmentList, attachments: file });
+    setAttachmentList({...attachmentList, attachments: file});
     getAttachmentsDetail();
   };
 
@@ -213,11 +215,10 @@ const _Attachments: React.FC<props> = ({
             onPress={() => {
               setIsModalVisible(true);
             }}
-            style={styles.addFileBtn}
-          >
+            style={styles.addFileBtn}>
             <_VectorIcons
-              type='AntDesign'
-              name='addfile'
+              type="AntDesign"
+              name="addfile"
               size={21}
               color={whiteThemeColors.white}
             />
@@ -230,19 +231,19 @@ const _Attachments: React.FC<props> = ({
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-          }}
-        >
-          <_ActivityIndicator size='large' />
+          }}>
+          <_ActivityIndicator size="large" />
         </_View>
       ) : (
         <_View style={styles.scrollView}>
           <FlatList
+          
             showsVerticalScrollIndicator={false}
             numColumns={2}
             data={attachmentList?.attachments}
             contentContainerStyle={styles.flatListContainer}
-            ListHeaderComponent={() => <_View style={{ height: 20 }} />}
-            renderItem={({ item, index }) => {
+            ListHeaderComponent={() => <_View style={{height: 20}} />}
+            renderItem={({item, index}) => {
               return (
                 <_View style={styles.singleCard}>
                   <RenderList
@@ -265,7 +266,7 @@ const _Attachments: React.FC<props> = ({
               );
             }}
             keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={() => <_View style={{ height: 20 }} />}
+            ItemSeparatorComponent={() => <_View style={{height: 20}} />}
             ListEmptyComponent={() => (
               <ListEmpty classNotesScreen={classNotesScreen} />
             )}
@@ -292,14 +293,13 @@ const _Attachments: React.FC<props> = ({
       {isModalVisible ? (
         <SafeAreaView>
           <Modal
-            animationType='slide'
+            animationType="slide"
             transparent={true}
             visible={isModalVisible}
             onRequestClose={() => {
               setIsModalVisible(false);
             }}
-            supportedOrientations={['portrait', 'landscape']}
-          >
+            supportedOrientations={['portrait', 'landscape']}>
             <UploadAttachment
               isVisible={isModalVisible}
               assignmentId={list.homeworkAssignmentId}

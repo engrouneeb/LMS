@@ -3,7 +3,7 @@ import {
   StudentInfoCardInterface,
 } from '../../../../../../../../interfaces';
 import moment from 'moment';
-import React, { FC, useEffect, useReducer, useState } from 'react';
+import React, {FC, useEffect, useReducer, useState} from 'react';
 import {
   Alert,
   Keyboard,
@@ -12,17 +12,20 @@ import {
   ScrollView,
   StyleSheet,
 } from 'react-native';
-import { useDispatch } from 'react-redux';
+import {useDispatch} from 'react-redux';
 import CommonStyles from '../../../../../../../../screens/CommonStyles';
-import { DateTimePickerIos, whiteThemeColors } from '../../../../../../../../Utilities';
-import { loading } from '../.../../../../../../../../../actions/AsyncStorage';
+import {
+  DateTimePickerIos,
+  whiteThemeColors,
+} from '../../../../../../../../Utilities';
+import {loading} from '../.../../../../../../../../../actions/AsyncStorage';
 import ApiEndpoints from '../../../../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../../../../data/DAL';
-import { _Text, _VectorIcons, _View } from '../../../../../../../../components';
+import {DataAccess} from '../../../../../../../../../data/DAL';
+import {_Text, _VectorIcons, _View} from '../../../../../../../../components';
 import WhiteLabelConfig from '../../../../../../../../WhiteLabelConfig';
-import Loader from '../../../../../../../Loader/Loading';
-import { SingleTextInput } from '../ContactCard/components/SingleTextInput';
-import { intialState, reducer } from './State';
+import Loader from '../../../../../../../Loader/loader';
+import {SingleTextInput} from '../ContactCard/components/SingleTextInput';
+import {intialState, reducer} from './State';
 
 type StudentInfoType = {
   firstName: string;
@@ -46,12 +49,12 @@ export const StudentInfoUpdateModal: FC<StudentInfoUpdateModalInterface> = ({
   showModal,
 }) => {
   const dispatch = useDispatch();
-  const { PostSecured } = DataAccess();
+  const {PostSecured} = DataAccess();
   const [showUpdateModal, setShowUpdateModal] = useState(showModal);
   const [isKeyboardOpened, setIsKeyboardOpened] = useState(false);
   const [state, _setState] = useReducer(reducer, intialState);
   const [IsVisible, setIsVisible] = useState(false);
-  const setState = (type: string, data: any) => _setState({ type, data });
+  const setState = (type: string, data: any) => _setState({type, data});
   useEffect(() => {
     setShowUpdateModal(showModal);
     setState('intialsState', studentInfo);
@@ -91,10 +94,9 @@ export const StudentInfoUpdateModal: FC<StudentInfoUpdateModalInterface> = ({
   return (
     <Modal
       supportedOrientations={['portrait', 'landscape']}
-      animationType='slide'
+      animationType="slide"
       transparent={true}
-      visible={showUpdateModal}
-    >
+      visible={showUpdateModal}>
       <_View style={styles.container}>
         <_View
           style={[
@@ -102,8 +104,7 @@ export const StudentInfoUpdateModal: FC<StudentInfoUpdateModalInterface> = ({
             {
               height: isKeyboardOpened ? '100%' : '80%',
             },
-          ]}
-        >
+          ]}>
           <_View style={styles.topBarContainer}>
             <_View style={styles.topBar} />
           </_View>
@@ -114,8 +115,7 @@ export const StudentInfoUpdateModal: FC<StudentInfoUpdateModalInterface> = ({
                 fontSize: 18,
                 fontFamily: CommonStyles.fonts.semiBold,
                 color: whiteThemeColors.primary,
-              }}
-            >
+              }}>
               Student Information
             </_Text>
           </_View>
@@ -126,28 +126,27 @@ export const StudentInfoUpdateModal: FC<StudentInfoUpdateModalInterface> = ({
               color: whiteThemeColors.greyDark,
               marginLeft: 10,
               paddingBottom: 20,
-            }}
-          >
+            }}>
             Effortlessly update student information and password.
           </_Text>
           <ScrollView>
             <SingleTextInput
-              icon={{ type: 'Ionicons', name: 'person' }}
+              icon={{type: 'Ionicons', name: 'person'}}
               placeholder={'Enter first name'}
               value={state?.firstName}
-              onChangeText={(val) => onChangeValue(val, 'firstName')}
+              onChangeText={val => onChangeValue(val, 'firstName')}
             />
             <SingleTextInput
-              icon={{ type: 'Ionicons', name: 'person' }}
+              icon={{type: 'Ionicons', name: 'person'}}
               placeholder={'Enter last name'}
               value={state?.lastName}
-              onChangeText={(val) => onChangeValue(val, 'lastName')}
+              onChangeText={val => onChangeValue(val, 'lastName')}
             />
             <SingleTextInput
-              icon={{ type: 'Fontisto', name: 'email' }}
+              icon={{type: 'Fontisto', name: 'email'}}
               placeholder={'Enter email'}
               value={state?.email}
-              onChangeText={(val) => onChangeValue(val, 'email')}
+              onChangeText={val => onChangeValue(val, 'email')}
             />
             {/* <SingleTextInput
             icon={{ type: 'Ionicons', name: 'person' }}
@@ -167,15 +166,14 @@ export const StudentInfoUpdateModal: FC<StudentInfoUpdateModalInterface> = ({
                 marginBottom: 10,
                 alignItems: 'center',
               }}
-              onPress={() => setIsVisible(true)}
-            >
+              onPress={() => setIsVisible(true)}>
               <_VectorIcons
                 type={'Ionicons'}
                 name={'calendar'}
                 size={18}
                 color={whiteThemeColors.primary}
               />
-              <_Text style={{ fontSize: 14, marginLeft: 10 }}>
+              <_Text style={{fontSize: 14, marginLeft: 10}}>
                 {moment(state?.dob).format('MMM DD, YYYY')}
               </_Text>
             </Pressable>
@@ -210,8 +208,7 @@ export const StudentInfoUpdateModal: FC<StudentInfoUpdateModalInterface> = ({
                   setShowUpdateModal(false);
                   onPress();
                 }}
-                style={styles.closeBtn}
-              >
+                style={styles.closeBtn}>
                 <_Text style={styles.closeBtnTxt}>Close</_Text>
               </Pressable>
             </_View>
@@ -222,7 +219,7 @@ export const StudentInfoUpdateModal: FC<StudentInfoUpdateModalInterface> = ({
                   onChangeValue(moment(date).format('MM/DD/YYYY'), 'birthDate');
                 }}
                 data={new Date(state?.dob)}
-                mode='date'
+                mode="date"
                 isVisible={IsVisible}
                 setisVisible={setIsVisible}
               />
@@ -230,7 +227,6 @@ export const StudentInfoUpdateModal: FC<StudentInfoUpdateModalInterface> = ({
           </ScrollView>
         </_View>
       </_View>
-      <Loader />
     </Modal>
   );
 };
@@ -244,7 +240,7 @@ const styles = StyleSheet.create({
   },
   subContainer: {
     width: '100%',
-    backgroundColor:whiteThemeColors.background,
+    backgroundColor: whiteThemeColors.background,
     borderTopStartRadius: 10,
     borderTopEndRadius: 10,
     paddingHorizontal: 10,

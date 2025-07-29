@@ -1,15 +1,15 @@
 import React from 'react';
-import { FlatList, Modal, TouchableOpacity } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../../Utilities';
-import { InstructorDiscSvg } from '../../../../../../../../../assets/Icons';
+import {FlatList, Modal, TouchableOpacity} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../../Utilities';
+import {InstructorDiscSvg} from '../../../../../../../../../assets/Icons';
 import {
   _Text,
   _VectorIcons,
   _View,
   isTablet,
 } from '../../../../../../../../components';
-import { UserImg } from '../../../../../../../ThumbNail';
-import { styles } from './styles';
+import {UserImg} from '../../../../../../../ThumbNail';
+import {styles} from './styles';
 import CommonStyles from '../../../../../../../../screens/CommonStyles';
 interface props {
   modalVisible: boolean;
@@ -21,7 +21,7 @@ export const InstructorListModal: React.FC<props> = ({
   setModalVisible,
   instructorList,
 }) => {
-  const RenderInstructorList = ({ item, id }: any) => {
+  const RenderInstructorList = ({item, id}: any) => {
     return (
       <_View key={id + '--'} style={styles.list}>
         <_View style={styles.ListItem}>
@@ -45,24 +45,22 @@ export const InstructorListModal: React.FC<props> = ({
   return (
     <Modal
       supportedOrientations={['portrait', 'landscape']}
-      animationType='fade'
+      animationType="fade"
       transparent={true}
-      visible={modalVisible}
-    >
+      visible={modalVisible}>
       <_View style={styles.centeredView}>
         <_View style={styles.modalView}>
           <_View style={styles.headerContainer}>
             <_Text style={styles.headText}>Instructors List</_Text>
             <TouchableOpacity
               onPress={() => setModalVisible(false)}
-              style={styles.crossIcon}
-            >
+              style={styles.crossIcon}>
               <_VectorIcons
                 type={'Entypo'}
-                name='cross'
+                name="cross"
                 size={15}
                 color={whiteThemeColors.black}
-                style={{ padding: 5 }}
+                style={{padding: 5}}
               />
             </TouchableOpacity>
           </_View>
@@ -77,7 +75,7 @@ export const InstructorListModal: React.FC<props> = ({
             ) : (
               <_View style={styles.emptyList}>
                 <InstructorDiscSvg
-                  style={{ zIndex: 1 }}
+                  style={{zIndex: 1}}
                   size={100}
                   color={whiteThemeColors.primary}
                 />
@@ -86,8 +84,7 @@ export const InstructorListModal: React.FC<props> = ({
                     marginTop: 20,
                     color: whiteThemeColors.primary,
                     fontFamily: CommonStyles.fonts.medium,
-                  }}
-                >
+                  }}>
                   No Instructors are found
                 </_Text>
               </_View>

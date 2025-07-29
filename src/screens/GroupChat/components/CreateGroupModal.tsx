@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
-import { whiteThemeColors } from '../../../Utilities';
+import React, {FC, useEffect, useState} from 'react';
+import {whiteThemeColors} from '../../../Utilities';
 import {
   Alert,
   FlatList,
@@ -11,15 +11,21 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { _Button, _VectorIcons, _View, _Text, _TextInput } from '../../../components';
+import {
+  _Button,
+  _VectorIcons,
+  _View,
+  _Text,
+  _TextInput,
+} from '../../../components';
 import CommonStyles from '../../CommonStyles';
-import { DropDown } from '../../UserProfile/components';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { DataAccess } from '../../../../data/DAL';
-import { SelectMembersModal } from './SelectGroupMemberModal';
-import { UserImg } from '../../ThumbNail';
+import {DropDown} from '../../UserProfile/components';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {DataAccess} from '../../../../data/DAL';
+import {SelectMembersModal} from './SelectGroupMemberModal';
+import {UserImg} from '../../ThumbNail';
 import ApiEndpoints from '../../../../data/ApiEndpoints';
-import { extractNameExtension } from '../../Chat/ChatInterfaceScreen/Functions';
+import {extractNameExtension} from '../../Chat/ChatInterfaceScreen/Functions';
 
 interface Props {
   setShowModal: (val: boolean) => void;
@@ -40,7 +46,7 @@ export const CreateGroupModal: FC<Props> = ({
   const [selectedMembers, setSelectedMembers] = useState<any>([]);
   const [groupName, setGroupName] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { PostSecuredFormData } = DataAccess();
+  const {PostSecuredFormData} = DataAccess();
 
   const requestCameraPermission = async () => {
     try {
@@ -109,18 +115,21 @@ export const CreateGroupModal: FC<Props> = ({
       selectedMembers.map((item: any) => {
         members.push(item.userId);
       });
-      if (groupImage) data.append('Uploadfile', fullFile);
+      if (groupImage) {
+        data.append('Uploadfile', fullFile);
+      }
       data.append('Name', groupName);
       data.append('MemberIds', members.join(','));
       data.append('Description', 'asdf');
       console.log('----DATA', data);
       PostSecuredFormData(ApiEndpoints.CreateGroup, data)
-        .then((res) => {
+        .then(res => {
+          console.log('========' + 'Group created successfully', res);
           setIsLoading(false);
           getGroups();
           setShowModal(false);
         })
-        .catch((error) => {
+        .catch(error => {
           setIsLoading(false);
           // Handle the error here
           console.error('Error:', error);
@@ -133,23 +142,21 @@ export const CreateGroupModal: FC<Props> = ({
   return (
     <Modal
       supportedOrientations={['portrait', 'landscape']}
-      animationType='fade'
+      animationType="fade"
       transparent={true}
-      visible={showModal}
-    >
+      visible={showModal}>
       <_View style={styles.centeredView}>
-        <_View style={{ ...styles.modalView, height: '100%' }}>
+        <_View style={{...styles.modalView, height: '100%'}}>
           <_View style={styles.headerContainer}>
             <TouchableOpacity
               onPress={() => setShowModal(false)}
-              style={styles.crossIcon}
-            >
+              style={styles.crossIcon}>
               <_VectorIcons
-                type='Entypo'
-                name='cross'
+                type="Entypo"
+                name="cross"
                 size={15}
                 color={whiteThemeColors.black}
-                style={{ padding: 7 }}
+                style={{padding: 7}}
               />
             </TouchableOpacity>
           </_View>
@@ -157,14 +164,13 @@ export const CreateGroupModal: FC<Props> = ({
             <_View style={styles.modalInsideView}>
               <_Text style={styles.groupText}>Group Creation</_Text>
               <_View
-                style={[styles.profilePicContainer, styles.profilePicShadow]}
-              >
+                style={[styles.profilePicContainer, styles.profilePicShadow]}>
                 <Pressable disabled={groupImage === ''}>
                   <Image
                     source={
                       groupImage === ''
                         ? require('../../../../assets/userGroup.png')
-                        : { uri: groupImage }
+                        : {uri: groupImage}
                     }
                     style={styles.profilePic}
                   />
@@ -173,14 +179,12 @@ export const CreateGroupModal: FC<Props> = ({
                   style={styles.profilePicBtn}
                   onPress={() => {
                     setIsHow(!isHow);
-                  }}
-                >
+                  }}>
                   <_View
-                    style={[styles.profilePicIconContainer, styles.shadow]}
-                  >
+                    style={[styles.profilePicIconContainer, styles.shadow]}>
                     <_VectorIcons
                       type={'MaterialCommunityIcons'}
-                      name='camera'
+                      name="camera"
                       size={20}
                       color={whiteThemeColors.primary}
                     />
@@ -192,23 +196,22 @@ export const CreateGroupModal: FC<Props> = ({
             <_Text style={styles.addNameText}>Add Group name</_Text>
             <_TextInput
               autoFocus
-              autoCapitalize='none'
-              placeholder='Group name'
-              onChangeText={(text) => setGroupName(text)}
+              autoCapitalize="none"
+              placeholder="Group name"
+              onChangeText={text => setGroupName(text)}
               style={styles.dropDownSearchTxtInp}
             />
             <_Text style={styles.addNameText}>Add Group members</_Text>
             <TouchableOpacity
               style={styles.selectMembers}
-              onPress={() => setUserModal(true)}
-            >
+              onPress={() => setUserModal(true)}>
               <_Text style={styles.members}>Select members</_Text>
               <_VectorIcons
-                type='FontAwesome'
-                name='caret-right'
+                type="FontAwesome"
+                name="caret-right"
                 size={20}
                 color={whiteThemeColors.white}
-                style={{ padding: 7 }}
+                style={{padding: 7}}
               />
             </TouchableOpacity>
             <_View>
@@ -220,19 +223,18 @@ export const CreateGroupModal: FC<Props> = ({
                       flex: 1,
                       justifyContent: 'center',
                       alignItems: 'center',
-                    }}
-                  >
+                    }}>
                     <_VectorIcons
                       size={50}
-                      type='MaterialCommunityIcons'
-                      name='account-multiple-remove'
+                      type="MaterialCommunityIcons"
+                      name="account-multiple-remove"
                       color={whiteThemeColors.primary}
                     />
                     <_Text style={styles.noMembers}>No Members</_Text>
                   </_View>
                 )}
                 style={styles.flatlist}
-                renderItem={({ item }) => (
+                renderItem={({item}) => (
                   <_View style={styles.card}>
                     <UserImg
                       UserInfo={{
@@ -243,22 +245,21 @@ export const CreateGroupModal: FC<Props> = ({
                       }}
                       size={30}
                     />
-                    <_View style={{ marginLeft: 10 }}>
+                    <_View style={{marginLeft: 10}}>
                       <_Text style={styles.name}>{item.fullName}</_Text>
                       <_Text style={styles.role}>{item.role}</_Text>
                     </_View>
 
                     <TouchableOpacity
                       onPress={() => {
-                        setSelectedMembers((prevSelectedMembers) =>
+                        setSelectedMembers(prevSelectedMembers =>
                           prevSelectedMembers.filter(
-                            (member) => member.userId !== item.userId,
+                            member => member.userId !== item.userId,
                           ),
                         );
                       }}
-                      style={styles.removeContainer}
-                    >
-                      <_VectorIcons type='Entypo' name='cross' />
+                      style={styles.removeContainer}>
+                      <_VectorIcons type="Entypo" name="cross" />
                     </TouchableOpacity>
                   </_View>
                 )}

@@ -6,7 +6,8 @@ import { _Screen, _View, requestCameraPermission } from '../../components';
 import drawerScreens from '../../navigation/Drawer/DrawerScreenNames';
 import Header from '../Headers';
 import { QrScanner } from './QrScanner/QrScanner';
-import { Buttons, QRIcon } from './components';
+import {Buttons} from './components';
+import {  QRIcon } from './components';
 import { QRDetails } from './components/QRCodeComponents';
 import styles from './style';
 export const QRCode: React.FC = () => {
@@ -14,10 +15,10 @@ export const QRCode: React.FC = () => {
   const [showScanner, setShowScanner] = useState(false);
   const [orientation, setOrientation] = useState('PORTRAIT');
   const [status, setStatus] = useState<any>();
-  const requestPermission = async () => {
-    const requestPermission = await requestCameraPermission();
-    if (requestPermission) setShowScanner(true);
-  };
+  // const requestPermission = async () => {
+  //   const requestPermission = await requestCameraPermission();
+  //   if (requestPermission) setShowScanner(true);
+  // };
   const handleBack = () => {
     navigation.navigate(drawerScreens.dashboard.name);
     return true;

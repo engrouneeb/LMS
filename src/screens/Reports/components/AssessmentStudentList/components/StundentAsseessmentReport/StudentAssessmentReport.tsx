@@ -11,11 +11,11 @@ import {
   ReportCharts,
   ScoreStatus,
   Summary,
-} from '..';
+} from '../index';
 import ApiEndpoints from '../../../../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../../../../data/DAL';
 import {
-  _ModalDropdown,
+  // _ModalDropdown,
   _Screen,
   _Text,
   _View,
@@ -230,7 +230,7 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
                 alignSelf: 'center',
               }}
             >
-              {state.challengeList != undefined && (
+              {/* {state.challengeList != undefined && (
                 <_ModalDropdown
                   item={state.challengeList.map((userObj: any) => {
                     return userObj.text;
@@ -273,7 +273,7 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
                     width: '97%',
                   }}
                 />
-              )}
+              )} */}
             </_View>
             <_Text
               style={[
@@ -299,7 +299,7 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
                 alignSelf: 'center',
               }}
             >
-              {state.challengeList != undefined && (
+              {/* {state.challengeList != undefined && (
                 <_ModalDropdown
                   item={state.assessmentList.map((userObj: any) => {
                     return userObj.value;
@@ -341,7 +341,7 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
                     width: '97%',
                   }}
                 />
-              )}
+              )} */}
             </_View>
 
             <_View marginTop={20}></_View>

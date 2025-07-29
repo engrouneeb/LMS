@@ -1,10 +1,10 @@
 import moment from 'moment';
 import React from 'react';
-import { styles } from '../styles';
-import { _Text, _View } from '../../../../../../../components';
-import { UserImg } from '../../../../../../ThumbNail';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { FeedbackMessagePropsInterface } from '../../../../../../../interfaces';
+import {styles} from '../styles';
+import {_Text, _View} from '../../../../../../../components';
+import {UserImg} from '../../../../../../ThumbNail';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {FeedbackMessagePropsInterface} from '../../../../../../../interfaces';
 
 const FeedbackMessage: React.FC<FeedbackMessagePropsInterface> = ({
   name,
@@ -19,7 +19,7 @@ const FeedbackMessage: React.FC<FeedbackMessagePropsInterface> = ({
           <_Text style={styles.txt}>{text}</_Text>
           <_Text style={styles.dateTxt}>
             {`${moment(dateTime.split('-').join('/')).format(
-              'MMM Do, YYYY hh:mm:a'
+              'MMM Do, YYYY hh:mm:a',
             )}`}
           </_Text>
         </_View>

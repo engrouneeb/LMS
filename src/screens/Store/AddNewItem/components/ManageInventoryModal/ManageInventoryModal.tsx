@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from 'react';
 import { Modal } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { CustomAlert, whiteThemeColors } from '../../../../../Utilities';
-import { ManageInventoryCard } from '..';
+import { ManageInventoryCard } from '../index';
 import ApiEndpoints from '../../../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../../../data/DAL';
 import { _View } from '../../../../../components';

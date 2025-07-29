@@ -33,38 +33,30 @@ const Tabs: React.FC<props> = ({ staffId }) => {
     setNoPermission(!(routes.length>0));
   },[routes])
 
-  const renderTabBar = (props: any) => {
-    return (
-      <Orientation
-        getOrientation={(o: any) => {
-          setOrientation(o);
+const renderTabBar = () => (
+  <Orientation
+    getOrientation={(o: any) => {
+      setOrientation(o);
+    }}>
+    <_View style={{height: 85, backgroundColor: whiteThemeColors.white}}>
+      <ScrollView
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        ref={(ref: any) => {
+          setScrollRef(ref);
         }}
-      >
-        <_View style={{ height: 85, backgroundColor: whiteThemeColors.white }}>
-          <ScrollView
-            horizontal={true}
-            style={{
-              height: Platform.OS === 'ios' ? 80 : 65,
-              borderTopColor: whiteThemeColors.greyLite,
-              borderTopWidth: 1,
-            }}
-            showsHorizontalScrollIndicator={false}
-            ref={(ref: any) => {
-              setScrollRef(ref);
-            }}
-          >
-            <TabBar
-              {...props}
-              activeColor={whiteThemeColors.white}
-              indicatorStyle={{ height: 0 }}
-              indicatorContainerStyle={{
-                backgroundColor: whiteThemeColors.white,
-              }}
+        contentContainerStyle={{
+          borderTopColor: whiteThemeColors.greyLite,
+          borderTopWidth: 1,
+          backgroundColor: whiteThemeColors.white,
+        }}>
+        {routes.map((route, i) => {
+          const isActive = i === index;
+
+          return (
+            <_View
+              key={route.key}
               style={{
-                justifyContent: 'space-between',
-              }}
-              tabStyle={{
-                height: Platform.OS === 'ios' ? 80 : 65,
                 width:
                   orientation === 'PORTRAIT'
                     ? isTablet()
@@ -73,18 +65,49 @@ const Tabs: React.FC<props> = ({ staffId }) => {
                     : isTablet()
                     ? wp(19.4)
                     : wp(33),
-                backgroundColor: whiteThemeColors.white,
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: Platform.OS === 'ios' ? 80 : 65,
+                borderTopWidth: isActive ? 3 : 0,
+                borderColor: isActive
+                  ? whiteThemeColors.tabs.tabLabelActive
+                  : whiteThemeColors.greyLite,
+                paddingTop: 10,
               }}
-              renderIcon={(props) => renderTabIcon(props)}
-              labelStyle={{
-                display: 'none',
-              }}
-            />
-          </ScrollView>
-        </_View>
-      </Orientation>
-    );
-  };
+              onTouchEnd={() => setIndex(i)}>
+              <_VectorIcons
+                size={22}
+                color={
+                  isActive
+                    ? whiteThemeColors.tabs.tabLabelActive
+                    : whiteThemeColors.tabs.tabLabelNotActive
+                }
+                style={{textAlign: 'center'}}
+                name={route.iconName}
+                type={route.iconType}
+              />
+              <_Text
+                numberOfLines={1}
+                style={[
+                  styles.titleTxt,
+                  {
+                    color: isActive
+                      ? whiteThemeColors.tabs.tabLabelActive
+                      : whiteThemeColors.tabs.tabLabelNotActive,
+                    fontSize: 11,
+                    marginTop: 5,
+                  },
+                ]}>
+                {route.title}
+              </_Text>
+            </_View>
+          );
+        })}
+      </ScrollView>
+    </_View>
+  </Orientation>
+);
+
   const renderTabIcon = (props: any) => {
     const { route } = props;
     for (let i = 0; i < routes.length; i++) {
@@ -150,29 +173,29 @@ const Tabs: React.FC<props> = ({ staffId }) => {
     return tabComponents[route.key] || null;
   };
 
-  return (
-    showNoPermission?
-    <NoPermission/>
-    :
-    <TabView
-      style={styles.tabContainer}
-      tabBarPosition='bottom'
-      lazy
-      navigationState={{ index, routes }}
-      renderScene={_renderScene}
-      renderTabBar={renderTabBar}
-      onIndexChange={(num) => {
-        const pos = routes.findIndex((route) => route.key === routes[num]?.key);
-        if (pos !== -1) {
-          scrollRef1.scrollTo({
-            x: pos * 70,
-            y: 0,
-            animated: true,
-          });
-          setIndex(num);
-        }
-      }}
-    />
-  );
+return showNoPermission ? (
+  <NoPermission />
+) : (
+  <TabView
+    style={styles.tabContainer}
+    tabBarPosition="bottom"
+    lazy
+    navigationState={{index, routes}}
+    renderScene={_renderScene}
+    renderTabBar={renderTabBar}
+    onIndexChange={num => {
+      setIndex(num);
+      const pos = routes.findIndex(r => r.key === routes[num]?.key);
+      if (scrollRef1 && pos !== -1) {
+        scrollRef1.scrollTo({
+          x: pos * 80, // Adjust width per tab here if needed
+          y: 0,
+          animated: true,
+        });
+      }
+    }}
+  />
+);
+
 };
 export default React.memo(Tabs);

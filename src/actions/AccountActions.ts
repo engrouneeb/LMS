@@ -1,6 +1,6 @@
 import { DataAccess } from '../../data/DAL';
 import ApiEndPoint from '../../data/ApiEndpoints/index';
-import { endpoint } from '../components/Interfaces';
+import { endpoint } from '../components';
 import { loading, error } from './AsyncStorage';
 import { SuperadminConfigurationEnum } from '../constants';
 
@@ -58,9 +58,10 @@ export const CompanyConfigs = (PinCode: any) => async (dispatch: any) => {
 export const doLogin = (UserName: any, Password: any, deviceId: any) => async (
   dispatch: any,
 ) => {
+  debugger
   try {
     var EndPoint = ApiEndPoint.login;
-
+    debugger;
     let response = await Post(EndPoint.url, {
       Username: UserName,
       Password: Password,
@@ -68,8 +69,10 @@ export const doLogin = (UserName: any, Password: any, deviceId: any) => async (
     });
 
     if (response.error) {
+          debugger
       return dispatch(error(response || 'ERROR'));
     } else {
+          debugger
       dispatch(setUserInfo(response.user));
       return dispatch(success(response));
     }

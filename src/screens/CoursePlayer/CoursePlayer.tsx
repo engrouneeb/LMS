@@ -1,7 +1,7 @@
 import React from 'react';
 import { _View } from '../../components';
 import { useSelector } from 'react-redux';
-import { CoursePlayerComponent } from '..';
+import { CoursePlayerComponent } from '../index';
 import { useNavigation } from '@react-navigation/native';
 import { Appstate } from '../../reducers/Appstate';
 

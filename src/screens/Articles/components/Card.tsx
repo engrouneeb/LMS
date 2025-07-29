@@ -20,7 +20,7 @@ const Card: React.FC<props> = ({ title, time, writerName, description }) => {
           <_VectorIcons
             size={18}
             type={'Ionicons'}
-            name={'md-newspaper-outline'}
+            name={'newspaper'}
             color={whiteThemeColors.primary}
           />
           <Text numberOfLines={3} style={styles.titleText}>

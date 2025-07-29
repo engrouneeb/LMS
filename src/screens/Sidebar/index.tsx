@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { Platform, ScrollView } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import React, {useEffect, useState} from 'react';
+import {Platform, ScrollView} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 import IconBadge from 'react-native-icon-badge';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {
   CustomAlert,
   isAdmin,
@@ -22,40 +22,40 @@ import {
 } from '../../../assets/Icons';
 
 import ApiEndpoints from '../../../data/ApiEndpoints';
-import { DataAccess } from '../../../data/DAL';
-import { setCurrentFocus } from '../../actions/AsyncStorage';
+import {DataAccess} from '../../../data/DAL';
+import {setCurrentFocus} from '../../actions/AsyncStorage';
 // For Languages
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import Loader from '../Loader/loader';
-import { clearNotificationCount } from '../../actions/NotificationActions';
+import {clearNotificationCount} from '../../actions/NotificationActions';
 import * as setAction from '../../actions/StudentInfoAction';
-import { setTimeTrackerBadges } from '../../actions/TimeTrackerActions';
-import { _Text, _VectorIcons, _View, endpoint } from '../../components';
-import { useMeetingLogoutHook } from '../../customHooks';
+import {setTimeTrackerBadges} from '../../actions/TimeTrackerActions';
+import {_Text, _VectorIcons, _View, endpoint} from '../../components';
+import {useMeetingLogoutHook} from '../../customHooks';
 import {
   default as DrawerScreenNames,
   default as DrawerScreens,
 } from '../../navigation/Drawer/DrawerScreenNames';
-import { Appstate } from '../../reducers/Appstate';
+import {Appstate} from '../../reducers/Appstate';
 import Screens from '../../screenNames';
 import BGColor from './components/BGColor';
-import { useSideBarConfig } from './hooks';
-import { styles } from './styles';
+import {useSideBarConfig} from './hooks';
+import {styles} from './styles';
 
 let BadgeAndroid = require('react-native-android-badge');
 
 interface props {
   navigation: any;
 }
-const SideBar: React.FC<props> = ({ navigation }) => {
+const SideBar: React.FC<props> = ({navigation}) => {
   const dispatch: any = useDispatch();
-  const { LogoutFunction } = useMeetingLogoutHook();
+  const {LogoutFunction} = useMeetingLogoutHook();
   const notifications = useSelector(
-    (state: any) => state.token.CountNotifications
+    (state: any) => state.token.CountNotifications,
   );
   const messages = useSelector(
-    (state: Appstate) => state.messages.MessagesCount
+    (state: Appstate) => state.messages.MessagesCount,
   );
   const UserData: any = useSelector((state: Appstate) => state.User.UserInfo);
   const [alertMessage, setAlertMessage] = useState<any>('');
@@ -64,8 +64,8 @@ const SideBar: React.FC<props> = ({ navigation }) => {
   const [showPayment, setShowPayment] = useState(true);
   const [firstBtn, setFirstBtn] = useState<any>('');
   const [showAlert, setShowAlert] = useState(false);
-  const { Get } = DataAccess();
-  const { isLoading, sideBarConfig } = useSideBarConfig();
+  const {Get} = DataAccess();
+  const {isLoading, sideBarConfig} = useSideBarConfig();
   useEffect(() => {
     if (isCoordinator(UserData.roleName)) isCurriculumPresent = false;
     return () => {
@@ -87,7 +87,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
       }
     });
   };
-  const CheckDrawer = (Navigation: any,labelName:string) => {
+  const CheckDrawer = (Navigation: any, labelName: string) => {
     if (Navigation === 'Notifications') {
       navigation.closeDrawer();
       dispatch(clearNotificationCount(0));
@@ -103,7 +103,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
       navigation.navigate(Navigation);
     } else if (Navigation === 'Student Info') {
       console.log({Navigation});
-      
+
       if (isStudent(UserData.roleName)) {
         loadStudentData(UserData.userID);
         navigation.navigate(Screens.StudentInfoDetials.name, {
@@ -132,7 +132,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
           studentName: UserData.fullName,
           isStudent: true,
           isMenu: true,
-          header:labelName
+          header: labelName,
         });
       } else {
         navigation.navigate(Screens.HomeWorks.name, {
@@ -140,7 +140,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
           studentId: UserData.userID,
           studentName: UserData.fullName,
           // header: 'Homework Courses',
-          header:labelName,
+          header: labelName,
           isMenu: true,
           isStudent: false,
         });
@@ -165,7 +165,11 @@ const SideBar: React.FC<props> = ({ navigation }) => {
           });
         } else if (Navigation == 'Staff Info') {
           navigation.navigate(DrawerScreenNames.StaffMenu.name);
-        } else navigation.navigate(Navigation,{header:labelName,goBackScreen: DrawerScreens.dashboard.name});
+        } else
+          navigation.navigate(Navigation, {
+            header: labelName,
+            goBackScreen: DrawerScreens.dashboard.name,
+          });
         navigation.closeDrawer();
       }
     }
@@ -208,15 +212,15 @@ const SideBar: React.FC<props> = ({ navigation }) => {
           <_VectorIcons
             type={'FontAwesome5'}
             size={16}
-            name='store-alt'
+            name="store-alt"
             color={'#7e02e6'}
           />
         );
       case 'Attendance':
         return (
           <_VectorIcons
-            type='FontAwesome'
-            name='calendar'
+            type="FontAwesome"
+            name="calendar"
             size={18}
             color={whiteThemeColors.NavigationDrawer.Attendance}
           />
@@ -229,7 +233,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
         return (
           <_VectorIcons
             type={'MaterialIcons'}
-            name='notifications'
+            name="notifications"
             color={whiteThemeColors.NavigationDrawer.Notifications}
             size={22}
           />
@@ -238,7 +242,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
         return (
           <_VectorIcons
             type={'MaterialCommunityIcons'}
-            name='file-document-edit'
+            name="file-document-edit"
             color={whiteThemeColors.NavigationDrawer.Home}
             size={21}
           />
@@ -254,7 +258,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
         return (
           <_VectorIcons
             type={'MaterialCommunityIcons'}
-            name='clock-fast'
+            name="clock-fast"
             color={whiteThemeColors.NavigationDrawer.TimeTracker}
             size={20}
           />
@@ -263,7 +267,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
         return (
           <_VectorIcons
             type={'FontAwesome5'}
-            name='calendar-alt'
+            name="calendar-alt"
             color={'indigo'}
             size={18}
           />
@@ -272,7 +276,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
         return (
           <_VectorIcons
             type={'AntDesign'}
-            name='folderopen'
+            name="folderopen"
             color={whiteThemeColors.primary}
             size={18}
           />
@@ -281,20 +285,20 @@ const SideBar: React.FC<props> = ({ navigation }) => {
         return (
           <_VectorIcons
             type={'Foundation'}
-            name='clipboard-pencil'
+            name="clipboard-pencil"
             color={'indigo'}
             size={18}
-            style={{ left: 1 }}
+            style={{left: 1}}
           />
         );
       case 'Enrollments':
         return (
           <_VectorIcons
             type={'Foundation'}
-            name='clipboard-pencil'
+            name="clipboard-pencil"
             color={'indigo'}
             size={18}
-            style={{ left: 1 }}
+            style={{left: 1}}
           />
         );
       case 'Logout':
@@ -331,7 +335,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
         return (
           <_VectorIcons
             type={'Ionicons'}
-            name={'md-newspaper-outline'}
+            name={'newspaper'}
             size={18}
             color={whiteThemeColors.NavigationDrawer.Articles}
           />
@@ -352,7 +356,7 @@ const SideBar: React.FC<props> = ({ navigation }) => {
 
   const clearMessagesCount = () => {
     if (Platform.OS === 'ios') {
-      PushNotificationIOS.getApplicationIconBadgeNumber((num) => {
+      PushNotificationIOS.getApplicationIconBadgeNumber(num => {
         PushNotificationIOS.setApplicationIconBadgeNumber(0);
       });
     } else {
@@ -430,13 +434,11 @@ const SideBar: React.FC<props> = ({ navigation }) => {
   return (
     <_View
       flex={1}
-      style={{ backgroundColor: whiteThemeColors.sideBar.background }}
-    >
+      style={{backgroundColor: whiteThemeColors.sideBar.background}}>
       <BGColor />
       <ScrollView
-        style={{ flex: 1, backgroundColor: whiteThemeColors.background }}
-        showsVerticalScrollIndicator={false}
-      >
+        style={{flex: 1, backgroundColor: whiteThemeColors.background}}
+        showsVerticalScrollIndicator={false}>
         {isLoading && <Loader />}
         {sideBarConfig && (
           <_View style={styles.drawerContainer}>
@@ -456,10 +458,9 @@ const SideBar: React.FC<props> = ({ navigation }) => {
                       if (Obj.name == 'Logout') {
                         Logout();
                       } else {
-                        CheckDrawer(Obj.name,Obj.labelName);
+                        CheckDrawer(Obj.name, Obj.labelName);
                       }
-                    }}
-                  >
+                    }}>
                     <_View style={styles.drawerItems}>
                       <_View style={styles.singleItem}>
                         {_getSvg(Obj.name)}
@@ -509,13 +510,12 @@ const SideBar: React.FC<props> = ({ navigation }) => {
         )}
         <TouchableOpacity
           onPress={() => Logout()}
-          style={[styles.btnContainer, styles.logoutContainer]}
-        >
+          style={[styles.btnContainer, styles.logoutContainer]}>
           <_View style={styles.logoutBtn}>
             <_View style={styles.singleItem}>
               <_VectorIcons
                 type={'AntDesign'}
-                name='logout'
+                name="logout"
                 color={whiteThemeColors.NavigationDrawer.Logout}
                 size={20}
               />

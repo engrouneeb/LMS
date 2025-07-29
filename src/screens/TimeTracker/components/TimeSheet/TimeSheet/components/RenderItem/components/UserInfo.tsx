@@ -1,12 +1,12 @@
-import { TimeSheetUserInfoInterface } from '../../../../../../../../interfaces';
+import {TimeSheetUserInfoInterface} from '../../../../../../../../interfaces';
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../../Utilities';
-import { _Text, _View } from '../../../../../../../../components';
-import { UserImg } from '../../../../../../../ThumbNail';
+import {StyleSheet} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../../Utilities';
+import {_Text, _View} from '../../../../../../../../components';
+import {UserImg} from '../../../../../../../ThumbNail';
 import CommonStyles from '../../../../../../../../screens/CommonStyles';
 
-export const UserInfo: React.FC<TimeSheetUserInfoInterface> = ({ Obj }) => {
+export const UserInfo: React.FC<TimeSheetUserInfoInterface> = ({Obj}) => {
   return (
     <_View style={styles.userDataContainer}>
       <UserImg
@@ -24,8 +24,7 @@ export const UserInfo: React.FC<TimeSheetUserInfoInterface> = ({ Obj }) => {
         </_Text>
         <_Text
           numberOfLines={1}
-          style={[styles.textSizeWeight, styles.userRoleTxt]}
-        >
+          style={[styles.textSizeWeight, styles.userRoleTxt]}>
           {Obj.roleName}
         </_Text>
       </_View>

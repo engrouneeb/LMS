@@ -24,7 +24,7 @@ let tabsRoutes = [
   {
     key: 'instructorAttachments',
     title: 'Instructor Attachments',
-    icon: 'md-document-attach-outline',
+    icon: 'document-attach-outline',
   },
   {
     key: 'instructorFeedback',
@@ -173,7 +173,7 @@ const _Tabs: React.FC<TabInterface> = ({
                   : CommonStyles.themeClr.backgroundColor
               }
               size={i == index ? 24 : 21}
-              type={i == 2 ? 'md-document-attach-outline' : 'MaterialIcons'}
+              type={i == 2 ? 'document-attach-outline' : 'MaterialIcons'}
               name={route.icon}
               key={i}
             />

@@ -1,11 +1,11 @@
-import { SetupScreenRenderItemInterface } from '../../../../../../../interfaces';
+import {SetupScreenRenderItemInterface} from '../../../../../../../interfaces';
 import React from 'react';
-import { StyleSheet, Switch } from 'react-native';
+import {StyleSheet, Switch} from 'react-native';
 // REMOVED: import Switch from 'react-native-switch-pro';
 // REPLACED WITH: React Native's built-in Switch component
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { _Text, _View } from '../../../../../../../components';
-import { UserImg } from '../../../../../../ThumbNail';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_Text, _View} from '../../../../../../../components';
+import {UserImg} from '../../../../../../ThumbNail';
 import CommonStyles from '../../../../../../CommonStyles';
 
 export const RenderItem: React.FC<SetupScreenRenderItemInterface> = ({
@@ -32,8 +32,7 @@ export const RenderItem: React.FC<SetupScreenRenderItemInterface> = ({
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-        }}
-      >
+        }}>
         <_View style={styles.nameContainer}>
           <_Text numberOfLines={1} style={styles.nameTxt}>
             {item.name}
@@ -45,11 +44,15 @@ export const RenderItem: React.FC<SetupScreenRenderItemInterface> = ({
             // REMOVED: height, backgroundActive, backgroundInactive (react-native-switch-pro specific props)
             // REPLACED WITH: React Native Switch standard props
             onValueChange={() => onSelectApproval(item, index)}
-            trackColor={{ 
-              false: whiteThemeColors.assignClassIcons.uncheckIcon, 
-              true: whiteThemeColors.assignClassIcons.checkIcon 
+            trackColor={{
+              false: whiteThemeColors.assignClassIcons.uncheckIcon,
+              true: whiteThemeColors.assignClassIcons.checkIcon,
             }}
-            thumbColor={item.isSelected ? whiteThemeColors.white : whiteThemeColors.greyDark}
+            thumbColor={
+              item.isSelected
+                ? whiteThemeColors.white
+                : whiteThemeColors.greyDark
+            }
           />
         </_View>
       </_View>

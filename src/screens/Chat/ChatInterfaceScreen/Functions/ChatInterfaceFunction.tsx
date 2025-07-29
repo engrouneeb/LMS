@@ -377,20 +377,20 @@ const handleLaunchCamera: (
   navigation: any,
   onSend: any
 ) => void = (setIsMenuOpen, navigation, onSend) => {
-  openCamera(navigation, onSend);
+ // openCamera(navigation, onSend);
   setIsMenuOpen(false);
 };
-const openCamera: (navigation: any, onSend: any) => Promise<void> = async (
-  navigation,
-  onSend
-) => {
-  const isMicrophonePermisson = await checkMicorPhonePermission();
-  // console.log('isMicrophonePermisson', isMicrophonePermisson);
-  if (!isMicrophonePermisson) return;
-  const isCameraPermission = await checkCameraPermission();
-  if (isCameraPermission)
-    navigation.navigate(ScreensNames.Camera.name, { onSend: onSend });
-};
+// const openCamera: (navigation: any, onSend: any) => Promise<void> = async (
+//   navigation,
+//   onSend
+// ) => {
+//   const isMicrophonePermisson = await checkMicorPhonePermission();
+//   // console.log('isMicrophonePermisson', isMicrophonePermisson);
+//   if (!isMicrophonePermisson) return;
+//   const isCameraPermission = await checkCameraPermission();
+//   if (isCameraPermission)
+//     navigation.navigate(ScreensNames.Camera.name, { onSend: onSend });
+// };
 
 export const checkMicorPhonePermission: () => Promise<boolean> = async () => {
   if (Platform.OS === 'android') {

@@ -1,21 +1,21 @@
-import { DiscussionInterface } from '../../../../../../../interfaces';
+import {DiscussionInterface} from '../../../../../../../interfaces';
 import moment from 'moment';
-import React, { memo, useEffect, useReducer } from 'react';
-import { Linking } from 'react-native';
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
-import { CustomAlert, whiteThemeColors } from '../../../../../../../Utilities';
-import { EditDiscussion } from '../..';
-import { NoDiscussion } from '../../../../../../../../assets/NoDiscussion';
+import React, {memo, useEffect, useReducer} from 'react';
+import {Linking} from 'react-native';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import {useSelector} from 'react-redux';
+import {CustomAlert, whiteThemeColors} from '../../../../../../../Utilities';
+import {EditDiscussion} from '../..';
+import {NoDiscussion} from '../../../../../../../../assets/NoDiscussion';
 import ApiEndPoint from '../../../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../../../data/DAL';
-import { _Text, _View } from '../../../../../../../components';
-import { Appstate } from '../../../../../../../reducers/Appstate';
-import { _ActivityIndicator } from '../../../../../../Loader';
+import {DataAccess} from '../../../../../../../../data/DAL';
+import {_Text, _View} from '../../../../../../../components';
+import {Appstate} from '../../../../../../../reducers/Appstate';
+import {_ActivityIndicator} from '../../../../../../Loader/_ActivityIndicator';
 import AddCommentReply from '../AddCommentReply';
-import { initialState, reducer, stateConstant } from './States';
-import { CommentSectionBottom, CommentSectionHeader } from './comment';
-import { styles } from './styles';
+import {initialState, reducer, stateConstant} from './States';
+import {CommentSectionBottom, CommentSectionHeader} from './comment';
+import {styles} from './styles';
 import CommonStyles from '../../../../../../CommonStyles';
 
 const _DiscussionTab: React.FC<DiscussionInterface> = ({
@@ -26,9 +26,9 @@ const _DiscussionTab: React.FC<DiscussionInterface> = ({
 }) => {
   let isClicked = false;
   const UserData: any = useSelector((state: Appstate) => state.User.UserInfo);
-  const { PostSecured, PostSecuredWithParams } = DataAccess();
+  const {PostSecured, PostSecuredWithParams} = DataAccess();
   const [state, _setState] = useReducer(reducer, initialState);
-  const setState = (type: any, data: any) => _setState({ type, data });
+  const setState = (type: any, data: any) => _setState({type, data});
 
   useEffect(() => {
     setState(stateConstant.SHOW_ALERT, false);
@@ -41,7 +41,9 @@ const _DiscussionTab: React.FC<DiscussionInterface> = ({
       setState(stateConstant.COURSE_NAME, route?.params?.courseName);
     }
   }, []);
-  useEffect(()=>{Discussion();},[])
+  useEffect(() => {
+    Discussion();
+  }, []);
   useEffect(() => {
     getDiscussion();
   }, [discussionRes]);
@@ -448,15 +450,13 @@ const _DiscussionTab: React.FC<DiscussionInterface> = ({
                   alertMessage: 'Broken urles cannot be open',
                   showAlert: true,
                 });
-            }}
-          >
+            }}>
             <_Text
               style={{
                 color: whiteThemeColors.primaryTextColor,
                 fontFamily: CommonStyles.fonts.regular,
                 fontSize: 12,
-              }}
-            >
+              }}>
               {link.substr(6)}
             </_Text>
           </TouchableOpacity>
@@ -473,8 +473,7 @@ const _DiscussionTab: React.FC<DiscussionInterface> = ({
             textDecorationLine: str.includes('</u>') ? 'underline' : 'none',
             fontFamily: CommonStyles.fonts.regular,
             fontSize: 12,
-          }}
-        >
+          }}>
           {str.replace(/(<([^>]+)>)/gi, '')}
         </_Text>
       );
@@ -587,14 +586,13 @@ const _DiscussionTab: React.FC<DiscussionInterface> = ({
 
       <ScrollView
         showsVerticalScrollIndicator={false}
-        style={{ width: '100%' }}
-        contentContainerStyle={{ paddingBottom: 100 }}
-      >
+        style={{width: '100%'}}
+        contentContainerStyle={{paddingBottom: 100}}>
         <_View style={styles.submitCourseReview}>
           {state.comments?.length > 0 ? (
             state.comments.map((obj: any) => {
               return (
-                <_View style={{ width: '100%' }}>
+                <_View style={{width: '100%'}}>
                   <_View style={styles.commentSectionContainer}>
                     <CommentSectionHeader
                       obj={obj}

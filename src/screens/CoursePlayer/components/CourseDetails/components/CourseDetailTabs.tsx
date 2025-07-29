@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { styles } from '../styles';
 import { TouchableOpacity } from 'react-native';
 import CommonStyles from '../../../../CommonStyles';
-import ModalDropdown from 'react-native-modal-dropdown';
+//import ModalDropdown from 'react-native-modal-dropdown';
 import {  _VectorIcons, _View } from '../../../../../components';
 import {
   getTerminologyLabel,
@@ -44,8 +44,7 @@ export const CourseDetailTabs: React.FC<props> = ({
           onPress={() => {
             handleClassesAssignToCourse('onlineClass');
           }}
-          style={styles.topViewButton}
-        >
+          style={styles.topViewButton}>
           <OnlineClassSvg size={20} color={whiteThemeColors.white} />
         </TouchableOpacity>
       </_View>
@@ -55,11 +54,10 @@ export const CourseDetailTabs: React.FC<props> = ({
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={onPress1}
-            style={styles.topViewButton}
-          >
+            style={styles.topViewButton}>
             <_VectorIcons
-              name='ios-easel-outline'
-              type='Ionicons'
+              name="easel-outline"
+              type="Ionicons"
               color={whiteThemeColors.icons.whiteIcon}
               size={25}
             />
@@ -68,7 +66,7 @@ export const CourseDetailTabs: React.FC<props> = ({
       ) : (
         <_View style={styles.border}>
           <TouchableOpacity activeOpacity={0.9} style={styles.topViewButton}>
-            <ModalDropdown
+            {/* <ModalDropdown
               // scrollEnabled={false}
               saveScrollPosition={false}
               options={[
@@ -82,18 +80,17 @@ export const CourseDetailTabs: React.FC<props> = ({
               dropdownTextStyle={styles.dropDownItemTxt}
               onSelect={onPress2}
               textStyle={{ fontSize: 13 }}
-            >
-              <_VectorIcons
-                type={'Ionicons'}
-                name='ios-easel-outline'
-                color={whiteThemeColors.icons.whiteIcon}
-                size={20}
-                style={{
-                  flex: 1,
-                  padding: 15,
-                }}
-              />
-            </ModalDropdown>
+            >    </ModalDropdown> */}
+            <_VectorIcons
+              type={'Ionicons'}
+              name="easel-outline"
+              color={whiteThemeColors.icons.whiteIcon}
+              size={20}
+              style={{
+                flex: 1,
+                padding: 15,
+              }}
+            />
           </TouchableOpacity>
         </_View>
       )}
@@ -103,11 +100,10 @@ export const CourseDetailTabs: React.FC<props> = ({
           style={styles.topViewButton}
           onPress={() => {
             handleClassesAssignToCourse('onlineNotes');
-          }}
-        >
+          }}>
           <_VectorIcons
-            name='clipboard-notes'
-            type='Foundation'
+            name="clipboard-notes"
+            type="Foundation"
             size={20}
             color={whiteThemeColors.white}
           />
@@ -117,8 +113,7 @@ export const CourseDetailTabs: React.FC<props> = ({
         <TouchableOpacity
           activeOpacity={0.6}
           style={styles.topViewButton}
-          onPress={onPress3}
-        >
+          onPress={onPress3}>
           <CourseSvg2 size={20} color={whiteThemeColors.white} />
         </TouchableOpacity>
       </_View>

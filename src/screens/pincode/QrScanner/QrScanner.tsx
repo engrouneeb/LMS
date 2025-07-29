@@ -3,9 +3,9 @@ import { _VectorIcons, endpoint } from '../../../components';
 import moment from 'moment';
 import React, { useEffect, useRef, useState } from 'react';
 import { Animated, Dimensions, Pressable, View } from 'react-native';
-import QRCodeScanner from 'react-native-qrcode-scanner';
+// import QRCodeScanner from 'react-native-qrcode-scanner';
 import { useDispatch, useSelector } from 'react-redux';
-import { whiteThemeColors } from 'utilities/colors';
+import { whiteThemeColors } from '../../../Utilities/colors';
 import ApiEndpoints from '../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../data/DAL';
 import {

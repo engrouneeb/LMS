@@ -1,14 +1,14 @@
-import { ScheduleCardItemCardInterface } from '../../../../../../../interfaces';
-import React, { FC, Fragment } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { isAdmin, whiteThemeColors } from '../../../../../../../Utilities';
-import { _Text, _View } from '../../../../../../../components';
-import { UserImg } from '../../../../../../ThumbNail';
-import { DraftButton } from './DraftButton';
-import { PublishButton } from './PublishButton';
+import {ScheduleCardItemCardInterface} from '../../../../../../../interfaces';
+import React, {FC, Fragment} from 'react';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import {isAdmin, whiteThemeColors} from '../../../../../../../Utilities';
+import {_Text, _View} from '../../../../../../../components';
+import {UserImg} from '../../../../../../ThumbNail';
+import {DraftButton} from './DraftButton';
+import {PublishButton} from './PublishButton';
 import CommonStyles from '../../../../../../../screens/CommonStyles';
-import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../../reducers/Appstate';
+import {useSelector} from 'react-redux';
+import {Appstate} from '../../../../../../../reducers/Appstate';
 
 export const Card: FC<ScheduleCardItemCardInterface> = ({
   show,
@@ -21,7 +21,7 @@ export const Card: FC<ScheduleCardItemCardInterface> = ({
   dates,
   setIndexVal,
 }) => {
-  const {roleName}=useSelector((state:Appstate)=>state.User.UserInfo)
+  const {roleName} = useSelector((state: Appstate) => state.User.UserInfo);
   {
     return show ? (
       <Fragment>
@@ -41,15 +41,14 @@ export const Card: FC<ScheduleCardItemCardInterface> = ({
                   value?.dayID,
                   value?.wageID,
                   value?.dayComments,
-                  true
+                  true,
                 );
               }}
-              style={styles.innerContainer}
-            >
+              style={styles.innerContainer}>
               <_View style={styles.body}>
                 <_View style={styles.timeContainer}>
                   <_Text style={styles.timeText}>{value.checkIn}</_Text>
-                  <_Text style={[styles.timeText, { marginTop: 5 }]}>
+                  <_Text style={[styles.timeText, {marginTop: 5}]}>
                     {value.checkOut}
                   </_Text>
                 </_View>
@@ -63,7 +62,7 @@ export const Card: FC<ScheduleCardItemCardInterface> = ({
                   }}
                   size={50}
                 />
-                <_View style={{ marginLeft: 10, width: '50%' }}>
+                <_View style={{marginLeft: 10, width: '50%'}}>
                   <_Text style={styles.nameText}>{userName}</_Text>
                   <_Text
                     numberOfLines={2}
@@ -71,8 +70,7 @@ export const Card: FC<ScheduleCardItemCardInterface> = ({
                       color: whiteThemeColors.greyDark,
                       fontSize: 10,
                       fontFamily: CommonStyles.fonts.regular,
-                    }}
-                  >
+                    }}>
                     {value.dayComments}
                   </_Text>
                   <DraftButton visiblity={!value?.isPublished} />

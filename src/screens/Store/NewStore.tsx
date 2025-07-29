@@ -1,7 +1,7 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React, { useState } from 'react'
 import WebView from 'react-native-webview';
-import { _ActivityIndicator } from '../../../Loader/_ActivityIndicator';
+import { _ActivityIndicator } from '../Loader/_ActivityIndicator';
 import { _Screen, _View } from '../../components';
 import { useSelector } from 'react-redux';
 import { Appstate } from '../../../reducers/Appstate';

@@ -1,7 +1,7 @@
 import { UploadAttachmentInterface } from '../../../../../../../../interfaces';
 import React, { useEffect, useState } from 'react';
 import { Platform, TouchableOpacity } from 'react-native';
-//  import DocumentPicker from 'react-native-document-picker';
+import {pick, types} from '@react-native-documents/picker';
 import { ScrollView } from 'react-native-gesture-handler';
 import { launchImageLibrary } from 'react-native-image-picker';
 import { useSelector } from 'react-redux';
@@ -54,21 +54,29 @@ const _UploadAttachment: React.FC<UploadAttachmentInterface> = ({
     setSelectedFile('No File Selected');
   }, [isVisible]);
 
-  const handleSelectFile = async () => {
-    // try {
-    //   const file = await DocumentPicker.pickSingle({
-    //     type:
-    //       attachmentFor == 'InventoryImage'
-    //         ? [DocumentPicker.types.images]
-    //         : [DocumentPicker.types.allFiles],
-    //   });
-    //   if (file) {
-    //     setFileName(file?.name);
-    //     setFile(file);
-    //     setSelectedFile(file.name);
-    //   }
-    // } catch (err) {}
-  };
+const handleSelectFile = async () => {
+  try {
+    const [file] = await pick({
+      allowMultiSelection: false,
+      mode: 'open',
+      types:
+        attachmentFor === 'InventoryImage' ? [types.images] : [types.allFiles],
+    });
+
+    if (file) {
+      setFileName(file.name);
+      setFile(file);
+      setSelectedFile(file.name);
+    }
+  } catch (err) {
+    if (err?.code !== 'DOCUMENT_PICKER_CANCELED') {
+      console.error('DocumentPicker error:', err);
+      setAlertTitle('Error');
+      setAlertMessage('Failed to select file');
+      setShowAlert(true);
+    }
+  }
+};
 
   const handleFileUpload = async () => {
     if (fileName == '') {

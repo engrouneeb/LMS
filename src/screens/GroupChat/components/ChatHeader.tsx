@@ -33,7 +33,7 @@ export const ChatHeader: FC<Props> = ({ onBack, name, members, onPress }) => {
       >
         <_VectorIcons
           type={'Ionicons'}
-          name='ios-arrow-back'
+          name='arrow-back'
           color={whiteThemeColors.white}
           size={20}
         />

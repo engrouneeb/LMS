@@ -605,7 +605,7 @@ const styles = StyleSheet.create({
   },
   emailContainer: {
     flexDirection: 'row',
-    aligItem: 'center',
+    alignItems: 'center',
   },
   emailTxt: {
     fontSize: 12,

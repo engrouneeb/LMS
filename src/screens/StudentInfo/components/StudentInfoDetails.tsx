@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StudentDetialsInterface } from '../../../interfaces';
 import React, { FC, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../reducers/Appstate';
+import { Appstate } from '../../../reducers/Appstate';
 import { getTerminologyLabel, isStudent, TerminologyMap, whiteThemeColors } from '../../../Utilities';
 import { _Screen } from '../../../components';
 import DrawerScreen from '../../../navigation/Drawer/DrawerScreenNames';

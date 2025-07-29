@@ -1,24 +1,25 @@
-import React, { FC, Fragment, useEffect, useState } from 'react';
-import { Dimensions, ScrollView, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
-import { whiteThemeColors } from '../../../../../../Utilities';
+import React, {FC, Fragment, useEffect, useState} from 'react';
+import {Dimensions, ScrollView, StyleSheet} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {Appstate} from '../../../../../../reducers/Appstate';
+import {whiteThemeColors} from '../../../../../../Utilities';
+import {ContactListModal, FamilyInfoCard, StudentInfoCard} from './components';
+import {_ActivityIndicator} from '../../../../../Loader/_ActivityIndicator';
+import {NoDataFound} from '../NoDataFound';
 import {
-  ContactListModal,
-  FamilyInfoCard,
-  StudentInfoCard,
-} from './components';
-import { _ActivityIndicator } from '../../../../../../../Loader';
-import { NoDataFound } from '../NoDataFound';
-import { _View, _Text, _VectorIcons, endpoint } from '../../../../../../components';
-import { DataAccess } from '../../../../../../../data/DAL';
-const { width, height } = Dimensions.get('screen');
+  _View,
+  _Text,
+  _VectorIcons,
+  endpoint,
+} from '../../../../../../components';
+import {DataAccess} from '../../../../../../../data/DAL';
+const {width, height} = Dimensions.get('screen');
 import * as StudentInfoStuff from '../../../../../../actions/StudentInfoAction';
 import ApiEndpoints from '../../../../../../../data/ApiEndpoints';
-import { useDashboard } from '../../../../../../../Dashboard/Hooks/useDashboard';
+import {useDashboard} from '../../../../../Dashboard/Hooks/useDashboard';
 const _OverviewTab: FC = () => {
   const {
-    overview: { familyInfo, studentInfo, contactInfo },
+    overview: {familyInfo, studentInfo, contactInfo},
     loading,
   }: any = useSelector((state: Appstate) => ({
     overview: state.StudentInfoReducer.overview,
@@ -26,16 +27,16 @@ const _OverviewTab: FC = () => {
   }));
   const dispatch = useDispatch();
   const [noData, setNoData] = useState(false);
-  const { Get } = DataAccess();
-  const { getParentQuickLinkConfiguration } = useDashboard();
+  const {Get} = DataAccess();
+  const {getParentQuickLinkConfiguration} = useDashboard();
   const [quickLinkConfig, setQuickLinkConfig] = useState<any[]>([]);
-  let { roleName } = useSelector((state: any) => state.User.UserInfo);
+  let {roleName} = useSelector((state: any) => state.User.UserInfo);
   useEffect(() => {
     !loading &&
       setNoData(
         (familyInfo && Boolean(Object.keys(familyInfo).length)) ||
           Boolean(studentInfo?.length) ||
-          Boolean(contactInfo?.length)
+          Boolean(contactInfo?.length),
       );
   }, [studentInfo, familyInfo, contactInfo]);
   useEffect(() => {
@@ -97,7 +98,7 @@ const _OverviewTab: FC = () => {
         },
       ];
       const responses = await Promise.allSettled(
-        endpoints.map((endpoint) => Get(endpoint))
+        endpoints.map(endpoint => Get(endpoint)),
       );
 
       responses.forEach((result, index) => {
@@ -142,7 +143,7 @@ const _OverviewTab: FC = () => {
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {loading ? (
         <_View style={styles.loaderContainer}>
-          <_ActivityIndicator size='large' />
+          <_ActivityIndicator size="large" />
         </_View>
       ) : !noData ? (
         <NoDataFound />

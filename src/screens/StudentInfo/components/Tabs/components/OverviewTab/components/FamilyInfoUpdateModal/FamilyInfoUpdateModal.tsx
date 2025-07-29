@@ -1,27 +1,27 @@
-import { Pressable, StyleSheet } from 'react-native';
-import { Keyboard } from 'react-native';
-import { SingleTextInput } from '../ContactCard/components/SingleTextInput';
+import {Pressable, StyleSheet} from 'react-native';
+import {Keyboard} from 'react-native';
+import {SingleTextInput} from '../ContactCard/components/SingleTextInput';
 import {
   FamilyInfoCardInterface,
   addUpdateStudentInfoInterface,
   FamilyInfoType,
 } from '../../../../../../../../interfaces';
-import React, { FC, useEffect, useReducer, useState } from 'react';
-import { Alert, Modal, TouchableOpacity } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../../Utilities';
+import React, {FC, useEffect, useReducer, useState} from 'react';
+import {Alert, Modal, TouchableOpacity} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../../Utilities';
 import ApiEndpoints from '../../../../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../../../../data/DAL';
+import {DataAccess} from '../../../../../../../../../data/DAL';
 import {
   _Text,
   _TextInput,
   _VectorIcons,
   _View,
 } from '../../../../../../../../components';
-import { FamilyInfoInterface } from '../../../../../../../../interfaces';
-import { intialState, reducer } from './State';
+import {FamilyInfoInterface} from '../../../../../../../../interfaces';
+import {intialState, reducer} from './State';
 import Loading from '../../../../../../../Loader/Loading';
-import { loading } from '../.../../../../../../../../../actions/AsyncStorage';
-import { useDispatch } from 'react-redux';
+import {loading} from '../.../../../../../../../../../actions/AsyncStorage';
+import {useDispatch} from 'react-redux';
 import WhiteLabelConfig from '../../../../../../../../WhiteLabelConfig';
 interface familyInfoInterface {
   city: string;
@@ -59,9 +59,9 @@ export const FamilyInfoUpdateModal: FC<FamilyInfoModalInterface> = ({
   const [isKeyboardOpened, setIsKeyboardOpened] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(showModal);
   const [state, _setState] = useReducer(reducer, intialState);
-  const { PostSecured } = DataAccess();
+  const {PostSecured} = DataAccess();
   const dispatch = useDispatch();
-  const setState = (type: string, data: any) => _setState({ type, data });
+  const setState = (type: string, data: any) => _setState({type, data});
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
@@ -107,10 +107,9 @@ export const FamilyInfoUpdateModal: FC<FamilyInfoModalInterface> = ({
   return (
     <Modal
       supportedOrientations={['portrait', 'landscape']}
-      animationType='slide'
+      animationType="slide"
       transparent={true}
-      visible={showUpdateModal}
-    >
+      visible={showUpdateModal}>
       <_View style={styles.container}>
         <_View
           style={[
@@ -118,8 +117,7 @@ export const FamilyInfoUpdateModal: FC<FamilyInfoModalInterface> = ({
             {
               height: isKeyboardOpened ? '95%' : '70%',
             },
-          ]}
-        >
+          ]}>
           <_View style={styles.topBarContainer}>
             <_View style={styles.topBar} />
           </_View>
@@ -130,52 +128,51 @@ export const FamilyInfoUpdateModal: FC<FamilyInfoModalInterface> = ({
                 fontSize: 18,
                 fontWeight: '700',
                 color: whiteThemeColors.primary,
-              }}
-            >
+              }}>
               Family Information
             </_Text>
           </_View>
           <SingleTextInput
-            icon={{ type: 'Ionicons', name: 'person' }}
+            icon={{type: 'Ionicons', name: 'person'}}
             placeholder={'Enter family Name'}
             value={state?.familyName}
-            onChangeText={(val) => onChangeValue(val, 'familyName')}
+            onChangeText={val => onChangeValue(val, 'familyName')}
           />
           <SingleTextInput
-            icon={{ type: 'Entypo', name: 'home' }}
+            icon={{type: 'Entypo', name: 'home'}}
             placeholder={'Enter home address'}
             value={state?.homeAddress}
-            onChangeText={(val) => onChangeValue(val, 'homeAddress')}
+            onChangeText={val => onChangeValue(val, 'homeAddress')}
           />
           <SingleTextInput
-            icon={{ type: 'MaterialCommunityIcons', name: 'home-city' }}
+            icon={{type: 'MaterialCommunityIcons', name: 'home-city'}}
             placeholder={'Enter city'}
             value={state?.city}
-            onChangeText={(val) => onChangeValue(val, 'city')}
+            onChangeText={val => onChangeValue(val, 'city')}
           />
           <SingleTextInput
-            icon={{ type: 'MaterialCommunityIcons', name: 'home-map-marker' }}
+            icon={{type: 'MaterialCommunityIcons', name: 'home-map-marker'}}
             placeholder={'Enter state'}
             value={state?.state}
-            onChangeText={(val) => onChangeValue(val, 'state')}
+            onChangeText={val => onChangeValue(val, 'state')}
           />
           <SingleTextInput
-            icon={{ type: 'MaterialIcons', name: 'location-on' }}
+            icon={{type: 'MaterialIcons', name: 'location-on'}}
             placeholder={'Enter zip code'}
             value={state?.zip}
-            onChangeText={(val) => onChangeValue(val, 'zip')}
+            onChangeText={val => onChangeValue(val, 'zip')}
           />
           <SingleTextInput
-            icon={{ type: 'MaterialCommunityIcons', name: 'phone-classic' }}
+            icon={{type: 'MaterialCommunityIcons', name: 'phone-classic'}}
             placeholder={'Enter phone number'}
             value={state?.primaryPhone}
-            onChangeText={(val) => onChangeValue(val, 'primaryPhone')}
+            onChangeText={val => onChangeValue(val, 'primaryPhone')}
           />
           <SingleTextInput
-            icon={{ type: 'MaterialIcons', name: 'contact-phone' }}
+            icon={{type: 'MaterialIcons', name: 'contact-phone'}}
             placeholder={'Enter emergency contact info'}
             value={state?.emergencyContactInfo}
-            onChangeText={(val) => onChangeValue(val, 'emergencyContactInfo')}
+            onChangeText={val => onChangeValue(val, 'emergencyContactInfo')}
           />
           <_View style={styles.saveChangesContainer}>
             <Pressable onPress={updateInfo} style={styles.btnSave}>
@@ -188,8 +185,7 @@ export const FamilyInfoUpdateModal: FC<FamilyInfoModalInterface> = ({
                 setShowUpdateModal(false);
                 onPress(state);
               }}
-              style={styles.closeBtn}
-            >
+              style={styles.closeBtn}>
               <_Text style={styles.closeBtnTxt}>Close</_Text>
             </Pressable>
           </_View>

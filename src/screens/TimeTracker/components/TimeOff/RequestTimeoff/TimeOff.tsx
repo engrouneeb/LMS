@@ -1,12 +1,12 @@
-import { useNavigation } from '@react-navigation/native';
-import { TimeOffInterface } from '../../../../../interfaces';
+import {useNavigation} from '@react-navigation/native';
+import {TimeOffInterface} from '../../../../../interfaces';
 import moment from 'moment';
-import React, { FC, useEffect, useReducer, useState } from 'react';
-import { Alert, SafeAreaView } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../reducers/Appstate';
-import { _ActivityIndicator } from '../../../../../../Loader';
+import React, {FC, useEffect, useReducer, useState} from 'react';
+import {Alert, SafeAreaView} from 'react-native';
+import {ScrollView} from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import {Appstate} from '../../../../../reducers/Appstate';
+import {_ActivityIndicator} from '../../../../Loader/_ActivityIndicator';
 import {
   convertUTCDateToLocalDateStringFormat,
   CustomAlert,
@@ -14,8 +14,8 @@ import {
   whiteThemeColors,
 } from '../../../../../Utilities';
 import ApiEndPoint from '../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../data/DAL';
-import { updateTimeOff } from '../../../../../actions/AsyncStorage';
+import {DataAccess} from '../../../../../../data/DAL';
+import {updateTimeOff} from '../../../../../actions/AsyncStorage';
 import {
   AddTimeOff,
   DeleteTimeOff,
@@ -25,32 +25,27 @@ import {
   timeOffInstructorSuccess,
   timeOffInstructorUpdate,
 } from '../../../../../actions/timeOffInstructorActions';
-import { endpoint, _Screen, _View } from '../../../../../components';
-import { TimeOffModal } from '../components/AddTimeOffModal';
+import {endpoint, _Screen, _View} from '../../../../../components';
+import {TimeOffModal} from '../components/AddTimeOffModal';
 import Header from '../../../../Headers';
-import { DAY_COLOR } from '../constants';
-import {
-  CardTitle,
-  DisplayCard,
-  FloatingButton,
-  _Calendar,
-} from './components';
+import {DAY_COLOR} from '../constants';
+import {CardTitle, DisplayCard, FloatingButton, _Calendar} from './components';
 import {
   convertTime12to24,
   endDateFormatting,
   startDateFormatting,
 } from './RequestTimeOffFunctions';
-import { initialState, reducer, stateConstants } from './states';
-import { useAppModulePermission } from '../../../../../customHooks';
+import {initialState, reducer, stateConstants} from './states';
+import {useAppModulePermission} from '../../../../../customHooks';
 
-const TimeOff: FC<TimeOffInterface> = ({ route }) => {
+const TimeOff: FC<TimeOffInterface> = ({route}) => {
   const navigation: any = useNavigation();
-   const { filterMenuOptions } = useAppModulePermission();
-   const isAddTimeoff=filterMenuOptions("AddTimeoff");
+  const {filterMenuOptions} = useAppModulePermission();
+  const isAddTimeoff = filterMenuOptions('AddTimeoff');
   const SelectedLanguage: any = useSelector(
     (state: Appstate) => state.language,
   );
-  const { timeOff } = SelectedLanguage;
+  const {timeOff} = SelectedLanguage;
   const userData: any = useSelector((state: Appstate) => state.User.UserInfo);
   const oldTimeOff: any = useSelector(
     (state: Appstate) => state.timeOffInstructorReducer.data,
@@ -59,9 +54,9 @@ const TimeOff: FC<TimeOffInterface> = ({ route }) => {
   const [timings, setTimings] = useState(SelectedLanguage.timeOff.TimeOff);
   const highlightingColor = whiteThemeColors.primary;
   const [state, _setState] = useReducer(reducer, initialState);
-  const setState = (type: any, data: any) => _setState({ type, data });
+  const setState = (type: any, data: any) => _setState({type, data});
   const [loading, setLoading] = useState(false);
-  const { Get } = DataAccess();
+  const {Get} = DataAccess();
   const [selectedDate, setselectedDate] = useState(new Date());
   useEffect(() => {
     if (route.params.userId !== state.instructorDetails.userID) {
@@ -261,7 +256,7 @@ const TimeOff: FC<TimeOffInterface> = ({ route }) => {
         ) === convertUTCDateToLocalDateStringFormat(state.selectedDay)
       ) {
         if (type === 'Add') {
-          const _instructorDetails = { ...state.instructorDetails };
+          const _instructorDetails = {...state.instructorDetails};
           _instructorDetails.weekDays[
             index
           ].scheduleTimeOfDay = `${Obj.startTime} - ${Obj.endTime}`;
@@ -272,7 +267,7 @@ const TimeOff: FC<TimeOffInterface> = ({ route }) => {
           dispatch(timeOffInstructorUpdate(Obj));
           setState(stateConstants.instructorDetails, _instructorDetails);
         } else if (type === 'Delete') {
-          const _instructorDetails = { ...state.instructorDetails };
+          const _instructorDetails = {...state.instructorDetails};
           var Obj = _instructorDetails.weekDays[index];
           Obj.userID = _instructorDetails.userID;
           Obj.type = type;
@@ -471,10 +466,9 @@ const TimeOff: FC<TimeOffInterface> = ({ route }) => {
       flex={1}
       hideTopSafeArea
       backgroundColor={whiteThemeColors.background}
-      onAndroidBack={handleBack}
-    >
+      onAndroidBack={handleBack}>
       <ScrollView showsVerticalScrollIndicator={false}>
-        <_View style={{ width: '100%', height: 'auto' }}>
+        <_View style={{width: '100%', height: 'auto'}}>
           <_Calendar
             current={route.params.syncDate || new Date()}
             onDayPress={(day: any) => {
@@ -501,10 +495,10 @@ const TimeOff: FC<TimeOffInterface> = ({ route }) => {
           />
         </_View>
 
-        <_View style={{ flex: 1 }}>
+        <_View style={{flex: 1}}>
           {loading ? (
-            <_View style={{ marginTop: 20 }}>
-              <_ActivityIndicator size='large' />
+            <_View style={{marginTop: 20}}>
+              <_ActivityIndicator size="large" />
             </_View>
           ) : (
             <>
@@ -513,8 +507,8 @@ const TimeOff: FC<TimeOffInterface> = ({ route }) => {
                 element={state.instructorDetails}
                 isTimeOff={state.isTimeOff}
                 onPress={() => {
-                  if(isAddTimeoff)
-                  setState(stateConstants.isVisible, true)}}
+                  if (isAddTimeoff) setState(stateConstants.isVisible, true);
+                }}
                 selectedDay={selectedDate}
                 timeOffComment={state.timeOffComment}
                 onPressDelete={() => {
@@ -522,7 +516,7 @@ const TimeOff: FC<TimeOffInterface> = ({ route }) => {
                 }}
                 timings={timings}
               />
-             <TimeOffModal
+              <TimeOffModal
                 selectedUser={state.instructorDetails.userName}
                 showModal={state.isVisible}
                 handleModalState={() =>
@@ -550,10 +544,12 @@ const TimeOff: FC<TimeOffInterface> = ({ route }) => {
           )}
         </_View>
       </ScrollView>
-      {isAddTimeoff&&<FloatingButton
-        onPress={() => setState(stateConstants.isVisible, true)}
-        isTimeOff={state.isTimeOff}
-      />}
+      {isAddTimeoff && (
+        <FloatingButton
+          onPress={() => setState(stateConstants.isVisible, true)}
+          isTimeOff={state.isTimeOff}
+        />
+      )}
       {state.showAlert && (
         <CustomAlert
           visible={state.showAlert}
@@ -589,4 +585,4 @@ const TimeOff: FC<TimeOffInterface> = ({ route }) => {
   );
 };
 
-export { TimeOff };
+export {TimeOff};

@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../reducers/Appstate';
 import { AttachmentTypes, isStudent, whiteThemeColors } from '../../../../../../Utilities';
 import ApiEndpoints from '../../../../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../../../../data/DAL';

@@ -1,19 +1,19 @@
-import { useNavigation } from '@react-navigation/native';
-import { AdminListInterface } from '../../../../../../../interfaces';
+import {useNavigation} from '@react-navigation/native';
+import {AdminListInterface} from '../../../../../../../interfaces';
 import React from 'react';
-import { Alert, TouchableHighlight } from 'react-native';
+import {Alert, TouchableHighlight} from 'react-native';
 import InAppBrowser from 'react-native-inappbrowser-reborn';
-import { whiteThemeColors } from '../../../../../../../Utilities';
+import {whiteThemeColors} from '../../../../../../../Utilities';
 import ApiEndpoints from '../../../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../../../data/DAL';
+import {DataAccess} from '../../../../../../../../data/DAL';
 import {
   _Text,
   _VectorIcons,
   _View,
   endpoint,
 } from '../../../../../../../components';
-import { UserImg } from '../../../../../../ThumbNail';
-import { style } from '../styles';
+import {UserImg} from '../../../../../../ThumbNail';
+import {style} from '../styles';
 var clrCode = -1;
 export const _getAdminList: React.FC<AdminListInterface> = ({
   getCourseDetails,
@@ -31,7 +31,7 @@ export const _getAdminList: React.FC<AdminListInterface> = ({
   const navigation: any = useNavigation();
   if (clrCode == 7) clrCode = 0;
   const getZoomCloudRecording = (meetingId: number | string | null) => {
-    const { Get } = DataAccess();
+    const {Get} = DataAccess();
     setIsLoadingRecords(true);
     var EndPoint: endpoint = ApiEndpoints.GetZoomCloudRecording;
     EndPoint.params = `?MeetingId=${meetingId}`;
@@ -44,7 +44,7 @@ export const _getAdminList: React.FC<AdminListInterface> = ({
           setShowAlert(true);
           return;
         } else {
-          const { share_url } = res?.data;
+          const {share_url} = res?.data;
           openZoomRecordings(share_url);
         }
       })
@@ -75,8 +75,7 @@ export const _getAdminList: React.FC<AdminListInterface> = ({
         underlayColor={whiteThemeColors.primary + '50'}
         key={index}
         onPress={() => getCourseDetails(Obj)}
-        style={[style.touchableCard]}
-      >
+        style={[style.touchableCard]}>
         <_View
           style={[
             style.cardConatiner,
@@ -86,15 +85,14 @@ export const _getAdminList: React.FC<AdminListInterface> = ({
                   ? whiteThemeColors.primary + '10'
                   : whiteThemeColors.white + 90,
             },
-          ]}
-        >
+          ]}>
           {permission?.view && (
             <TouchableHighlight
               style={style.microphoneBtn}
               underlayColor={whiteThemeColors.primary + '50'}
               onPress={() => {
-                const { isZoomRecording, meetingId, playBackUrl }: any = Obj;
-                console.log({ isZoomRecording, meetingId });
+                const {isZoomRecording, meetingId, playBackUrl}: any = Obj;
+                console.log({isZoomRecording, meetingId});
 
                 if (isZoomRecording) {
                   getZoomCloudRecording(meetingId);
@@ -103,8 +101,8 @@ export const _getAdminList: React.FC<AdminListInterface> = ({
                     'Error',
                     'Unable to process your request Please contact your admin',
                     [
-                      { text: 'Cancel', style: 'destructive' },
-                      { text: 'Okay', style: 'cancel' },
+                      {text: 'Cancel', style: 'destructive'},
+                      {text: 'Okay', style: 'cancel'},
                     ],
                   );
                 } else if (playBackUrl != null) openZoomRecordings(playBackUrl);
@@ -112,11 +110,10 @@ export const _getAdminList: React.FC<AdminListInterface> = ({
                 //   header: Obj?.title,
                 //   url: Obj?.playBackUrl,
                 // });
-              }}
-            >
+              }}>
               <_VectorIcons
-                type='Ionicons'
-                name='videocam-outline'
+                type="Ionicons"
+                name="videocam-outline"
                 size={15}
                 color={whiteThemeColors.primary}
               />
@@ -124,7 +121,7 @@ export const _getAdminList: React.FC<AdminListInterface> = ({
           )}
           {Obj?.playBackUrl && permission?.edit && (
             <TouchableHighlight
-              style={[style.microphoneBtn, { top: 65 }]}
+              style={[style.microphoneBtn, {top: 65}]}
               underlayColor={whiteThemeColors.primary + '50'}
               onPress={() => {
                 downloadDocsRef?.current?.downloadFile(
@@ -134,11 +131,10 @@ export const _getAdminList: React.FC<AdminListInterface> = ({
                   '',
                   '',
                 );
-              }}
-            >
+              }}>
               <_VectorIcons
-                type='AntDesign'
-                name='download'
+                type="AntDesign"
+                name="download"
                 size={15}
                 color={whiteThemeColors.primary}
               />
@@ -160,12 +156,12 @@ export const _getAdminList: React.FC<AdminListInterface> = ({
               {Obj?.createdByName}
             </_Text>
           </_View>
-          <_View style={{ flexDirection: 'row', flex: 1 }}>
+          <_View style={{flexDirection: 'row', flex: 1}}>
             <_Text numberOfLines={2} style={style.titleTxt}>
               {Obj?.title}
             </_Text>
           </_View>
-          <_View style={{ flex: 1 }}>
+          <_View style={{flex: 1}}>
             <_View style={style.dateTimeContainer}>
               <_VectorIcons
                 name={'calendar'}

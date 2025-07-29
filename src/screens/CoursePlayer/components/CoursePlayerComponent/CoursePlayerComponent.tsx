@@ -38,8 +38,13 @@ interface props {
   userID: number;
 }
 export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
-  const { Get } = DataAccess();
+  const {Get} = DataAccess();
   const navigation: any = useNavigation();
+  const defaultWidth = Dimensions.get('screen').width;
+  const screenHeight = Dimensions.get('window').height;
+  const listHeight =
+    Platform.OS === 'ios' ? screenHeight - hp(15) : screenHeight - hp(5);
+
   const dispatch = useDispatch();
   const {
     data: Courses,
@@ -47,12 +52,12 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
     loading: isLoading,
   } = useSelector((state: Appstate) => state.coursePlayerContentReducer);
   const selectedLanguage = useSelector((state: Appstate) => state.language);
-  const { coursesScreen } = selectedLanguage;
+  const {coursesScreen} = selectedLanguage;
   const [state, _setState] = useReducer(reducer, stateConstant.INTIAL_STATE);
-  const setState = (type: any, data: any) => _setState({ type, data });
-  const { classMenu } = useSelector((state: Appstate) => state.language);
+  const setState = (type: any, data: any) => _setState({type, data});
+  const {classMenu} = useSelector((state: Appstate) => state.language);
   const [header] = React.useState(classMenu);
-  const { orientation } = useLogin();
+  const {orientation} = useLogin();
   const [isVisible, setisVisible] = useState(false);
   const [terminologies, setTerminologies] = useState<Partial<TerminologyMap>>(
     {},
@@ -80,9 +85,13 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
   useEffect(() => {
     loadAllCourses();
   }, []);
+
   useEffect(() => {
-    if (orientation) setState(stateConstant.ORIENTATION, orientation);
+    if (orientation) {
+      setState(stateConstant.ORIENTATION, orientation);
+    }
   }, [orientation]);
+
   const loadAllCourses = () => {
     let Endpoint: endpoint = ApiEndpoints.GetCoursePlayerContent;
     Endpoint.params = `?Take=${-1}&Skip=${0}`;
@@ -139,15 +148,15 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
 
   const handleCourseMenu = async (courseId: number, menuName: string) => {
     console.log({menuName});
-    
+
     dispatch(loading(true));
     let url: endpoint = ApiEndpoints.getCourseClasses;
     url.params = `?CourseId=${courseId}`;
     let res = await Get(url);
     dispatch(loading(false));
     if (res.error === null) {
-      if(menuName==Class_Overview){
-       return navigation.navigate("ClassOverview",{courseId:courseId});
+      if (menuName == Class_Overview) {
+        return navigation.navigate('ClassOverview', {courseId: courseId});
       }
 
       if (res.isJustOneClass === false) {
@@ -167,12 +176,13 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
             res.classDetail[0]?.text,
             Screens.coursePlayer.name,
           );
-        }else if (menuName == Class_Overview) {
-          navigation.navigate("ClassOverview", 
-             { courseId: courseId }, // Parameters for the nested screen
+        } else if (menuName == Class_Overview) {
+          navigation.navigate(
+            'ClassOverview',
+            {courseId: courseId}, // Parameters for the nested screen
           );
+        }
       }
-    }
     } else {
       dispatch(assignCoursesFailed());
       Alert.alert(`${res.error}`);
@@ -195,7 +205,7 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
         Screens.courseClasses.name,
       );
     } else if (menuName == COURSE_CLASSESS) {
-      navigation.navigate("CourseClass",{courseId:courseID})
+      navigation.navigate('CourseClass', {courseId: courseID});
     }
   };
   const onSelectStd = (classId: number, backTo: string) => {
@@ -231,7 +241,7 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
     setState(stateConstant.FILTERED_DATA, data);
   };
 
-  const { filteredData, courses } = state;
+  const {filteredData, courses} = state;
   return (
     <_Screen
       header={
@@ -252,14 +262,13 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
       flex={1}
       hideTopSafeArea
       onAndroidBack={handleBack}
-      backgroundColor={whiteThemeColors.background}
-    >
+      backgroundColor={whiteThemeColors.background}>
       {isVisible && (
         <Search
           onInputChange={onChangeText}
           animSpeed={100}
           data={courses && courses}
-          searchKey='courseName'
+          searchKey="courseName"
           outPos={-110}
           inPos={-10}
           onClose={() => {
@@ -273,7 +282,7 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
       <_View style={styles.container}>
         {isLoading ? (
           <_View style={styles.loadingContainer}>
-            <_ActivityIndicator size='large' />
+            <_ActivityIndicator size="large" />
           </_View>
         ) : isdataLoaded ? (
           <>
@@ -293,11 +302,12 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
                 style={{
                   width: '100%',
                   backgroundColor: whiteThemeColors.background,
-                }}
-              >
+                }}>
                 <FlatList
-                  keyExtractor={(item) => item.courseName.toString()}
-                  key={state.orienation}
+                  keyExtractor={(item, index) => `${item.courseId ?? index}`}
+                  key={
+                    state.orienation === 'LANDSCAPE' ? 'landscape' : 'portrait'
+                  } // Better key strategy
                   refreshing={Boolean(state.isSearching)}
                   contentContainerStyle={{
                     paddingBottom: 50,
@@ -321,11 +331,11 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
                   numColumns={state.orienation == 'LANDSCAPE' ? 2 : 1}
                   data={filteredData}
                   showsVerticalScrollIndicator={false}
-                  renderItem={({ item, index }) => (
+                  renderItem={({item, index}) => (
                     <RenderCard
                       item={item}
                       index={index}
-                      width={state.width}
+                      width={state.width || defaultWidth}
                       coruseId={item.courseId}
                       courses={Courses}
                       role={role}
@@ -340,10 +350,13 @@ export const CoursePlayerComponent: React.FC<props> = ({ role, userID }) => {
                       header={header}
                     />
                   )}
-                  removeClippedSubviews={true}
+                  // removeClippedSubviews={true}
+                  windowSize={5}
+                  maxToRenderPerBatch={5}
+                  updateCellsBatchingPeriod={50}
+                  removeClippedSubviews={false}
                   onEndReached={!state.isUserSearching ? loadAllCourses : null}
                   onEndReachedThreshold={0.5}
-                  maxToRenderPerBatch={8}
                   legacyImplementation={true}
                 />
               </_View>

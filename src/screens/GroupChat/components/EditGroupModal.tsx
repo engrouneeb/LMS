@@ -1,5 +1,5 @@
-import React, { FC, useEffect, useState } from 'react';
-import { CustomAlert, isAdmin, whiteThemeColors } from '../../../Utilities';
+import React, {FC, useEffect, useState} from 'react';
+import {CustomAlert, isAdmin, whiteThemeColors} from '../../../Utilities';
 import {
   Alert,
   FlatList,
@@ -19,17 +19,17 @@ import {
   _Image,
 } from '../../../components';
 import CommonStyles from '../../CommonStyles';
-import { DropDown } from '../../UserProfile/components';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
-import { DataAccess } from '../../../../data/DAL';
-import { SelectMembersModal } from './SelectGroupMemberModal';
-import { UserImg } from '../../ThumbNail';
+import {DropDown} from '../../UserProfile/components';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {DataAccess} from '../../../../data/DAL';
+import {SelectMembersModal} from './SelectGroupMemberModal';
+import {UserImg} from '../../ThumbNail';
 import ApiEndpoints from '../../../../data/ApiEndpoints';
-import { extractNameExtension } from '../../Chat/ChatInterfaceScreen/Functions';
-import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import {extractNameExtension} from '../../Chat/ChatInterfaceScreen/Functions';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
 import Loader from '../../Loader/Loading';
-import { loading } from '../../../actions/AsyncStorage';
+import {loading} from '../../../actions/AsyncStorage';
 
 interface Props {
   setShowModal: (val: boolean) => void;
@@ -57,7 +57,7 @@ export const EditGroupModal: FC<Props> = ({
   const [isNewImageSelected, setIsNewImageSelected] = useState<boolean>(false);
   let userInfo = useSelector((state: any) => state.User.UserInfo);
   const navigation = useNavigation();
-  const { PostSecuredFormData, PostSecuredWithParams } = DataAccess();
+  const {PostSecuredFormData, PostSecuredWithParams} = DataAccess();
   const dispatch = useDispatch();
   const requestCameraPermission = async () => {
     try {
@@ -143,14 +143,17 @@ export const EditGroupModal: FC<Props> = ({
     data.append('Description', 'asdf');
     data.append('GroupId', groupInfo.groupId);
     PostSecuredFormData(ApiEndpoints.GroupUpdate, data)
-      .then((res) => {
+      .then(res => {
+        console.log('Group updated successfully');
+        console.log({res, data});
+
         setIsLoading(false);
         setSelectedMembers([]);
         getGroups();
         setShowModal(false);
         navigation.navigate('msgScr');
       })
-      .catch((error) => {
+      .catch(error => {
         setIsLoading(false);
         setShowModal(false);
         // Handle the error here
@@ -164,9 +167,9 @@ export const EditGroupModal: FC<Props> = ({
     var EndPoint = ApiEndpoints.GroupDelete;
     var params = `?groupId=${groupInfo.groupId}`;
     let response: any = await PostSecuredWithParams(EndPoint, params).then(
-      (res) => {
+      res => {
         dispatch(loading(false));
-        console.log('-----');
+        console.log('-----', res);
         try {
           getGroups();
           setIsDeleting(false);
@@ -183,7 +186,7 @@ export const EditGroupModal: FC<Props> = ({
     var EndPoint = ApiEndpoints.DeleteGroupMember;
     var params = `?groupId=${groupInfo.groupId}&&memberId=${userInfo.userID}`;
     let response: any = await PostSecuredWithParams(EndPoint, params).then(
-      (res) => {
+      res => {
         try {
           setIsLeaving(false);
           getGroups();
@@ -195,23 +198,21 @@ export const EditGroupModal: FC<Props> = ({
   return (
     <Modal
       supportedOrientations={['portrait', 'landscape']}
-      animationType='fade'
+      animationType="fade"
       transparent={true}
-      visible={showModal}
-    >
+      visible={showModal}>
       <_View style={styles.centeredView}>
-        <_View style={{ ...styles.modalView, height: '100%' }}>
+        <_View style={{...styles.modalView, height: '100%'}}>
           <_View style={styles.headerContainer}>
             <TouchableOpacity
               onPress={() => setShowModal(false)}
-              style={styles.crossIcon}
-            >
+              style={styles.crossIcon}>
               <_VectorIcons
-                type='Entypo'
-                name='cross'
+                type="Entypo"
+                name="cross"
                 size={15}
                 color={whiteThemeColors.black}
-                style={{ padding: 7 }}
+                style={{padding: 7}}
               />
             </TouchableOpacity>
           </_View>
@@ -219,14 +220,13 @@ export const EditGroupModal: FC<Props> = ({
             <_View style={styles.modalInsideView}>
               <_Text style={styles.groupText}>Edit Group</_Text>
               <_View
-                style={[styles.profilePicContainer, styles.profilePicShadow]}
-              >
+                style={[styles.profilePicContainer, styles.profilePicShadow]}>
                 <Pressable disabled={groupImage === '' || !isEditabe}>
                   <_Image
                     source={
                       groupImage === ''
                         ? require('../../../../assets/userGroup.png')
-                        : { uri: groupImage }
+                        : {uri: groupImage}
                     }
                     style={styles.profilePic}
                   />
@@ -236,14 +236,12 @@ export const EditGroupModal: FC<Props> = ({
                   style={styles.profilePicBtn}
                   onPress={() => {
                     setIsHow(!isHow);
-                  }}
-                >
+                  }}>
                   <_View
-                    style={[styles.profilePicIconContainer, styles.shadow]}
-                  >
+                    style={[styles.profilePicIconContainer, styles.shadow]}>
                     <_VectorIcons
                       type={'MaterialCommunityIcons'}
-                      name='camera'
+                      name="camera"
                       size={20}
                       color={whiteThemeColors.primary}
                     />
@@ -256,9 +254,9 @@ export const EditGroupModal: FC<Props> = ({
             <_TextInput
               autoFocus
               editable={isEditabe}
-              autoCapitalize='none'
-              placeholder='Group name'
-              onChangeText={(text) => setGroupName(text)}
+              autoCapitalize="none"
+              placeholder="Group name"
+              onChangeText={text => setGroupName(text)}
               value={groupName}
               style={styles.dropDownSearchTxtInp}
             />
@@ -266,18 +264,17 @@ export const EditGroupModal: FC<Props> = ({
             <TouchableOpacity
               disabled={!isEditabe}
               style={styles.selectMembers}
-              onPress={() => setUserModal(true)}
-            >
+              onPress={() => setUserModal(true)}>
               <_Text style={styles.members}>Select members</_Text>
               <_VectorIcons
-                type='FontAwesome'
-                name='caret-right'
+                type="FontAwesome"
+                name="caret-right"
                 size={20}
                 color={whiteThemeColors.white}
-                style={{ padding: 7 }}
+                style={{padding: 7}}
               />
             </TouchableOpacity>
-            <_View style={{ height: '50%', marginBottom: 20 }}>
+            <_View style={{height: '50%', marginBottom: 20}}>
               <FlatList
                 showsVerticalScrollIndicator={false}
                 data={selectedMembers}
@@ -287,19 +284,18 @@ export const EditGroupModal: FC<Props> = ({
                       flex: 1,
                       justifyContent: 'center',
                       alignItems: 'center',
-                    }}
-                  >
+                    }}>
                     <_VectorIcons
                       size={50}
-                      type='MaterialCommunityIcons'
-                      name='account-multiple-remove'
+                      type="MaterialCommunityIcons"
+                      name="account-multiple-remove"
                       color={whiteThemeColors.primary}
                     />
                     <_Text style={styles.noMembers}>No Members</_Text>
                   </_View>
                 )}
                 style={styles.flatlist}
-                renderItem={({ item }) => {
+                renderItem={({item}) => {
                   const fullName = item?.fullName.split(' ');
                   return (
                     <_View style={styles.card}>
@@ -313,22 +309,21 @@ export const EditGroupModal: FC<Props> = ({
                         }}
                         size={30}
                       />
-                      <_View style={{ marginLeft: 10 }}>
+                      <_View style={{marginLeft: 10}}>
                         <_Text style={styles.name}>{item.fullName}</_Text>
                         <_Text style={styles.role}>{item.roleName}</_Text>
                       </_View>
                       {isEditabe && userInfo.fullName !== item.fullName && (
                         <TouchableOpacity
                           onPress={() => {
-                            setSelectedMembers((prevSelectedMembers) =>
+                            setSelectedMembers(prevSelectedMembers =>
                               prevSelectedMembers.filter(
-                                (member) => member.userId !== item.userId,
+                                member => member.userId !== item.userId,
                               ),
                             );
                           }}
-                          style={styles.removeContainer}
-                        >
-                          <_VectorIcons type='Entypo' name='cross' />
+                          style={styles.removeContainer}>
+                          <_VectorIcons type="Entypo" name="cross" />
                         </TouchableOpacity>
                       )}
                     </_View>
@@ -365,7 +360,7 @@ export const EditGroupModal: FC<Props> = ({
               submitting={!isDeleting}
               width={'100%'}
               borderRadius={10}
-              style={[styles.deleteBtn, { marginTop: 10 }]}
+              style={[styles.deleteBtn, {marginTop: 10}]}
               color={whiteThemeColors.primary}
               callback={() => {
                 setShowAlert(true);
@@ -378,7 +373,7 @@ export const EditGroupModal: FC<Props> = ({
               submitting={!isLeaving}
               width={'100%'}
               borderRadius={10}
-              style={[styles.deleteBtn, { marginTop: 50 }]}
+              style={[styles.deleteBtn, {marginTop: 50}]}
               color={whiteThemeColors.primary}
               callback={() => {
                 setShowAlert(true);

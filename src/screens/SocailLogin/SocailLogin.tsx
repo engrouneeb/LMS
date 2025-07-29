@@ -6,7 +6,7 @@ import { TiktokIcon } from "../../../assets/tiktokIcon";
 import { styles } from "./styles";
 import { getAuthUrl, startInAppBrowserLogin } from '../../customHooks';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../reducers/Appstate';
+import { Appstate } from '../../reducers/Appstate';
 import Header from "../Headers"
 import { CustomAlert, height, isParent, whiteThemeColors, width } from '../../Utilities';
 import { useNavigation } from '@react-navigation/native';
@@ -18,7 +18,7 @@ import {
     ParentStudent, disconnectSocial
 } from '../../actions/WebAuthLogin';
 import moment from 'moment';
-import Loader from '../../../Loader/loader';
+import Loader from '../Loader/loader';
 import WhiteLabelConfig from 'WhiteLabelConfig';
 import { StudentIcon } from '../../../assets/Icons';
 

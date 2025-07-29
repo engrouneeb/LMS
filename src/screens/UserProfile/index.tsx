@@ -10,7 +10,7 @@ import ApiEndpoints from '../../../data/ApiEndpoints';
 import { DataAccess } from '../../../data/DAL';
 import { loading } from '../../actions/AsyncStorage';
 import { GetUserData } from '../../actions/PinCodeActions';
-import { _Screen, _Text, _View,_VectorIcons } from '../../components';
+import { _Screen, _Text, _View, _VectorIcons } from '../../components';
 import DrawerScreens from '../../navigation/Drawer/DrawerScreenNames';
 import { Appstate } from '../../reducers/Appstate';
 import CstHeader from '../Headers';
@@ -40,13 +40,13 @@ const UserProfile = () => {
     return true;
   };
 
-  const requestCameraPermission = async () => {
-    try {
-      await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
-    } catch (err) {
-      console.warn(err);
-    }
-  };
+  // const requestCameraPermission = async () => {
+  //   try {
+  //     await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA);
+  //   } catch (err) {
+  //     console.warn(err);
+  //   }
+  // };
 
   useEffect(() => {
     if (userImag) setUserImage(userImag);
@@ -93,30 +93,30 @@ const UserProfile = () => {
       }
     });
   };
-  const showCameraPicker = () => {
-    requestCameraPermission();
-    let options: any = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    launchCamera(options, (response: any) => {
-      if (response.didCancel) {
-        setShowAlert(true);
-        setAlertMessage('Please give permission');
-        setAlertTitle('Error');
-      } else if (response.errorCode) {
-        setShowAlert(true);
-        setAlertMessage(response.errorCode);
-        setAlertTitle('Error');
-      } else {
-        let fileData = response.assets[0];
-        setUserImage(fileData.uri);
-        handleFileUpload(fileData);
-      }
-    });
-  };
+  // const showCameraPicker = () => {
+  //   requestCameraPermission();
+  //   let options: any = {
+  //     storageOptions: {
+  //       skipBackup: true,
+  //       path: 'images',
+  //     },
+  //   };
+  //   launchCamera(options, (response: any) => {
+  //     if (response.didCancel) {
+  //       setShowAlert(true);
+  //       setAlertMessage('Please give permission');
+  //       setAlertTitle('Error');
+  //     } else if (response.errorCode) {
+  //       setShowAlert(true);
+  //       setAlertMessage(response.errorCode);
+  //       setAlertTitle('Error');
+  //     } else {
+  //       let fileData = response.assets[0];
+  //       setUserImage(fileData.uri);
+  //       handleFileUpload(fileData);
+  //     }
+  //   });
+  // };
 
   const handleFileUpload = async (imageData: any) => {
     let fileBase64 = await RNFS.readFile(imageData.uri, 'base64');

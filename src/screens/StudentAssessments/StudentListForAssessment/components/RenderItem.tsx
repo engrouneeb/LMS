@@ -1,9 +1,9 @@
-import { FC } from 'react';
-import { Pressable } from 'react-native';
-import { _View, _Text } from '../../../../components';
-import { UserImg } from '../../../../../ThumbNail';
-import { whiteThemeColors } from '../../../../Utilities';
-import { styles } from '../style';
+import {FC} from 'react';
+import {Pressable} from 'react-native';
+import {_View, _Text} from '../../../../components';
+import {UserImg} from '../../../ThumbNail';
+import {whiteThemeColors} from '../../../../Utilities';
+import {styles} from '../style';
 
 interface RenderItemInterface {
   studentName: string;

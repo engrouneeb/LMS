@@ -1,0 +1,85 @@
+{
+  "project_info": {
+    "project_number": "554026237921",
+    "firebase_url": "https://calimaticlmsapp.firebaseio.com",
+    "project_id": "calimaticlmsapp",
+    "storage_bucket": "calimaticlmsapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554026237921:android:db665de60e201c0feb9ca0",
+        "android_client_info": {
+          "package_name": "com.calimatic.lmsa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554026237921-jg7o6uu1tman92n7au5c44073c502tm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-3ol3zrRlggBITELeFWrRKyXgQazc-vk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554026237921-jg7o6uu1tman92n7au5c44073c502tm0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "554026237921-449tgh3loc3311qhn4061rbj3ihi3t6h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.calimatic.lmsa",
+                "app_store_id": "1516296814"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554026237921:android:dba87b3f615ca33feb9ca0",
+        "android_client_info": {
+          "package_name": "com.calimatic.lmsa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554026237921-jg7o6uu1tman92n7au5c44073c502tm0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-3ol3zrRlggBITELeFWrRKyXgQazc-vk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554026237921-jg7o6uu1tman92n7au5c44073c502tm0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "554026237921-449tgh3loc3311qhn4061rbj3ihi3t6h.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.calimatic.lmsa",
+                "app_store_id": "1516296814"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

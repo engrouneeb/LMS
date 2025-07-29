@@ -1,7 +1,6 @@
-//region References
-import { useNavigation } from '@react-navigation/native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { TopMiniTabs } from '../../../components/TopMiniTabs';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, JSX, useCallback, useEffect, useState } from 'react';
 import { BackHandler, Image, Pressable, ScrollView } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import CommonStyles from '../../CommonStyles';
@@ -45,24 +44,27 @@ export const MsgScreen: FC = () => {
   let isGroupsVisible=filterMenuOptions("GroupsMessages");
   const { Get } = DataAccess();
   useEffect(() => {
-    const { userName } = UserData;
+    const {userName} = UserData;
     getGroupCounts();
     dispatch(setCurrentFocus('MessageGroup'));
 
-    socketIO &&
-      socketIO.emit('read-notification', {
-        username: userName,
-        clearNotificationsOf: 'Messages',
-      });
-    //clear total badge count
-    navigation.addListener('focus', () => {
-      BackHandler.addEventListener('hardwareBackPress', handleBack);
-    });
-
-    navigation.addListener('blur', () => {
-      BackHandler.removeEventListener('hardwareBackPress', handleBack);
+    socketIO?.emit('read-notification', {
+      username: userName,
+      clearNotificationsOf: 'Messages',
     });
   }, [socketIO]);
+
+  useFocusEffect(
+    useCallback(() => {
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        handleBack,
+      );
+
+      return () => backHandler.remove();
+    }, []),
+  );
+
   useEffect(()=>{
       setNoPermission(!(_chatMeta.length>0));
     },[_chatMeta])

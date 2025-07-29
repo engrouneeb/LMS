@@ -2,12 +2,12 @@ import {
   ScheduleSelectInstructorModalInterface,
   wageInterface,
 } from '../../../../../../interfaces';
-import React, { useEffect, useState } from 'react';
-import { FlatList, KeyboardAvoidingView, Modal, Platform } from 'react-native';
-import { _ActivityIndicator } from '../../../../../../../Loader';
+import React, {useEffect, useState} from 'react';
+import {FlatList, KeyboardAvoidingView, Modal, Platform} from 'react-native';
+import {_ActivityIndicator} from '../../../../../Loader/_ActivityIndicator';
 import ApiEndpoints from '../../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../../data/DAL';
-import { _View, endpoint } from '../../../../../../components';
+import {DataAccess} from '../../../../../../../data/DAL';
+import {_View, endpoint} from '../../../../../../components';
 import {
   ChangeButton,
   ListItemSeperator,
@@ -18,7 +18,7 @@ import {
   StatusBox,
   WagesDropDown,
 } from './components';
-import { styles } from './style';
+import {styles} from './style';
 
 export const SelectInstructorModal: React.FC<
   ScheduleSelectInstructorModalInterface
@@ -46,7 +46,7 @@ export const SelectInstructorModal: React.FC<
   const [loading, setLoading] = useState(false);
   const [wageListLoader, setWageListLoader] = useState(false);
   const [mainLoader, setMainLoader] = useState(false);
-  const { PostSecured, Get } = DataAccess();
+  const {PostSecured, Get} = DataAccess();
 
   interface fetchInstructorInterface {
     value: number;
@@ -134,13 +134,11 @@ export const SelectInstructorModal: React.FC<
     <Modal
       transparent
       supportedOrientations={['portrait', 'landscape']}
-      animationType='slide'
-      visible={modalVisible}
-    >
+      animationType="slide"
+      visible={modalVisible}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'height' : 'padding'}
-        style={styles.centeredView}
-      >
+        style={styles.centeredView}>
         <_View style={styles.modalView}>
           <ModalHeader setModalVisible={setModalVisible} />
           <SearchTextInput setSearchName={setSearchName} />
@@ -159,13 +157,13 @@ export const SelectInstructorModal: React.FC<
 
           {mainLoader ? (
             <_View style={styles.loaderContainer}>
-              <_ActivityIndicator size='large' />
+              <_ActivityIndicator size="large" />
             </_View>
           ) : (
             <FlatList
               data={allInstructors}
               showsVerticalScrollIndicator={false}
-              renderItem={({ item }) => (
+              renderItem={({item}) => (
                 <RenderItem
                   item={item}
                   selectedInstructor={selectedInstructor}
@@ -173,7 +171,7 @@ export const SelectInstructorModal: React.FC<
                 />
               )}
               ItemSeparatorComponent={() => <ListItemSeperator />}
-              ListFooterComponent={<_View style={{ height: 80 }} />}
+              ListFooterComponent={<_View style={{height: 80}} />}
               ListEmptyComponent={() => (
                 <NoInstructorFound show={allInstructors.length < 1} />
               )}

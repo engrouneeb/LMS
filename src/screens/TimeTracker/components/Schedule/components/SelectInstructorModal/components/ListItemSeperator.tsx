@@ -1,4 +1,4 @@
-import { _View } from '../../../../../../components';
+import { _View } from '../../../../../../../components';
 
 import { whiteThemeColors } from '../../../../../../../Utilities';
 

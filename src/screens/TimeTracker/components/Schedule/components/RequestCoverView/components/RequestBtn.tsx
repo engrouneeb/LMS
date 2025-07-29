@@ -1,9 +1,9 @@
-import { RequestCoverBtnInterface } from '../../../../../../../interfaces';
+import {RequestCoverBtnInterface} from '../../../../../../../interfaces';
 import React from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { _Text, _View } from '../../../../../../../components';
-import { _ActivityIndicator } from '../../../../../../Loader';
+import {Pressable, StyleSheet} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_Text, _View} from '../../../../../../../components';
+import {_ActivityIndicator} from '../../../../../../Loader/_ActivityIndicator';
 
 const RequestBtn: React.FC<RequestCoverBtnInterface> = ({
   onCoverSubmit,
@@ -17,17 +17,16 @@ const RequestBtn: React.FC<RequestCoverBtnInterface> = ({
         style={[
           styles.bottomButtons,
           isSavingCover
-            ? { backgroundColor: whiteThemeColors.greyDark }
-            : { backgroundColor: whiteThemeColors.primary },
+            ? {backgroundColor: whiteThemeColors.greyDark}
+            : {backgroundColor: whiteThemeColors.primary},
         ]}
         onPress={() => onCoverSubmit()}
-        disabled={isSavingCover}
-      >
+        disabled={isSavingCover}>
         {isSavingCover ? (
           <_View style={styles.sendBtn}>
             <_Text style={styles.bottomBtnText}>Please wait..</_Text>
             <_ActivityIndicator
-              size='small'
+              size="small"
               color={whiteThemeColors.white}
               showText={false}
             />
@@ -41,18 +40,17 @@ const RequestBtn: React.FC<RequestCoverBtnInterface> = ({
         style={[
           styles.bottomButtons,
           isSavingCover
-            ? { backgroundColor: whiteThemeColors.greyDark }
-            : { backgroundColor: whiteThemeColors.primary },
+            ? {backgroundColor: whiteThemeColors.greyDark}
+            : {backgroundColor: whiteThemeColors.primary},
         ]}
         onPress={() => handleModalState(false)}
-        disabled={isSavingCover}
-      >
+        disabled={isSavingCover}>
         <_Text style={styles.bottomBtnText}>CANCEL</_Text>
       </Pressable>
     </_View>
   );
 };
-export { RequestBtn };
+export {RequestBtn};
 
 const styles = StyleSheet.create({
   bottomButtnView: {

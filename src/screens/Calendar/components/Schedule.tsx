@@ -4,7 +4,7 @@ import moment from 'moment';
 
 import { _Text, _VectorIcons, _View } from '../../../components';
 import { whiteThemeColors } from '../../../Utilities';
-import CommonStyles from '../../../CommonStyles';
+import CommonStyles from '../../CommonStyles';
 
 interface TimeEntry {
   dayID: number | undefined;

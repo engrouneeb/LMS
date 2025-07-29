@@ -29,7 +29,7 @@ import { Appstate } from '../../../reducers/Appstate';
 import CommonStyles from '../../CommonStyles';
 import CstHeader from '../../Headers';
 // import LoadingSc from '../../Loader/Loading';
-import Loader from '../../../../Loader/loader';
+import Loader from '../../Loader/loader';
 import Search from '../../Search';
 import MsgScreenMeta from '../MsgScreen/MsgScreenMeta';
 import { RenderUserMeta } from './components';
@@ -291,7 +291,7 @@ const ChatUserScreen: FC<chatUserScreenInterface> = ({ route }) => {
             />
             <_Text
               style={[
-                CommonStyles.className,
+               // CommonStyles.className,
 
                 {
                   marginTop: 50,

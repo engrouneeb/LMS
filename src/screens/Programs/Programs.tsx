@@ -3,7 +3,7 @@ import { _Screen, _Text, _View } from '../../components';
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, } from 'react-native';
 import WebView from 'react-native-webview';
-import { _ActivityIndicator } from '../../../Loader';
+import { _ActivityIndicator } from '../Loader/loader';
 import { getHeight, getWidth,whiteThemeColors } from '../../Utilities';
 import DrawerScreens from '../../navigation//Drawer/DrawerScreenNames';
 import Header from "../Headers";
