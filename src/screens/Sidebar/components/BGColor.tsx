@@ -8,8 +8,8 @@ import { Appstate } from '../../../reducers/Appstate';
 import { UserImg } from '../../ThumbNail';
 import { styles } from '../styles';
 
-const BGColor = () => {
-  const navigation: any = useNavigation();
+const BGColor = ({navigation}: any) => {
+  // const navigation: any = useNavigation();
   const UserData: any = useSelector((state: Appstate) => state.User.UserInfo);
 
   const ProfileAvatar = useCallback(() => {

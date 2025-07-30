@@ -432,118 +432,122 @@ const SideBar: React.FC<props> = ({navigation}) => {
     });
   };
   return (
-    <_View
-      flex={1}
-      style={{backgroundColor: whiteThemeColors.sideBar.background}}>
-      <BGColor />
-      <ScrollView
-        style={{flex: 1, backgroundColor: whiteThemeColors.background}}
-        showsVerticalScrollIndicator={false}>
-        {isLoading && <Loader />}
-        {sideBarConfig && (
-          <_View style={styles.drawerContainer}>
-            {sideBarConfig.map((Obj: any, index: number) => {
-              return (
-                <_View style={styles.container}>
-                  <TouchableOpacity
-                    style={[
-                      styles.btnContainer,
-                      {
-                        borderBottomWidth:
-                          index !== sideBarConfig.length - 1 ? 0.7 : 0,
-                      },
-                    ]}
-                    key={index}
-                    onPress={() => {
-                      if (Obj.name == 'Logout') {
-                        Logout();
-                      } else {
-                        CheckDrawer(Obj.name, Obj.labelName);
-                      }
-                    }}>
-                    <_View style={styles.drawerItems}>
-                      <_View style={styles.singleItem}>
-                        {_getSvg(Obj.name)}
-                      </_View>
-                      {Obj.name == 'Messages' && messages.Count > 0 ? (
-                        <_View style={styles.badgeContainer}>
-                          <IconBadge
-                            MainElement={<_View style={styles.badge} />}
-                            BadgeElement={
-                              <_Text style={styles.badgeText}>
-                                {messages.Count}
-                              </_Text>
-                            }
-                            IconBadgeStyle={styles.iconBadge}
-                            Hidden={messages.Count == 0}
-                          />
+    <>
+      <BGColor navigation={navigation} />
+      <_View
+        flex={1}
+        style={{backgroundColor: whiteThemeColors.sideBar.background}}>
+        <ScrollView
+          style={{flex: 1, backgroundColor: whiteThemeColors.background}}
+          showsVerticalScrollIndicator={false}>
+          {isLoading && <Loader />}
+          {sideBarConfig && (
+            <_View style={styles.drawerContainer}>
+              {sideBarConfig.map((Obj: any, index: number) => {
+                return (
+                  <_View style={styles.container}>
+                    <TouchableOpacity
+                      style={[
+                        styles.btnContainer,
+                        {
+                          borderBottomWidth:
+                            index !== sideBarConfig.length - 1 ? 0.7 : 0,
+                        },
+                      ]}
+                      key={index}
+                      onPress={() => {
+                        if (Obj.name == 'Logout') {
+                          Logout();
+                        } else {
+                          CheckDrawer(Obj.name, Obj.labelName);
+                        }
+                      }}>
+                      <_View style={styles.drawerItems}>
+                        <_View style={styles.singleItem}>
+                          {_getSvg(Obj.name)}
                         </_View>
-                      ) : null}
-                      {Obj.name == 'Notifications' &&
-                        notifications !== undefined &&
-                        notifications !== null &&
-                        (notifications != 0 ? (
-                          <_View style={styles.notiBadgeContainer}>
+                        {Obj.name == 'Messages' && messages.Count > 0 ? (
+                          <_View style={styles.badgeContainer}>
                             <IconBadge
-                              MainElement={<_View style={styles.elementView} />}
+                              MainElement={<_View style={styles.badge} />}
                               BadgeElement={
-                                <_Text style={styles.notiBadgeText}>
-                                  {notifications}
+                                <_Text style={styles.badgeText}>
+                                  {messages.Count}
                                 </_Text>
                               }
-                              IconBadgeStyle={styles.iconBadgeStyle}
-                              Hidden={
-                                notifications == 0 || notifications == null
-                              }
+                              IconBadgeStyle={styles.iconBadge}
+                              Hidden={messages.Count == 0}
                             />
                           </_View>
-                        ) : null)}
-                    </_View>
-                    <_View style={styles.txtView}>
-                      <_Text style={styles.text}>{Obj.labelName}</_Text>
-                    </_View>
-                  </TouchableOpacity>
-                </_View>
-              );
-            })}
-          </_View>
-        )}
-        <TouchableOpacity
-          onPress={() => Logout()}
-          style={[styles.btnContainer, styles.logoutContainer]}>
-          <_View style={styles.logoutBtn}>
-            <_View style={styles.singleItem}>
-              <_VectorIcons
-                type={'AntDesign'}
-                name="logout"
-                color={whiteThemeColors.NavigationDrawer.Logout}
-                size={20}
-              />
+                        ) : null}
+                        {Obj.name == 'Notifications' &&
+                          notifications !== undefined &&
+                          notifications !== null &&
+                          (notifications != 0 ? (
+                            <_View style={styles.notiBadgeContainer}>
+                              <IconBadge
+                                MainElement={
+                                  <_View style={styles.elementView} />
+                                }
+                                BadgeElement={
+                                  <_Text style={styles.notiBadgeText}>
+                                    {notifications}
+                                  </_Text>
+                                }
+                                IconBadgeStyle={styles.iconBadgeStyle}
+                                Hidden={
+                                  notifications == 0 || notifications == null
+                                }
+                              />
+                            </_View>
+                          ) : null)}
+                      </_View>
+                      <_View style={styles.txtView}>
+                        <_Text style={styles.text}>{Obj.labelName}</_Text>
+                      </_View>
+                    </TouchableOpacity>
+                  </_View>
+                );
+              })}
             </_View>
-          </_View>
-          <_View style={styles.btnTextContainer}>
-            <_Text style={styles.btnText}>{'Logout'}</_Text>
-          </_View>
-        </TouchableOpacity>
-      </ScrollView>
-      {showAlert && (
-        <CustomAlert
-          visible={showAlert}
-          title={alertTitle}
-          msg={alertMessage}
-          firstBtn={firstBtn ? firstBtn : 'Okay'}
-          firstBtnFunc={() => LogoutUser()}
-          secondBtn={secondBtn}
-          secondBtnFunc={() => {
-            setShowAlert(false);
-            setFirstBtn(undefined);
-            setSecondBtn(undefined);
-            setAlertMessage(undefined);
-            setAlertTitle(undefined);
-          }}
-        />
-      )}
-    </_View>
+          )}
+          <TouchableOpacity
+            onPress={() => Logout()}
+            style={[styles.btnContainer, styles.logoutContainer]}>
+            <_View style={styles.logoutBtn}>
+              <_View style={styles.singleItem}>
+                <_VectorIcons
+                  type={'AntDesign'}
+                  name="logout"
+                  color={whiteThemeColors.NavigationDrawer.Logout}
+                  size={20}
+                />
+              </_View>
+            </_View>
+            <_View style={styles.btnTextContainer}>
+              <_Text style={styles.btnText}>{'Logout'}</_Text>
+            </_View>
+          </TouchableOpacity>
+        </ScrollView>
+        {showAlert && (
+          <CustomAlert
+            visible={showAlert}
+            title={alertTitle}
+            msg={alertMessage}
+            firstBtn={firstBtn ? firstBtn : 'Okay'}
+            firstBtnFunc={() => LogoutUser()}
+            secondBtn={secondBtn}
+            secondBtnFunc={() => {
+              setShowAlert(false);
+              setFirstBtn(undefined);
+              setSecondBtn(undefined);
+              setAlertMessage(undefined);
+              setAlertTitle(undefined);
+            }}
+          />
+        )}
+      </_View>
+    </>
   );
 };
 export default SideBar;

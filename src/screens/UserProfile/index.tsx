@@ -71,8 +71,6 @@ const UserProfile = () => {
       isMounted = false;
     };
   }, []);
-  
-
   const showImagePicker = () => {
     let options: any = {
       storageOptions: {
@@ -183,7 +181,7 @@ const UserProfile = () => {
           <DropDown
             isVisible={isHow}
             setIsVisble={setIsHow}
-            showCameraPicker={showCameraPicker}
+           // showCameraPicker={showCameraPicker}
             showImagePicker={showImagePicker}
           />
         )}
