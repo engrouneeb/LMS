@@ -10,7 +10,7 @@ import {AssessmentChart, Challenge, HomeworkChart} from '.';
 import ApiEndpoints from '../../../../../../data/ApiEndpoints';
 import {DataAccess} from '../../../../../../data/DAL';
 import {
-  // _ModalDropdown,
+   _ModalDropdown,
   _Screen,
   _Text,
   _View,
@@ -25,6 +25,7 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
 }) => {
   const initialState = {
     courseId: 0,
+    levelId: null, 
     courseList: [],
     levelList: [],
     courseName: [],
@@ -63,6 +64,8 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
         return {...state, homeWorkChartData: action.data};
       case 'loading':
         return {...state, loading: action.data};
+      case 'levelId':
+        return {...state, levelId: action.data};
       default:
         return state;
     }
@@ -181,11 +184,13 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
       .catch((Error: any) => console.log({Error}))
       .finally(() => setLevelLoader(false));
   };
-  const onLevelSelect = (id: any) => {
-    getAssessmentView(id);
-    getChallengeData(id, true);
-    getHomeWorkChart(id);
-  };
+ const onLevelSelect = (levelId: any) => {
+   setState({type: 'levelId', data: levelId}); 
+   getAssessmentView(levelId);
+   getChallengeData(levelId, true);
+   getHomeWorkChart(levelId);
+ };
+
   const getHomeWorkChart = (id: any) => {
     setState({type: 'loading', data: true});
     var EndPoint: endpoint = ApiEndpoints.GetHomeWorkChart;
@@ -288,11 +293,16 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
           ]}>
           <_Text style={styles.dropdownLabel}>Course</_Text>
           <_View style={styles.dropDownStyle}>
-            {/* {state.courseList != undefined && (
+            {state.courseList != undefined && (
               <_ModalDropdown
                 isborder={false}
                 isdisable={state.courseList.length == 0}
-                item={state.courseName}
+                item={state.courseName.map((label, index) => ({
+                  label,
+                  value: state.courseList[index].epicId,
+                }))}
+                selectedValue={state.courseId}
+                onselected={onValueChange}
                 label={
                   state.courseList.length != 0
                     ? `Select ${terminologies['Course']?.label} `
@@ -312,16 +322,12 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
                 ]}
                 dropdownTextHighlightStyle={styles.dropdownTextHighlight}
                 dropdownTextStyle={styles.dropDownText}
-                onselected={val => {
-                  levelRef?.current?.select(-1);
-                  onValueChange(state.courseList[val].epicId);
-                }}
                 textStyle={[CommonStyles.className, styles.dropDownTextStyle]}
               />
-            )} */}
+            )}
           </_View>
         </_View>
-        {/* <_View
+        <_View
           style={{
             ...styles.challengeAssessmentView,
             marginTop: 5,
@@ -346,7 +352,11 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
                 isborder={false}
                 isdisable={state.levelList.length == 0}
                 ref={levelRef}
-                item={state.levelName}
+                item={state.levelName.map((label, index) => ({
+                  label,
+                  value: state.levelList[index],
+                }))}
+                selectedValue={state.levelId} // now controlled properly
                 label={
                   state.levelList.length != 0
                     ? 'Select level '
@@ -355,20 +365,21 @@ const StudentProgress: React.FC<stdProgressReportInterface> = ({
                 style={styles.dropDownContainer}
                 dropdownStyle={[
                   {
-                    height: -1,
+                    height:
+                      state.levelList.length > 3
+                        ? 120
+                        : state.levelList.length * 40,
                   },
                   styles.levelDropDownStyle,
                 ]}
                 dropdownTextStyle={styles.dropDownText}
                 dropdownTextHighlightStyle={styles.dropdownTextHighlight}
-                onselected={val => {
-                  onLevelSelect(state.levelList[val]);
-                }}
+                onselected={onLevelSelect}
                 textStyle={[CommonStyles.className, styles.dropDownTextStyle]}
               />
             )}
           </_View>
-        </_View> */}
+        </_View>
 
         <Challenge challengeData={state.challengeData} />
         <HomeworkChart homeWorkChartData={state.homeWorkChartData} />
@@ -391,11 +402,11 @@ const styles = StyleSheet.create({
   },
   dropDownStyle: {
     width: '98%',
-
+    marginLeft: 0,
     borderRadius: 10,
-
     backgroundColor: whiteThemeColors.white,
     alignSelf: 'center',
+   // ...CommonStyles.shadow,
     paddingVertical: 3,
   },
   dropdownLabel: {
@@ -418,19 +429,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     padding: 10,
   },
-  dropdownStyles: {
-    marginTop: 10,
-    width: '88%',
-    marginLeft: -10,
-    borderRadius: 10,
-    ...CommonStyles.shadow,
-    padding: 4,
-  },
-  dropdownTextHighlight: {
-    backgroundColor: whiteThemeColors.primary + 'c0',
-    color: whiteThemeColors.white,
-    textAlign: 'justify',
-  },
+
   dropDownText: {
     color: whiteThemeColors.black,
     fontSize: 13,

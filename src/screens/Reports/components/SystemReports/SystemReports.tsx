@@ -85,12 +85,12 @@ export const SystemReports: React.FC<SystemReportsProps> = ({}) => {
                 allowsLinkPreview
                 domStorageEnabled
                 javaScriptEnabled
-                setSupportMultipleWindows={false} // Disable handling multiple windows unless needed
+                setSupportMultipleWindows={false} 
                 allowFileAccessFromFileURLs={true}
-                originWhitelist={['*']} // Allow navigation to external content
+                originWhitelist={['*']} 
                 onShouldStartLoadWithRequest={(request) => {
                   if (request.navigationType === 'click') {
-                    return true; // Allow new windows/modal behavior if needed
+                    return true; 
                   }
                   return true;
                 }}

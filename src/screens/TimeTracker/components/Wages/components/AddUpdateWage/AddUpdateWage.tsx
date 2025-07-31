@@ -4,7 +4,7 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../reducers/Appstate';
 import {
   CustomAlert,
   DateTimePickerIos,

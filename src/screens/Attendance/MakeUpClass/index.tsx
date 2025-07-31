@@ -4,16 +4,15 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import moment from 'moment';
-import { useEffect, useReducer, useState } from 'react';
+import {useEffect, useReducer, useState} from 'react';
 import {
-  ActivityIndicator,
   FlatList,
   Keyboard,
   Pressable,
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import CommonStyles from '../../CommonStyles';
 import {
   CustomAlert,
@@ -24,9 +23,9 @@ import {
   whiteThemeColors,
 } from '../../../Utilities';
 import ApiEndpoints from '../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../data/DAL';
-import { error } from '../../../actions/AsyncStorage';
-import { createMakeUpClass } from '../../../actions/AttendanceActions';
+import {DataAccess} from '../../../../data/DAL';
+import {error} from '../../../actions/AsyncStorage';
+import {createMakeUpClass} from '../../../actions/AttendanceActions';
 import {
   AddMakeUpClassDetailsResponseInterface,
   CourseLevelResponseInterface,
@@ -43,10 +42,10 @@ import {
   filteredDataInterface,
 } from '../../../components';
 import DrawerScreens from '../../../navigation/Drawer/DrawerScreenNames';
-import { Appstate } from '../../../reducers/Appstate';
+import {Appstate} from '../../../reducers/Appstate';
 import CstHeader from '../../Headers';
-import { _ActivityIndicator } from '../../Loader';
-import { Title_DateTimePicker } from './components';
+import {_ActivityIndicator} from '../../Loader';
+import {Title_DateTimePicker} from './components';
 import {
   CreateMakeUpClassResponseInterface,
   ReducerDataType,
@@ -54,9 +53,8 @@ import {
   initialStateConstants,
   reducer,
 } from './state';
-import { styles } from './style';
-// just hide for now to run the app
-// import ModalDropdown from 'react-native-modal-dropdown';
+import {styles} from './style';
+import {Dropdown} from 'react-native-element-dropdown';
 
 let instructorLists: number[] = [];
 let _selectedTimeZone: number = -1;
@@ -68,9 +66,9 @@ export const MakeUpClass = () => {
   const [mode, setmode] = useState('date');
   const [state, _setState] = useReducer(reducer, initialState);
   const setState = (type: string, data: ReducerDataType) =>
-    _setState({ type, data });
+    _setState({type, data});
   const [IsVisible, setIsVisible] = useState(false);
-  const { Get } = DataAccess();
+  const {Get} = DataAccess();
   const [terminologies, setTerminologies] = useState<Partial<TerminologyMap>>(
     {},
   );
@@ -114,11 +112,10 @@ export const MakeUpClass = () => {
           );
         }
       })
-      .catch((ERROR: any) => console.log({ ERROR }));
+      .catch((ERROR: any) => console.log({ERROR}));
   };
 
   const handlePicker = (date: Date) => {
-    // if (!!date) return; // By DilNawaz
     if (!(date instanceof Date)) {
       return false;
     }
@@ -126,7 +123,6 @@ export const MakeUpClass = () => {
       initialStateConstants.dateFrom,
       state.isFrom === 'dateFrom' ? new Date(date) : state.dateFrom,
     );
-    // we will change in futer when to date logic is handle for now its optional so assigned same date to ToDate as fromDate
     setState(
       initialStateConstants.dateTo,
       state.isFrom === 'dateFrom' ? new Date(date) : state.dateTo,
@@ -185,10 +181,10 @@ export const MakeUpClass = () => {
       createMakeUpClass(
         state.classesNames[+state.selectedCourse]?.id,
         new Date(state.dateFrom).toISOString(),
-        new Date(state.dateFrom).toISOString(), //pass same date value for dateTo as it now depanded on dateFrom
+        new Date(state.dateFrom).toISOString(),
         state.timeFrom,
         state.timeTo,
-        '', //isBatch is empty in all cases
+        '',
         state.timeZoneList[_selectedTimeZone]
           ? state.timeZoneList[_selectedTimeZone]
           : '',
@@ -204,7 +200,7 @@ export const MakeUpClass = () => {
           'Okay',
         );
       })
-      .catch((Error: any) => console.log({ Error }))
+      .catch((Error: any) => console.log({Error}))
       .finally(() => {
         instructorLists = [];
         setState(initialStateConstants.isLoading, false);
@@ -230,7 +226,7 @@ export const MakeUpClass = () => {
         response.map((item: CourseLevelResponseInterface) => {
           if (item.levelClasses.length != 0) {
             item.levelClasses.map((item: LevelClass) =>
-              classesList.push({ name: item.className, id: item.classId }),
+              classesList.push({name: item.className, id: item.classId}),
             );
           }
         });
@@ -261,7 +257,7 @@ export const MakeUpClass = () => {
 
   const handleBack = () => {
     navigation.goBack();
-    return true; //disable back button
+    return true;
   };
 
   const onChangeText = (str: string) => {
@@ -276,16 +272,22 @@ export const MakeUpClass = () => {
   };
 
   const handleDateTimePicker = (type: string, FromTo: string) => {
-    // agrs: type means picker should be either time or date and FromTo means time/date is for From field or To field
     setmode(type);
     setIsVisible(true);
     setState(initialStateConstants.isFrom, FromTo);
   };
 
+  const handleInstructorChange = (selected: InstructorInterface[]) => {
+    const ids = selected.map(item => item.value);
+    const names = selected.map(item => item.text).join(',');
+    setState(initialStateConstants.ids, ids);
+    setState(initialStateConstants.selectedInstructor, names);
+    instructorLists = ids;
+  };
   const handleOnSelect = (rowData: string, rowID: string) => {
     const selectedIns = state.instructorList.filter(
       (item: InstructorInterface) => item.text === rowData,
-    ); // update instructorIds accordingly
+    );
     if (state.ids.includes(+rowID)) {
       setState(
         initialStateConstants.ids,
@@ -325,38 +327,36 @@ export const MakeUpClass = () => {
       hideTopSafeArea
       onAndroidBack={handleBack}
       flex={1}
-      backgroundColor={whiteThemeColors.background}
-    >
+      backgroundColor={whiteThemeColors.background}>
       <ScrollView
         scrollEnabled={!state.isKeyboardOpened}
         showsVerticalScrollIndicator={false}
-        nestedScrollEnabled
-      >
+        nestedScrollEnabled>
         <_Text
-          style={styles.headerText}
-        >{`Add Makeup ${terminologies['Class']?.label}`}</_Text>
+          style={
+            styles.headerText
+          }>{`Add Makeup ${terminologies['Class']?.label}`}</_Text>
         <_Text style={styles.detailText}>
           {`Fill in the details below to schedule a new makeup ${terminologies['Class']?.label}:`}
         </_Text>
         <_View style={styles.mainContainer}>
           <_Text
-            style={styles.labelTxt}
-          >{`Select ${terminologies['Course']?.label}`}</_Text>
+            style={
+              styles.labelTxt
+            }>{`Select ${terminologies['Course']?.label}`}</_Text>
           <TouchableOpacity
             activeOpacity={9}
             onPress={() =>
               setState(initialStateConstants.dropdown, !state.dropdown)
             }
-            style={styles.dropdown}
-          >
+            style={styles.dropdown}>
             <_Text
               numberOfLines={1}
               style={{
                 width: '90%',
                 fontFamily: CommonStyles.fonts.regular,
                 color: whiteThemeColors.greyDark,
-              }}
-            >
+              }}>
               {state.courseName
                 ? state.courseName
                 : `Select a ${terminologies['Course']?.label}`}
@@ -382,8 +382,8 @@ export const MakeUpClass = () => {
                 />
                 <_TextInput
                   autoFocus
-                  autoCapitalize='none'
-                  placeholder='Search'
+                  autoCapitalize="none"
+                  placeholder="Search"
                   onChangeText={onChangeText}
                   style={styles.dropDownSearchTxtInp}
                 />
@@ -392,7 +392,7 @@ export const MakeUpClass = () => {
                 <FlatList
                   data={state.filteredData}
                   keyExtractor={(item, index) => item.subscriptionID.toString()}
-                  renderItem={({ item }) => (
+                  renderItem={({item}) => (
                     <TouchableOpacity
                       style={styles.dropDownItemContainer}
                       onPress={() => {
@@ -403,8 +403,7 @@ export const MakeUpClass = () => {
                         setState(initialStateConstants.dropdown, false);
 
                         onValueChange(item.subscriptionID);
-                      }}
-                    >
+                      }}>
                       <_Text numberOfLines={1} style={styles.dropDownItemTxt}>
                         {item.subscriptionName}
                       </_Text>
@@ -415,8 +414,7 @@ export const MakeUpClass = () => {
                       <_Text
                         style={{
                           color: whiteThemeColors.primary,
-                        }}
-                      >
+                        }}>
                         {`No ${terminologies['Course']?.label} is Matched`}
                       </_Text>
                     </_View>
@@ -427,8 +425,9 @@ export const MakeUpClass = () => {
           )}
 
           <_Text
-            style={styles.labelTxt}
-          >{`Select ${terminologies['Class']?.label}`}</_Text>
+            style={
+              styles.labelTxt
+            }>{`Select ${terminologies['Class']?.label}`}</_Text>
 
           <_View
             style={[
@@ -439,11 +438,10 @@ export const MakeUpClass = () => {
                     ? whiteThemeColors.white
                     : whiteThemeColors.primary + 40,
               },
-            ]}
-          >
+            ]}>
             {state.classLoader ? (
-              <_View style={{ flex: 1, justifyContent: 'center' }}>
-                <ActivityIndicator
+              <_View style={{flex: 1, justifyContent: 'center'}}>
+                <_ActivityIndicator
                   size={'small'}
                   color={whiteThemeColors.primary}
                 />
@@ -457,21 +455,22 @@ export const MakeUpClass = () => {
                   backgroundColor: whiteThemeColors.white,
                   alignSelf: 'center',
                   justifyContent: 'center',
-                }}
-              >
-                {/* <ModalDropdown
-                  defaultValue={`Select a ${terminologies['Class']?.label}`}
-                  showsVerticalScrollIndicator={false}
-                  options={state.classesNames.map(
-                    (classname: any) => classname.name,
+                }}>
+                <Dropdown
+                  data={state.classesNames.map(
+                    (classname: any, idx: number) => ({
+                      label: classname.name,
+                      value: idx.toString(),
+                    }),
                   )}
+                  labelField="label"
+                  valueField="value"
+                  value={state.selectedCourse}
+                  placeholder={`Select a ${terminologies['Class']?.label}`}
                   style={styles.dropDownContainer}
-                  dropdownTextStyle={styles.dropDownTxt}
-                  dropdownStyle={styles.dropdownStyle}
-                  onSelect={(val: string) => {
-                    setState(initialStateConstants.selectedCourse, val);
-                  }}
-                  textStyle={[
+                  containerStyle={styles.dropdownStyle}
+                  itemTextStyle={styles.dropDownTxt}
+                  selectedTextStyle={[
                     styles.dropDownTxt,
                     {
                       color: whiteThemeColors.greyDark,
@@ -479,7 +478,10 @@ export const MakeUpClass = () => {
                       width: '97%',
                     },
                   ]}
-                  renderRightComponent={() => (
+                  onChange={item => {
+                    setState(initialStateConstants.selectedCourse, item.value);
+                  }}
+                  renderRightIcon={() => (
                     <_View
                       style={{
                         width: 50,
@@ -489,8 +491,7 @@ export const MakeUpClass = () => {
                         borderBottomRightRadius: 10,
                         justifyContent: 'center',
                         alignItems: 'center',
-                      }}
-                    >
+                      }}>
                       <_VectorIcons
                         type={'Feather'}
                         name={'chevron-down'}
@@ -500,7 +501,7 @@ export const MakeUpClass = () => {
                       />
                     </_View>
                   )}
-                /> */}
+                />
               </_View>
             ) : (
               <_Text style={styles.noClassFoundTxt}>
@@ -512,12 +513,10 @@ export const MakeUpClass = () => {
           <_Text style={styles.labelTxt}>Date From</_Text>
           <Pressable
             onPress={() => handleDateTimePicker('date', 'dateFrom')}
-            style={styles.input}
-          >
+            style={styles.input}>
             <_Text
               onPress={() => handleDateTimePicker('date', 'dateFrom')}
-              style={styles.dateTimeTxt}
-            >
+              style={styles.dateTimeTxt}>
               {convertUTCDateToLocalDateStringFormat(state.dateFrom)}
             </_Text>
             <_View style={styles.iconContainer}>
@@ -534,20 +533,19 @@ export const MakeUpClass = () => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               marginTop: 10,
-            }}
-          >
+            }}>
             <Title_DateTimePicker
               title={'Time From'}
               value={state.timeFrom}
               handleOnPress={() => handleDateTimePicker('time', 'timeFrom')}
-              icon={{ name: 'clock', type: 'Entypo' }}
+              icon={{name: 'clock', type: 'Entypo'}}
             />
 
             <Title_DateTimePicker
               title={'Time To'}
               value={state.timeTo}
               handleOnPress={() => handleDateTimePicker('time', 'timeTo')}
-              icon={{ name: 'clock', type: 'Entypo' }}
+              icon={{name: 'clock', type: 'Entypo'}}
             />
           </_View>
 
@@ -557,31 +555,27 @@ export const MakeUpClass = () => {
               style={{
                 height: 40,
                 width: '100%',
-
                 borderRadius: 5,
                 backgroundColor: whiteThemeColors.white,
                 alignSelf: 'center',
-
                 justifyContent: 'center',
-              }}
-            >
-              {/* <ModalDropdown
-                multipleSelect
-                showsVerticalScrollIndicator={false}
-                options={state.instructorList.map(
-                  (item: InstructorInterface) => item?.text,
-                )}
-                disabled={state.instructorList?.length === 0}
-                defaultValue={
-                  state.ids.length != 0
+              }}>
+              <Dropdown
+                data={state.instructorList.map((item: InstructorInterface) => ({
+                  label: item.text,
+                  value: item.value.toString(),
+                  text: item.text,
+                }))}
+                disable={state.instructorList?.length === 0}
+                placeholder={
+                  state.ids.length !== 0
                     ? state.selectedInstructor
                     : 'Select an Instructor'
                 }
-                style={styles.dropDownContainer}
-                dropdownTextStyle={styles.dropDownTxt}
-                dropdownStyle={styles.dropdownStyle}
-                defaultTextStyle={{ width: '97%' }}
-                textStyle={[
+                value={null} // We handle selection through onFocus/onBlur and the custom renderItem
+                style={[styles.dropDownContainer, {width: '100%'}]}
+                placeholderStyle={[styles.dropDownTxt, {width: '97%'}]}
+                selectedTextStyle={[
                   styles.dropDownTxt,
                   {
                     color: whiteThemeColors.greyDark,
@@ -589,9 +583,12 @@ export const MakeUpClass = () => {
                     width: '97%',
                   },
                 ]}
-                renderRow={(rowData: string, index: string) => (
+                dropdownPosition="auto"
+                containerStyle={styles.dropdownStyle}
+                itemTextStyle={styles.dropDownTxt}
+                renderItem={item => (
                   <TouchableOpacity
-                    onPress={() => handleOnSelect(rowData, index)}
+                    onPress={() => handleOnSelect(item.text, item.value)}
                     style={{
                       backgroundColor: whiteThemeColors.white,
                       padding: 10,
@@ -599,19 +596,16 @@ export const MakeUpClass = () => {
                       alignItems: 'center',
                       justifyContent: 'space-between',
                       paddingHorizontal: 15,
-                    }}
-                  >
+                    }}>
                     <_Text
-                      style={{ fontFamily: CommonStyles.fonts.regular }}
-                      numberOfLines={1}
-                    >
-                      {rowData}
+                      style={{fontFamily: CommonStyles.fonts.regular}}
+                      numberOfLines={1}>
+                      {item.label}
                     </_Text>
-
                     <_VectorIcons
                       type={'MaterialCommunityIcons'}
                       name={
-                        state.ids.includes(+index)
+                        state.ids.includes(+item.value)
                           ? 'checkbox-intermediate'
                           : 'checkbox-blank-outline'
                       }
@@ -620,28 +614,27 @@ export const MakeUpClass = () => {
                     />
                   </TouchableOpacity>
                 )}
-                renderRightComponent={() => (
+                renderRightIcon={() => (
                   <_View
                     style={{
                       width: 50,
                       height: 45,
-                      backgroundColor: whiteThemeColors.primary + 40,
+                      backgroundColor: whiteThemeColors.primary + '40',
                       borderTopRightRadius: 10,
                       borderBottomRightRadius: 10,
                       justifyContent: 'center',
                       alignItems: 'center',
-                    }}
-                  >
+                    }}>
                     <_VectorIcons
                       type={'Feather'}
                       name={'chevron-down'}
                       size={25}
                       color={whiteThemeColors.white}
-                      style={{}}
                     />
                   </_View>
                 )}
-              /> */}
+                onChange={() => {}} 
+              />
             </_View>
           </_View>
 
@@ -651,29 +644,26 @@ export const MakeUpClass = () => {
               style={{
                 height: 40,
                 width: '100%',
-
                 borderRadius: 5,
                 backgroundColor: whiteThemeColors.white,
                 alignSelf: 'center',
-
                 justifyContent: 'center',
-              }}
-            >
-              {/* <ModalDropdown
-                defaultValue={'Select a Timezone'}
-                showsVerticalScrollIndicator={false}
-                options={state.timeZoneList.map(
-                  (item: TimeZoneInterface) => item?.displayName,
+              }}>
+              <Dropdown
+                data={state.timeZoneList.map(
+                  (item: TimeZoneInterface, idx: number) => ({
+                    label: item.displayName,
+                    value: idx.toString(),
+                  }),
                 )}
-                selectedValue={state.selectedTimeZone}
+                labelField="label"
+                valueField="value"
+                value={state.selectedTimeZone}
+                placeholder={'Select a Timezone'}
                 style={styles.dropDownContainer}
-                dropdownTextStyle={styles.dropDownTxt}
-                dropdownStyle={styles.dropdownStyle}
-                onSelect={(val: string) => {
-                  setState(initialStateConstants.selectedTimeZone, +val);
-                  _selectedTimeZone = +val;
-                }}
-                textStyle={[
+                containerStyle={styles.dropdownStyle}
+                itemTextStyle={styles.dropDownTxt}
+                selectedTextStyle={[
                   styles.dropDownTxt,
                   {
                     color: whiteThemeColors.greyDark,
@@ -681,7 +671,7 @@ export const MakeUpClass = () => {
                     width: '97%',
                   },
                 ]}
-                renderRightComponent={() => (
+                renderRightIcon={() => (
                   <_View
                     style={{
                       width: 50,
@@ -691,8 +681,7 @@ export const MakeUpClass = () => {
                       borderBottomRightRadius: 10,
                       justifyContent: 'center',
                       alignItems: 'center',
-                    }}
-                  >
+                    }}>
                     <_VectorIcons
                       type={'Feather'}
                       name={'chevron-down'}
@@ -702,7 +691,11 @@ export const MakeUpClass = () => {
                     />
                   </_View>
                 )}
-              /> */}
+                onChange={item => {
+                  setState(initialStateConstants.selectedTimeZone, item.value);
+                  _selectedTimeZone = +item.value;
+                }}
+              />
             </_View>
           </_View>
 
@@ -723,17 +716,17 @@ export const MakeUpClass = () => {
                   ? _showAlert()
                   : navigateClassList();
               }}
-              style={styles.btn}
-            >
+              style={styles.btn}>
               {state.isLoading ? (
-                <ActivityIndicator
+                <_ActivityIndicator
                   color={whiteThemeColors.white}
                   size={'small'}
                 />
               ) : (
                 <_Text
-                  style={styles.btnTxt}
-                >{`Add Makeup ${terminologies['Class']?.label}`}</_Text>
+                  style={
+                    styles.btnTxt
+                  }>{`Add Makeup ${terminologies['Class']?.label}`}</_Text>
               )}
             </TouchableOpacity>
             <TouchableOpacity
@@ -742,8 +735,7 @@ export const MakeUpClass = () => {
                   refresh: true,
                 })
               }
-              style={styles.CloseBtn}
-            >
+              style={styles.CloseBtn}>
               <_Text style={styles.CloseBtnTxt}>Close</_Text>
             </TouchableOpacity>
           </_View>

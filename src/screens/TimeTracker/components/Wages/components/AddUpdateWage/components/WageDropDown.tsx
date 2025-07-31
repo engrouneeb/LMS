@@ -1,10 +1,10 @@
-import { WagesWageDropDownInterface } from '../../../../../../../interfaces';
-import React, { useCallback } from 'react';
-import { StyleSheet } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { _Text, _VectorIcons, _View } from '../../../../../../../components';
-import ModalDropdown from 'react-native-modal-dropdown';
+import React, {useCallback, useState, useEffect} from 'react';
+import {StyleSheet} from 'react-native';
+import {Dropdown} from 'react-native-element-dropdown';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_Text, _VectorIcons, _View} from '../../../../../../../components';
 import CommonStyles from '../../../../../../../screens/CommonStyles';
+import {WagesWageDropDownInterface} from '../../../../../../../interfaces';
 
 export const WageDropDown: React.FC<WagesWageDropDownInterface> = ({
   heading,
@@ -14,27 +14,37 @@ export const WageDropDown: React.FC<WagesWageDropDownInterface> = ({
   disabled = false,
   type,
 }) => {
-  const isUpdate = useCallback(() => type === 'update wage', []);
+  const isUpdate = useCallback(() => type === 'update wage', [type]);
+  const [selected, setSelected] = useState<string | null>(defaultValue ?? null);
 
-  const DropDownIcon = useCallback(
-    () => (
-      <_VectorIcons
-        type={'Feather'}
-        name={'chevron-down'}
-        size={25}
-        color={whiteThemeColors.primary}
-      />
-    ),
-    []
+  useEffect(() => {
+    setSelected(defaultValue ?? null);
+  }, [defaultValue]);
+
+  const DropDownIcon = () => (
+    <_VectorIcons
+      type="Feather"
+      name="chevron-down"
+      size={25}
+      color={whiteThemeColors.primary}
+    />
   );
 
-  const DropDownRow = useCallback((option: any) => {
+  const renderItem = (item: {label: string; value: string}, index: number) => {
+    const isSelected = selected === item.value;
     return (
-      <_View style={styles.rowContainer}>
-        <_Text style={styles.rowTxt}>{option}</_Text>
+      <_View
+        key={index}
+        style={[
+          styles.rowContainer,
+        
+        ]}>
+        <_Text style={[styles.rowTxt, isSelected && styles.highlightText]}>
+          {item.label}
+        </_Text>
       </_View>
     );
-  }, []);
+  };
 
   return (
     <_View style={styles.miniContainer}>
@@ -42,28 +52,42 @@ export const WageDropDown: React.FC<WagesWageDropDownInterface> = ({
         <_Text style={styles.titleTxt}>{heading}</_Text>
       </_View>
       <_View style={styles.dataCapturingContainer}>
-        <_View style={[styles.styledContainer]}>
-          <_View style={styles.dropdownContainer}>
-            <ModalDropdown
-              showsVerticalScrollIndicator={false}
-              disabled={disabled}
-              options={options}
-              defaultValue={defaultValue}
-              dropdownTextStyle={styles.dropdownTextStyle}
-              dropdownStyle={styles.dropdownStyle}
-              defaultTextStyle={[
-                {
-                  color: isUpdate()
-                    ? whiteThemeColors.black
-                    : whiteThemeColors.greyDark,
-                },
-              ]}
-              onSelect={(index: number) => onSelect(index)}
-              textStyle={styles.textStyle}
-              renderRow={DropDownRow}
-              renderRightComponent={DropDownIcon}
-            />
-          </_View>
+        <_View style={styles.styledContainer}>
+          <Dropdown
+            showsVerticalScrollIndicator={false}
+            disable={disabled}
+            data={options.map(item => ({label: item, value: item}))}
+            value={selected}
+            placeholder={defaultValue}
+            labelField="label"
+            valueField="value"
+            style={styles.dropdown}
+            containerStyle={styles.dropdownStyle}
+            itemTextStyle={styles.dropdownTextStyle}
+            selectedTextStyle={[
+              styles.textStyle,
+              {
+                color: isUpdate()
+                  ? whiteThemeColors.black
+                  : whiteThemeColors.greyDark,
+              },
+            ]}
+            placeholderStyle={[
+              styles.defaultTextStyle,
+              {
+                color: isUpdate()
+                  ? whiteThemeColors.black
+                  : whiteThemeColors.greyDark,
+              },
+            ]}
+            renderItem={renderItem}
+            onChange={item => {
+              setSelected(item.value);
+              const index = options.indexOf(item.value);
+              onSelect(index);
+            }}
+            renderRightIcon={DropDownIcon}
+          />
         </_View>
       </_View>
     </_View>
@@ -92,7 +116,7 @@ const styles = StyleSheet.create({
   styledContainer: {
     height: 45,
     borderColor: whiteThemeColors.greyDark,
-    backgroundColor: whiteThemeColors.primary + 10,
+    backgroundColor: whiteThemeColors.primary + '10',
     borderRadius: 10,
     paddingLeft: 10,
     paddingRight: 20,
@@ -100,21 +124,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  dropdownContainer: {
-    height: 40,
+  dropdown: {
     width: '100%',
-    alignSelf: 'center',
-    justifyContent: 'center',
-  },
-  dropdownTextStyle: {
-    width: '70%',
+    height: 45,
+    paddingHorizontal: 10,
   },
   dropdownStyle: {
     width: '85%',
-    height: -1,
-    marginTop: 13,
+    backgroundColor: '#fff',
     borderRadius: 10,
     paddingVertical: 10,
+    marginTop: 13,
+  },
+  dropdownTextStyle: {
+    width: '93%',
+    fontFamily: CommonStyles.fonts.regular,
+    fontSize: 13,
+    color: whiteThemeColors.black,
   },
   defaultTextStyle: {
     width: '93%',
@@ -134,5 +160,10 @@ const styles = StyleSheet.create({
   rowTxt: {
     fontSize: 13,
     fontFamily: CommonStyles.fonts.regular,
+    color: whiteThemeColors.black,
+  },
+  highlightText: {
+    color: whiteThemeColors.primary,
+    fontWeight: 'bold',
   },
 });

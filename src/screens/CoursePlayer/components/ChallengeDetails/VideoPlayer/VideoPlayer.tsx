@@ -1,23 +1,28 @@
-import { useNavigation } from '@react-navigation/native';
-import { AzureAudioInterface } from '../../../../../interfaces';
-import React, { useEffect, useRef, useState } from 'react';
-import { Pressable, TouchableOpacity } from 'react-native';
-// import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
-import Video from 'react-native-video';
-import { useDispatch, useSelector } from 'react-redux';
-import { isStudent, whiteThemeColors } from '../../../../../Utilities';
-import { SetStepState } from '../../../../../actions/OnlineNotesActions';
+import {useNavigation} from '@react-navigation/native';
+import {AzureAudioInterface} from '../../../../../interfaces';
+import React, {useEffect, useRef, useState} from 'react';
 import {
-  _Button,
+  Pressable,
+  TouchableOpacity,
+  View,
+  ActivityIndicator,
+  Text,
+} from 'react-native';
+import Video from 'react-native-video';
+import {useDispatch, useSelector} from 'react-redux';
+import {isStudent, whiteThemeColors} from '../../../../../Utilities';
+import {SetStepState} from '../../../../../actions/OnlineNotesActions';
+import {
   _Screen,
   _Text,
   _VectorIcons,
   _View,
 } from '../../../../../components';
-import { Appstate } from '../../../../../reducers/Appstate';
-
+import {Appstate} from '../../../../../reducers/Appstate';
 import Header from '../../../../Headers';
-import { style } from './styles';
+import {style} from './styles';
+import Slider from '@react-native-community/slider';
+
 let isPrevNxtInProgress = false;
 
 const VideoPlayer: React.FC<AzureAudioInterface> = ({
@@ -28,12 +33,10 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
   isNextStep,
   isCompleted,
   isPreviousStep,
-  // updateLocalStep,
-  // stepId,
 }) => {
   const navigation: any = useNavigation();
   const dispatch: any = useDispatch();
-  const { commonWords } = useSelector((state: Appstate) => state.language);
+  const {commonWords} = useSelector((state: Appstate) => state.language);
   const [url, setUrl] = useState('');
   const [isNext, setIsNext] = useState<any>();
   const [ScreenHeader, setHeader] = useState('');
@@ -45,17 +48,15 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [paused, setPaused] = useState(false);
-  const [playerState, setPlayerState] = useState(PLAYER_STATES.PLAYING);
+
   useEffect(() => {
     isPrevNxtInProgress = false;
     if (route?.params) {
-      let { params } = route;
-
+      let {params} = route;
       setRoleName(params.role);
       setHeader(params.header);
       setUrl(params.mediaFileUrl);
       setIsNext(params.isNextStep);
-      // PlayVideo(params.mediaFileUrl);
       setIsCompleted(params.isCompleted);
       setIsPrevious(params.isPreviousStep);
     } else {
@@ -63,7 +64,6 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
       setHeader(header);
       setUrl(mediaFileUrl);
       setIsNext(isNextStep);
-      // PlayVideo(mediaFileUrl);
       setIsCompleted(isCompleted);
       setIsPrevious(isPreviousStep);
     }
@@ -74,30 +74,23 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
     return true;
   };
 
-  const onSeek = (seek: any) => {
+  const onSeek = (seek: number) => {
     videoPlayerRef.current.seek(seek);
+    setCurrentTime(seek);
   };
-  // const onPaused = (playerState: any) => {
-  //   setPaused(!paused);
-  //   setPlayerState(playerState);
-  // };
-  // const onReplay = () => {
-  //   setPlayerState(PLAYER_STATES.PLAYING);
-  //   videoPlayerRef.current.seek(0);
-  // };
+
   const onProgress = (data: any) => {
-    // if (!isLoading && playerState !== PLAYER_STATES.ENDED) {
-    //   setCurrentTime(data.currentTime);
-    // }
+    setCurrentTime(data.currentTime);
   };
+
   const onLoad = (data: any) => {
     setDuration(data.duration);
     setIsLoading(false);
   };
+
   const onLoadStart = () => setIsLoading(true);
-  // const onEnd = () => setPlayerState(PLAYER_STATES.ENDED);
-   const onEnd = () => {};
-  const onSeeking = (currentTime: any) => setCurrentTime(currentTime);
+  const onEnd = () => {};
+
   return (
     <_Screen
       header={
@@ -112,8 +105,7 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
       flex={1}
       hideTopSafeArea
       onAndroidBack={handleBack}
-      backgroundColor={whiteThemeColors.background}
-    >
+      backgroundColor={whiteThemeColors.background}>
       <_View style={style.container}>
         <Video
           onEnd={onEnd}
@@ -123,26 +115,40 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
           paused={paused}
           ref={videoPlayerRef}
           resizeMode={'contain'}
-          source={{
-            uri: url,
-          }}
+          source={{uri: url}}
           style={style.mediaPlayer}
           volume={10}
-          ignoreSilentSwitch='ignore'
+          ignoreSilentSwitch="ignore"
         />
-        {/* <MediaControls
-          duration={duration}
-          isLoading={isLoading}
-          mainColor={whiteThemeColors.AudioChallengeView.mediaControllIconColor}
-          onPaused={onPaused}
-          onReplay={onReplay}
-          onSeek={onSeek}
-          onSeeking={onSeeking}
-          playerState={playerState}
-          progress={currentTime}
-          isFullScreen={false}
-        /> */}
+        {isLoading ? (
+          <ActivityIndicator size="large" color="gray" />
+        ) : (
+          <_View style={{width: '90%', alignSelf: 'center', marginTop: 12}}>
+            <Slider
+              style={{width: '100%', height: 40}}
+              minimumValue={0}
+              maximumValue={duration}
+              value={currentTime}
+              onValueChange={onSeek}
+              minimumTrackTintColor="#FFFFFF"
+              maximumTrackTintColor="#000000"
+            />
+            <TouchableOpacity
+              onPress={() => setPaused(!paused)}
+              style={{
+                marginTop: 16,
+                padding: 10,
+                backgroundColor: 'gray',
+                borderRadius: 6,
+              }}>
+              <Text style={{color: 'white', textAlign: 'center'}}>
+                {paused ? 'Play' : 'Pause'}
+              </Text>
+            </TouchableOpacity>
+          </_View>
+        )}
       </_View>
+
       <_View style={style.actionBtnContainer}>
         {isPrevious && (
           <Pressable
@@ -151,15 +157,14 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
                 isPrevNxtInProgress = true;
                 navigation.goBack();
                 route?.params.navigateToNextScreen(
-                  JSON.parse(route.params.previousStep)
+                  JSON.parse(route.params.previousStep),
                 );
               }
             }}
-            style={style.actionBtn}
-          >
+            style={style.actionBtn}>
             <_VectorIcons
-              type='Entypo'
-              name='chevron-thin-left'
+              type="Entypo"
+              name="chevron-thin-left"
               size={16}
               color={whiteThemeColors.textColor.darkGrayText}
               style={style.chevronThinLft}
@@ -183,8 +188,7 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
                 });
                 navigation.goBack();
               }
-            }}
-          >
+            }}>
             <_Text style={style.actionBtnTxt}>
               {iscompleted
                 ? commonWords.markAsIncomplete
@@ -198,18 +202,16 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
               if (!isPrevNxtInProgress) {
                 isPrevNxtInProgress = true;
                 navigation.goBack();
-                // route.params.navigateToNextScreen(JSON.parse(isNext));
                 route?.params.navigateToNextScreen(
-                  JSON.parse(route.params.nextStep)
+                  JSON.parse(route.params.nextStep),
                 );
               }
             }}
-            style={style.actionBtn}
-          >
+            style={style.actionBtn}>
             <_Text style={style.actionBtnTxt}>{commonWords.next}</_Text>
             <_VectorIcons
-              type='Entypo'
-              name='chevron-thin-right'
+              type="Entypo"
+              name="chevron-thin-right"
               size={16}
               color={whiteThemeColors.textColor.darkGrayText}
               style={style.chevronThinRight}
@@ -221,4 +223,4 @@ const VideoPlayer: React.FC<AzureAudioInterface> = ({
   );
 };
 
-export { VideoPlayer };
+export {VideoPlayer};

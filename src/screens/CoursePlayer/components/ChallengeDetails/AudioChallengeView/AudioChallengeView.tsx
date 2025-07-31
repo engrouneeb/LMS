@@ -1,19 +1,21 @@
-import { useNavigation } from '@react-navigation/native';
-import { AzureAudioInterface } from '../../../../../interfaces';
-import React, { useEffect, useRef, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
-// import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
+import {useNavigation} from '@react-navigation/native';
+import {AzureAudioInterface} from '../../../../../interfaces';
+import React, {useEffect, useRef, useState} from 'react';
+import {TouchableOpacity, View, Text} from 'react-native';
+import Slider from '@react-native-community/slider';
 import Video from 'react-native-video';
-import { useDispatch, useSelector } from 'react-redux';
-import { isStudent, whiteThemeColors } from '../../../../../Utilities';
-import { SetStepState } from '../../../../../actions/OnlineNotesActions';
-import { _Text, _VectorIcons, _View } from '../../../../../components';
-import { Appstate } from '../../../../../reducers/Appstate';
+import {useDispatch, useSelector} from 'react-redux';
+import {isStudent, whiteThemeColors} from '../../../../../Utilities';
+import {SetStepState} from '../../../../../actions/OnlineNotesActions';
+import {_Text, _VectorIcons, _View} from '../../../../../components';
+import {Appstate} from '../../../../../reducers/Appstate';
 import Screens from '../../../../../screenNames';
 import CommonStyles from '../../../../CommonStyles';
-import { AudioHeader } from './components/AudioHeader';
-import { styles } from './styles';
+import {AudioHeader} from './components/AudioHeader';
+import {styles} from './styles';
+
 let isPrevNxtInPrgrs = false;
+
 const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
   route,
   isPreviousStep,
@@ -31,7 +33,6 @@ const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
   const [isLoading, setIsLoading] = useState(true);
   const [isAudio, setIsAudio] = useState(false);
   const [paused, setPaused] = useState(false);
-  const [playerState, setPlayerState] = useState(PLAYER_STATES.PLAYING);
   const [screenType] = useState('content');
   const [header, setHeader] = useState('');
   const [roleName, setRoleName] = useState<any>('');
@@ -39,7 +40,7 @@ const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
   useEffect(() => {
     isPrevNxtInPrgrs = false;
     if (route?.params) {
-      const { params } = route;
+      const {params} = route;
       setIsCompleted(params.isCompleted);
       setIsPrevious(params.isPreviousStep);
       setIsNext(params.isNextStep);
@@ -56,26 +57,15 @@ const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
     }
   }, []);
 
-  const onSeek = (seek: any) => {
-    //Handler for change in seekbar
+  const onSeek = (seek: number) => {
     videoPlayer?.current?.seek(seek);
-  };
-
-  const onPaused = () => {
-    setPaused(!paused);
-    // if (!paused) setPlayerState(PLAYER_STATES.PAUSED);
-    // else setPlayerState(PLAYER_STATES.PLAYING);
-  };
-
-  const onReplay = () => {
-    // setPlayerState(PLAYER_STATES.PLAYING);
-    videoPlayer?.current?.seek(0);
+    setCurrentTime(seek);
   };
 
   const onProgress = (data: any) => {
-    // if (!isLoading && playerState !== PLAYER_STATES.ENDED) {
-    //   setCurrentTime(data.currentTime);
-    // }
+    if (!isLoading) {
+      setCurrentTime(data.currentTime);
+    }
   };
 
   const onLoad = (data: any) => {
@@ -85,61 +75,78 @@ const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
 
   const onLoadStart = () => setIsLoading(true);
 
-  // const onEnd = () => setPlayerState(PLAYER_STATES.ENDED);
-  const onSeeking = (currentTime: any) => setCurrentTime(currentTime);
+  const onEnd = () => {
+    setPaused(true);
+    videoPlayer?.current?.seek(0);
+  };
 
-  const { commonWords } = useSelector((state: Appstate) => state.language);
-  var url = isAudio
+  const {commonWords} = useSelector((state: Appstate) => state.language);
+
+  const url = isAudio
     ? route?.params.mediaFileUrl
     : `https:${route?.params.mediaFileUrl}(format=m3u8-aapl)`;
+
   return (
     <_View style={styles.container}>
       <AudioHeader
         header={header}
         onPress={() => {
-          onPaused();
+          setPaused(true);
           navigation.pop();
         }}
       />
       <_View style={styles.videoContainer}>
         <Video
-          onEnd={onEnd}
-          onLoad={onLoad}
-          onLoadStart={onLoadStart}
-          onProgress={onProgress}
-          paused={paused}
           ref={videoPlayer}
+          source={{uri: url}}
+          paused={paused}
+          onLoadStart={onLoadStart}
+          onLoad={onLoad}
+          onProgress={onProgress}
+          onEnd={onEnd}
           resizeMode={screenType}
-          source={{
-            uri: url,
-          }}
           style={styles.mediaPlayer}
           volume={10}
         />
-        {/* <MediaControls
-          duration={duration}
-          isLoading={isLoading}
-          mainColor={whiteThemeColors.AudioChallengeView.mediaControllIconColor}
-          onPaused={onPaused}
-          onReplay={onReplay}
-          onSeek={onSeek}
-          onSeeking={onSeeking}
-          playerState={playerState}
-          progress={currentTime}
-          children={undefined}
-          containerStyle={{ backgroundColor: 'black' }}
-          isFullScreen={true}
-        /> */}
+
+        <View style={{width: '100%', paddingHorizontal: 15, paddingBottom: 40}}>
+          <TouchableOpacity
+            onPress={() => setPaused(!paused)}
+            style={{alignSelf: 'center', marginBottom: 10}}>
+            <Text style={{color: whiteThemeColors.white}}>
+              {paused ? 'Play' : 'Pause'}
+            </Text>
+          </TouchableOpacity>
+
+          <Slider
+            value={currentTime}
+            minimumValue={0}
+            maximumValue={duration}
+            onSlidingComplete={onSeek}
+            minimumTrackTintColor={whiteThemeColors.primary}
+            maximumTrackTintColor="#ccc"
+            thumbTintColor={whiteThemeColors.primary}
+          />
+
+          <Text
+            style={{
+              color: whiteThemeColors.white,
+              textAlign: 'center',
+              marginTop: 5,
+            }}>
+            {formatTime(currentTime)} / {formatTime(duration)}
+          </Text>
+        </View>
       </_View>
+
       <_View style={styles.chevronContainer}>
         <TouchableOpacity
           onPress={() => {
-            console.log('pressed');
             if (!isPrevNxtInPrgrs) {
               isPrevNxtInPrgrs = true;
               navigation.pop();
               route!.params.navigateToNextScreen(
-                JSON.parse(route!.params.previousStep)
+                JSON.parse(route!.params.previousStep),
               );
             }
           }}
@@ -149,11 +156,10 @@ const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
               width: isStudent(roleName) ? '30%' : '49%',
             },
             styles.chevronButton,
-          ]}
-        >
+          ]}>
           <_VectorIcons
-            type='Entypo'
-            name='chevron-thin-left'
+            type="Entypo"
+            name="chevron-thin-left"
             size={14}
             color={whiteThemeColors.textColor.darkGrayText}
             style={styles.chevronLeft}
@@ -162,6 +168,7 @@ const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
             {commonWords.previous}
           </_Text>
         </TouchableOpacity>
+
         {!isStudent(roleName) ? null : (
           <TouchableOpacity
             style={styles.markCompletedBtn}
@@ -181,25 +188,24 @@ const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
                   role: roleName,
                 });
               }
-            }}
-          >
+            }}>
             <_Text
               numberOfLines={1}
-              style={[CommonStyles.className, styles.markText]}
-            >
-              {isCompleted === true
+              style={[CommonStyles.className, styles.markText]}>
+              {isCompleted
                 ? commonWords.markAsIncomplete
                 : commonWords.markAsComplete}
             </_Text>
           </TouchableOpacity>
         )}
+
         <TouchableOpacity
           onPress={() => {
             if (!isPrevNxtInPrgrs) {
               isPrevNxtInPrgrs = true;
               navigation.pop();
               route!.params.navigateToNextScreen(
-                JSON.parse(route!.params.nextStep)
+                JSON.parse(route!.params.nextStep),
               );
             }
           }}
@@ -209,14 +215,13 @@ const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
               width: isStudent(roleName) ? '30%' : '49%',
             },
             styles.nextBtn,
-          ]}
-        >
+          ]}>
           <_Text numberOfLines={1} style={styles.nextBtnText}>
             {commonWords.next}
           </_Text>
           <_VectorIcons
-            type='Entypo'
-            name='chevron-thin-right'
+            type="Entypo"
+            name="chevron-thin-right"
             size={14}
             color={whiteThemeColors.textColor.darkGrayText}
             style={styles.chevronRight}
@@ -225,6 +230,13 @@ const AzureVideoPlayer: React.FC<AzureAudioInterface> = ({
       </_View>
     </_View>
   );
+};
+
+// Helper to format seconds to mm:ss
+const formatTime = (time: number) => {
+  const mins = Math.floor(time / 60);
+  const secs = Math.floor(time % 60);
+  return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
 };
 
 export const AudioChallenge = React.memo(AzureVideoPlayer);

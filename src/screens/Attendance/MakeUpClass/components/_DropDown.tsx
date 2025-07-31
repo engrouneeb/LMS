@@ -1,8 +1,7 @@
 import { FC } from 'react';
 import { StyleSheet } from 'react-native';
 import { whiteThemeColors } from '../../../../Utilities';
-// remove _ModalDropdown will be add letter
-import { _DropDownProps, _Text, _View, } from '../../../../components';
+import { _DropDownProps, _ModalDropdown,  _Text, _View, } from '../../../../components';
 
 export const _DropDown: FC<_DropDownProps> = ({
   _options,
@@ -11,22 +10,18 @@ export const _DropDown: FC<_DropDownProps> = ({
   _selectedValue,
 }) => {
   return (
-    // <_ModalDropdown
-    //   item={_options}
-    //   label={
-    //     _selectedValue != undefined && _selectedValue >= 0
-    //       ? _options[+_selectedValue]
-    //       : _defaultValue
-    //   }
-    //   isdisable={false}
-    //   isborder={false}
-    //   style={styles.dropDownContainer}
-    //   dropdownStyle={[styles.dropdownStyle]}
-    //   dropdownTextStyle={styles.dropDownTxt}
-    //   onselected={_onSelect}
-    //   textStyle={{ color: whiteThemeColors.black, fontSize: 13 }}
-    // />
-    <_View><_Text>Drop Down</_Text></_View>
+    <><_ModalDropdown
+      item={_options}
+      label={_selectedValue != undefined && _selectedValue >= 0
+        ? _options[+_selectedValue]
+        : _defaultValue}
+      isdisable={false}
+      isborder={false}
+      style={styles.dropDownContainer}
+      dropdownStyle={[styles.dropdownStyle]}
+      dropdownTextStyle={styles.dropDownTxt}
+      onselected={_onSelect}
+      textStyle={{ color: whiteThemeColors.black, fontSize: 13 }} /><_View><_Text>Drop Down</_Text></_View></>
   );
 };
 

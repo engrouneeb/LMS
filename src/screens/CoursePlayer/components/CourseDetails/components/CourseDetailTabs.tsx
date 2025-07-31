@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { styles } from '../styles';
-import { TouchableOpacity } from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {styles} from '../styles';
+import {Text, TouchableOpacity} from 'react-native';
 import CommonStyles from '../../../../CommonStyles';
-//import ModalDropdown from 'react-native-modal-dropdown';
-import {  _VectorIcons, _View } from '../../../../../components';
+import {Dropdown} from 'react-native-element-dropdown';
+import {_VectorIcons, _View} from '../../../../../components';
 import {
   getTerminologyLabel,
   isStudent,
@@ -11,7 +11,8 @@ import {
   TerminologyMap,
   whiteThemeColors,
 } from '../../../../../Utilities';
-import { CourseSvg2, OnlineClassSvg } from '../../../../../../assets/Icons';
+import {CourseSvg2, OnlineClassSvg} from '../../../../../../assets/Icons';
+
 interface props {
   handleClassesAssignToCourse: any;
   roleName: string;
@@ -19,6 +20,7 @@ interface props {
   onPress2: any;
   onPress3: any;
 }
+
 export const CourseDetailTabs: React.FC<props> = ({
   handleClassesAssignToCourse,
   roleName,
@@ -29,13 +31,29 @@ export const CourseDetailTabs: React.FC<props> = ({
   const [terminologies, setTerminologies] = useState<Partial<TerminologyMap>>(
     {},
   );
+  const [dropdownItems, setDropdownItems] = useState<
+    Array<{label: string; value: string}>
+  >([]);
+
   useEffect(() => {
     const fetchTerminologies = async () => {
       const terms = await getTerminologyLabel();
       setTerminologies(terms);
+      setDropdownItems([
+        {label: 'Student White Board', value: '0'},
+        {
+          label: 'Class White Board'.replace(
+            'Class',
+            terms['Class']?.label || 'Class',
+          ),
+          value: '1',
+        },
+        
+      ]);
     };
     fetchTerminologies();
   }, []);
+
   return (
     <_View style={styles.topView}>
       <_View style={styles.border}>
@@ -55,6 +73,7 @@ export const CourseDetailTabs: React.FC<props> = ({
             activeOpacity={0.6}
             onPress={onPress1}
             style={styles.topViewButton}>
+              
             <_VectorIcons
               name="easel-outline"
               type="Ionicons"
@@ -65,33 +84,36 @@ export const CourseDetailTabs: React.FC<props> = ({
         </_View>
       ) : (
         <_View style={styles.border}>
-          <TouchableOpacity activeOpacity={0.9} style={styles.topViewButton}>
-            {/* <ModalDropdown
-              // scrollEnabled={false}
-              saveScrollPosition={false}
-              options={[
-                'Student White Board',
-                'Class White Board'.replace(
-                  'Class',
-                  terminologies['Class']?.label || 'Class',
-                ),
-              ]}
-              dropdownStyle={[styles.dropDownList, CommonStyles.shadow]}
-              dropdownTextStyle={styles.dropDownItemTxt}
-              onSelect={onPress2}
-              textStyle={{ fontSize: 13 }}
-            >    </ModalDropdown> */}
-            <_VectorIcons
-              type={'Ionicons'}
-              name="easel-outline"
-              color={whiteThemeColors.icons.whiteIcon}
-              size={20}
-              style={{
-                flex: 1,
-                padding: 15,
-              }}
-            />
-          </TouchableOpacity>
+          <Dropdown
+            data={dropdownItems}
+            labelField="label"
+            valueField="value"
+            onChange={item => onPress2(item.value)}
+            style={[styles.topViewButton, {justifyContent: 'center'}]}
+            placeholder=""
+            renderRightIcon={() => null}
+            renderItem={(item, selected) => (
+              <_View style={{padding: 10}}>
+                <Text style={styles.dropDownItemTxt}>{item.label}</Text>
+              </_View>
+            )}
+            dropdownPosition="bottom"
+            containerStyle={[styles.dropDownList, CommonStyles.shadow]}
+            itemTextStyle={{color: whiteThemeColors.black}}
+            selectedTextStyle={{color: whiteThemeColors.white}}
+           // itemContainerStyle={{backgroundColor: whiteThemeColors.white}}
+            activeColor={whiteThemeColors.greyLight}
+            showsVerticalScrollIndicator={false}
+            renderLeftIcon={() => (
+              <_VectorIcons
+                type={'Ionicons'}
+                name="easel-outline"
+                color={whiteThemeColors.icons.whiteIcon}
+                size={20}
+                style={{padding: 15}}
+              />
+            )}
+          />
         </_View>
       )}
       <_View style={styles.border}>

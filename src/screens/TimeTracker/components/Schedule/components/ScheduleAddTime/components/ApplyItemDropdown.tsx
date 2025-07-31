@@ -1,34 +1,47 @@
-import { ScheduleAddTimeApplyItemDropDownInterface } from '../../../../../../../interfaces';
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import {
-  // _ModalDropdown,
-  _Text,
-  _VectorIcons,
-  _View,
-} from '../../../../../../../components';
+import {ScheduleAddTimeApplyItemDropDownInterface} from '../../../../../../../interfaces';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_ModalDropdown, _Text, _View} from '../../../../../../../components';
 import CommonStyles from '../../../../../../CommonStyles';
 
 export const ApplyItemDropdown: React.FC<
   ScheduleAddTimeApplyItemDropDownInterface
-> = ({ data, isEdit, selectedItem, onValueChange }) => {
-  var option = data.map((data: any) => {
-    return data.lable;
-  });
+> = ({data, isEdit, selectedItem, onValueChange}) => {
+  const option = data.map((item, index) => ({
+    label: item.lable,
+    value: index,
+  }));
+
+  const [selectedValue, setSelectedValue] = useState<number | null>(null);
+
+  useEffect(() => {
+    if (isEdit && selectedItem) {
+      const index = data.findIndex(item => item.lable === selectedItem);
+      setSelectedValue(index !== -1 ? index : null);
+    }
+  }, [isEdit, selectedItem]);
+
   return (
     <_View style={styles.container}>
       <_View style={styles.labelTxtContainer}>
         <_Text style={styles.headText}>Apply for item</_Text>
       </_View>
       <_View style={styles.dropDownContainer}>
-        {/* <_ModalDropdown
-          isdisable={option?.length === 0}
+        <_ModalDropdown
+          isdisable={option.length === 0}
           item={option}
-          style={{
-            paddingLeft: 5,
+          selectedValue={selectedValue}
+          label={
+            selectedValue !== null
+              ? option[selectedValue]?.label
+              : 'Select item..'
+          }
+          onselected={(index: number) => {
+            setSelectedValue(index);
+            onValueChange(index); // pass back index as before
           }}
-          label={isEdit ? selectedItem : 'Select item..'}
+          style={{paddingLeft: 5}}
           dropdownStyle={{
             width: '83%',
             marginTop: 10,
@@ -43,47 +56,38 @@ export const ApplyItemDropdown: React.FC<
             fontSize: 13,
             fontFamily: CommonStyles.fonts.regular,
           }}
-          textStyle={[
-            {
-              color: whiteThemeColors.greyDark,
-              fontFamily: CommonStyles.fonts.regular,
-              fontSize: 13,
-              width: '97%',
-            },
-          ]}
+          textStyle={{
+            color: whiteThemeColors.greyDark,
+            fontFamily: CommonStyles.fonts.regular,
+            fontSize: 13,
+            width: '97%',
+          }}
           defaultTextStyle={{
             color: whiteThemeColors.greyDark,
             fontSize: 13,
             fontFamily: CommonStyles.fonts.regular,
             width: '97%',
           }}
-          onselected={(index) => {
-            onValueChange(index);
-          }}
           isborder={false}
-          renderRow={(option: any) => {
-            return (
-              <_View
+          renderRow={(option: any) => (
+            <_View
+              style={{
+                flexDirection: 'row',
+                marginTop: 5,
+                marginBottom: 5,
+                alignItems: 'center',
+              }}>
+              <_Text
                 style={{
-                  flexDirection: 'row',
-                  marginTop: 5,
-                  marginBottom: 5,
-                  alignItems: 'center',
-                }}
-              >
-                <_Text
-                  style={{
-                    color: whiteThemeColors.lightBlack,
-                    paddingLeft: 5,
-                    fontSize: 16,
-                  }}
-                >
-                  {option}
-                </_Text>
-              </_View>
-            );
-          }}
-        /> */}
+                  color: whiteThemeColors.lightBlack,
+                  paddingLeft: 5,
+                  fontSize: 16,
+                }}>
+                {option.label}
+              </_Text>
+            </_View>
+          )}
+        />
       </_View>
     </_View>
   );
@@ -109,8 +113,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 5,
     height: 55,
-  },
-  padding10: {
-    padding: 10,
   },
 });

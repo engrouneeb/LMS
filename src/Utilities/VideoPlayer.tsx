@@ -1,54 +1,67 @@
-import React, { useRef, useState } from 'react';
-import { Image, Modal, StyleSheet, TouchableOpacity } from 'react-native';
-//import FastImage from 'react-native-fast-image';
-// import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
+import React, {useRef, useState} from 'react';
+import {
+  Image,
+  Modal,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Text,
+} from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Video from 'react-native-video';
-import { _View } from '../components';
-import { whiteThemeColors } from '../theme';
+import Slider from '@react-native-community/slider';
+import {_View} from '../components';
+import {whiteThemeColors} from '../theme';
+
 interface props {
   url?: any;
   thumbnail?: string;
   style?: any;
 }
-const Videoplayer: React.FC<props> = ({ url, thumbnail, style }) => {
+
+const Videoplayer: React.FC<props> = ({url, thumbnail, style}) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const videoPlayerRef: any = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [paused, setPaused] = useState(false);
-  //const [playerState, setPlayerState] = useState(PLAYER_STATES.PLAYING);
 
-  const onSeek = (seek: any) => {
+  const onSeek = (seek: number) => {
     videoPlayerRef.current.seek(seek);
+    setCurrentTime(seek);
   };
-  const onPaused = (playerState: any) => {
-    setPaused(!paused);
-   // setPlayerState(playerState);
-  };
-  const onReplay = () => {
-    //setPlayerState(PLAYER_STATES.PLAYING);
-    videoPlayerRef.current.seek(0);
-  };
-  const onProgress = (data: any) => {
-   // if (!isLoading && playerState !== PLAYER_STATES.ENDED) {
-      setCurrentTime(data.currentTime);
-    // }
-  };
+
   const onLoad = (data: any) => {
-    // setDuration(data.duration);
-    // setIsLoading(false);
+    setDuration(data.duration);
+    setIsLoading(false);
+  };
+
+  const onProgress = (data: any) => {
+    if (!isLoading) {
+      setCurrentTime(data.currentTime);
+    }
+  };
+
+  const onEnd = () => {
+    setPaused(true);
+    videoPlayerRef.current.seek(0);
+    setCurrentTime(0);
+  };
+
+  const onLoadStart = () => {
+    setIsLoading(true);
+  };
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
   };
 
   return (
-    <TouchableOpacity
-    //  style={styles.videoContainer}
-      onPress={() => {
-        setIsFullScreen(true);
-      }}
-    >
+    <TouchableOpacity onPress={() => setIsFullScreen(true)}>
       <_View
         height={50}
         width={50}
@@ -57,10 +70,15 @@ const Videoplayer: React.FC<props> = ({ url, thumbnail, style }) => {
           position: 'absolute',
           backgroundColor: whiteThemeColors.background,
           borderRadius: 30,
-        }}
-      >
+          justifyContent: 'center',
+          alignItems: 'center',
+          top: '50%',
+          left: '50%',
+          marginTop: -25,
+          marginLeft: -25,
+        }}>
         <MaterialCommunityIcons
-          name='play'
+          name="play"
           size={50}
           color={whiteThemeColors.primary}
           style={{
@@ -76,27 +94,24 @@ const Videoplayer: React.FC<props> = ({ url, thumbnail, style }) => {
           width: 260,
           height: 240,
           borderRadius: 6,
-          // borderWidth: 5,
           borderColor: whiteThemeColors.chatInterface.chatRight,
-         // ...style,
+          ...style,
         }}
         source={{
-          // uri: thumbnail
-          //   ? thumbnail
-          //   : 'https://cypressintegration.com/wp-content/uploads/gray-background-texture-1-1.gif',
-          // priority: FastImage.priority.normal,
+          uri: thumbnail
+            ? thumbnail
+            : 'https://cypressintegration.com/wp-content/uploads/gray-background-texture-1-1.gif',
         }}
-        // resizeMode={FastImage.resizeMode.cover}
+        resizeMode="cover"
       />
       {isFullScreen && (
         <Modal
-          animationType='fade'
+          animationType="fade"
           visible={isFullScreen}
           style={{
             backgroundColor: whiteThemeColors.black,
             justifyContent: 'center',
-          }}
-        >
+          }}>
           <Video
             onEnd={onEnd}
             onLoad={onLoad}
@@ -104,31 +119,40 @@ const Videoplayer: React.FC<props> = ({ url, thumbnail, style }) => {
             onProgress={onProgress}
             paused={paused}
             ref={videoPlayerRef}
-            resizeMode={'contain'}
-            source={{
-              uri: url,
-            }}
+            resizeMode="contain"
+            source={{uri: url}}
             style={styles.mediaPlayer}
             volume={10}
-            ignoreSilentSwitch='ignore'
+            ignoreSilentSwitch="ignore"
           />
-          {/* <MediaControls
-            duration={duration}
-            isLoading={isLoading}
-            mainColor={
-              whiteThemeColors.AudioChallengeView.mediaControllIconColor
-            }
-            onPaused={onPaused}
-            onReplay={onReplay}
-            onSeek={onSeek}
-            onSeeking={onSeeking}
-            playerState={playerState}
-            progress={currentTime}
-          /> */}
+          <View style={styles.controlOverlay}>
+            <TouchableOpacity onPress={() => setPaused(!paused)}>
+              <MaterialCommunityIcons
+                name={paused ? 'play' : 'pause'}
+                size={35}
+                color={whiteThemeColors.white}
+              />
+            </TouchableOpacity>
+
+            <Slider
+              style={{flex: 1, marginHorizontal: 10,}}
+              minimumValue={0}
+              maximumValue={duration}
+              value={currentTime}
+              minimumTrackTintColor={whiteThemeColors.primary}
+              maximumTrackTintColor={whiteThemeColors.background}
+              thumbTintColor={whiteThemeColors.primary}
+              onSlidingComplete={onSeek}
+      
+            />
+
+            <Text style={{color: whiteThemeColors.white, fontSize: 12}}>
+              {formatTime(currentTime)} / {formatTime(duration)}
+            </Text>
+          </View>
+
           <TouchableOpacity
-            onPress={() => {
-              setIsFullScreen(false);
-            }}
+            onPress={() => setIsFullScreen(false)}
             style={{
               position: 'absolute',
               right: 20,
@@ -139,10 +163,9 @@ const Videoplayer: React.FC<props> = ({ url, thumbnail, style }) => {
               borderRadius: 15,
               justifyContent: 'center',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <AntDesign
-              name='closecircleo'
+              name="closecircleo"
               size={22}
               color={whiteThemeColors.white}
             />
@@ -152,7 +175,9 @@ const Videoplayer: React.FC<props> = ({ url, thumbnail, style }) => {
     </TouchableOpacity>
   );
 };
+
 export const VideoPlayer = React.memo(Videoplayer);
+
 const styles = StyleSheet.create({
   mediaPlayer: {
     backgroundColor: whiteThemeColors.black,
@@ -163,11 +188,12 @@ const styles = StyleSheet.create({
     left: 0,
     top: 0,
   },
-  videoContainer: {
+  controlOverlay: {
+    position: 'absolute',
+    bottom: 50,
+    left: 20,
+    right: 20,
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    width: 270,
-    height: 250,
-    borderRadius: 10,
   },
 });
