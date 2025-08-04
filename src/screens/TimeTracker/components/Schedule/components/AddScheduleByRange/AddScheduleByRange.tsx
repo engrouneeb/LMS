@@ -14,7 +14,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../reducers/Appstate';
 import {
   CustomAlert,
   DateTimePickerIos,
@@ -395,7 +395,6 @@ const AddScheduleByRange: React.FC<AddScheduleByRangeInterface> = ({
         onRequestClose={() => changeModalState(false)}
         supportedOrientations={['landscape', 'portrait']}
       >
-        {/* <LoadingSc /> */}
         {loading && <Loader />}
         <Header
           isBack

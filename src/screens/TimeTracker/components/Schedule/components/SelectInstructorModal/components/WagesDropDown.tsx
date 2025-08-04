@@ -4,8 +4,9 @@ import { StyleSheet } from 'react-native';
 import { whiteThemeColors } from '../../../../../../../Utilities';
 import { _Text, _View, _VectorIcons } from '../../../../../../../components';
 import CommonStyles from '../../../../../../../screens/CommonStyles';
-import ModalDropdown from 'react-native-modal-dropdown';
-
+import {
+  _ModalDropdown,
+} from '../../../../../../../components';
 const DropdownArrowIcon = () => (
   <_View style={styles.dropdownArrowContainer}>
     <_VectorIcons
@@ -37,7 +38,7 @@ export const WagesDropDown: FC<SelectInstructorModalWagesDropDownInterface> = ({
   return show ? (
     <_View style={styles.container}>
       <_View style={styles.subContainer}>
-        <ModalDropdown
+        <_ModalDropdown
           showsVerticalScrollIndicator={false}
           options={data}
           defaultValue={'Select a Wage'}
