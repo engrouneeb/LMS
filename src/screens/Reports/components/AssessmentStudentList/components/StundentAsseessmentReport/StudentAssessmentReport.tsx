@@ -1,5 +1,5 @@
-import React, { useEffect, useReducer, useState } from 'react';
-import { ScrollView } from 'react-native';
+import React, {useEffect, useReducer, useState} from 'react';
+import {ScrollView} from 'react-native';
 import {
   getTerminologyLabel,
   TerminologyMap,
@@ -13,9 +13,9 @@ import {
   Summary,
 } from '../index';
 import ApiEndpoints from '../../../../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../../../../data/DAL';
+import {DataAccess} from '../../../../../../../data/DAL';
 import {
-  // _ModalDropdown,
+  _ModalDropdown,
   _Screen,
   _Text,
   _View,
@@ -25,9 +25,10 @@ import {
 import CommonStyles from '../../../../../CommonStyles';
 import Header from '../../../../../Headers';
 import Loader from '../../../../../Loader/loader';
-import { intialState, reducer } from './States';
-import { styles } from './style';
-const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
+import {intialState, reducer} from './States';
+import {styles} from './style';
+
+const index: React.FC<studentAssesmentInterface> = ({navigation, route}) => {
   const {
     isFromStudentAssessment,
     assessmentId,
@@ -35,10 +36,13 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
   } = route?.params;
 
   const [state, setState] = useReducer(reducer, intialState);
-  const { Get } = DataAccess();
+  const [selectedChallenge, setSelectedChallenge] = useState<any>(null);
+  const [selectedAssessment, setSelectedAssessment] = useState<any>(null);
+  const {Get} = DataAccess();
   const [terminologies, setTerminologies] = useState<Partial<TerminologyMap>>(
     {},
   );
+
   useEffect(() => {
     const fetchTerminologies = async () => {
       const terms = await getTerminologyLabel();
@@ -46,25 +50,26 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
     };
     fetchTerminologies();
   }, []);
+
   useEffect(() => {
     getAssessmentList();
     if (isFromStudentAssessment) {
       loadData();
     } else {
-      setState({ type: 'isLoading', data: true });
-      const { stdId } = route.params;
+      setState({type: 'isLoading', data: true});
+      const {stdId} = route.params;
       var EndPoint: endpoint = ApiEndpoints.GetStudentChallengesList;
       EndPoint.params = `?studentId=${stdId}`;
       Get(EndPoint).then((res: any) => {
-        if (!res.error) setState({ type: 'challengeList', data: res });
-        setState({ type: 'isLoading', data: false });
-
+        if (!res.error) setState({type: 'challengeList', data: res});
+        setState({type: 'isLoading', data: false});
         return;
       });
     }
   }, []);
+
   const loadData = () => {
-    const { stdId } = route.params;
+    const {stdId} = route.params;
     getOnlineAssessmentReport(assessmentId, stdId);
     getPieChartForOnlineAssessmentReport(assessmentId, stdId);
     getBarChartForOnlineAssessmentReport(assessmentId);
@@ -81,40 +86,50 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
         return whiteThemeColors.PieChart.skip;
       case 1:
         return whiteThemeColors.PieChart.correct;
-
       case 2:
         return whiteThemeColors.PieChart.wrong;
-
       default:
         whiteThemeColors.PieChart.correct;
     }
   };
 
   const getAssessmentList = () => {
-    const { stdId } = route.params;
+    const {stdId} = route.params;
     var EndPoint: endpoint = ApiEndpoints.GetOnlineAssessmentsAgainstChallenge;
     EndPoint.params = `?studentId=${stdId}`;
     Get(EndPoint).then((res: any) => {
-      if (!res.error) setState({ type: 'assessmentList', data: res });
+      if (!res.error) setState({type: 'assessmentList', data: res});
       return;
     });
   };
-  const selectedAssessment = (index: any) => {
-    const { stdId } = route.params;
-    getOnlineAssessmentReport(state.assessmentList[index].key, stdId);
-    getPieChartForOnlineAssessmentReport(
-      state.assessmentList[index].key,
-      stdId,
+
+  const handleAssessmentSelection = (value: any) => {
+    const {stdId} = route.params;
+    const selected = state.assessmentList.find(
+      (item: any) => item.key === value,
     );
-    getBarChartForOnlineAssessmentReport(state.assessmentList[index].key);
+    setSelectedAssessment(selected);
+    getOnlineAssessmentReport(value, stdId);
+    getPieChartForOnlineAssessmentReport(value, stdId);
+    getBarChartForOnlineAssessmentReport(value);
   };
+
+  const handleChallengeSelection = (value: any) => {
+    const selected = state.challengeList.find(
+      (item: any) => item.key === value,
+    );
+    setSelectedChallenge(selected);
+    getAssessmentList();
+  };
+
   const getOnlineAssessmentReport = (assignmentId: any, studentId: any) => {
     var EndPoint: endpoint = ApiEndpoints.GetOnlineAssessmentReport;
     EndPoint.params = `?assignmentId=${assignmentId}&studentId=${studentId}`;
     Get(EndPoint).then((res: any) => {
-      if (!res.error) return setState({ type: 'reportData', data: res });
+      if (!res.error) return setState({type: 'reportData', data: res});
     });
   };
+
   const getPieChartForOnlineAssessmentReport = (
     assignmentId: any,
     studentId: any,
@@ -139,7 +154,7 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
           return obj;
         });
 
-        setState({ type: 'pieChartData', data: finalCharArray });
+        setState({type: 'pieChartData', data: finalCharArray});
       }
     });
   };
@@ -150,7 +165,7 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
     Get(EndPoint).then((res: any) => {
       if (!res.error) {
         res.length > 3
-          ? setState({ type: 'stackBarChartWidth', data: 120 * res.length })
+          ? setState({type: 'stackBarChartWidth', data: 120 * res.length})
           : null;
         var legends = ['Correct', 'Wrong', 'Skip'];
         var labels = res.map((obj: any) => {
@@ -160,7 +175,7 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
               : obj.categoryName;
           return x;
         });
-        setState({ type: 'numberOfStacks', data: labels.length });
+        setState({type: 'numberOfStacks', data: labels.length});
 
         var dataforChart = res.map((obj: any) => {
           var singleData = [];
@@ -180,7 +195,7 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
           data: dataforChart,
           barColors: Colors,
         };
-        setState({ type: 'stackBarChartData', data: finalObject });
+        setState({type: 'stackBarChartData', data: finalObject});
       }
     });
   };
@@ -199,22 +214,19 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
       hideTopSafeArea
       onAndroidBack={onBackPress}
       flex={1}
-      backgroundColor={whiteThemeColors.background}
-    >
+      backgroundColor={whiteThemeColors.background}>
       {state.isLoading ? (
         <Loader />
       ) : (
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{ backgroundColor: whiteThemeColors.background, flex: 1 }}
-        >
+          style={{backgroundColor: whiteThemeColors.background, flex: 1}}>
           <_View style={styles.ContentStyle}>
             <_Text
               style={[
                 styles.dropdownLabel,
-                { display: isFromStudentAssessment ? 'none' : 'flex' },
-              ]}
-            >
+                {display: isFromStudentAssessment ? 'none' : 'flex'},
+              ]}>
               {'Challenge'}
             </_Text>
             <_View
@@ -228,52 +240,50 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
                 height: 45,
                 display: isFromStudentAssessment ? 'none' : 'flex',
                 alignSelf: 'center',
-              }}
-            >
-              {/* {state.challengeList != undefined && (
+              }}>
+              {state.challengeList != undefined && (
                 <_ModalDropdown
-                  item={state.challengeList.map((userObj: any) => {
-                    return userObj.text;
-                  })}
-                  isdisable={state.challengeList.length == 0}
+                  item={state.challengeList.map((item: any) => ({
+                    label: item.text,
+                    value: item,
+                  }))}
+                  isdisable={state.challengeList.length === 0}
                   label={
-                    state.challengeList.length != 0
-                      ? 'Select Challenge'
+                    state.challengeList.length !== 0
+                      ? selectedChallenge?.text || 'Select Challenge'
                       : 'No Challenge Found'
                   }
-                  onselected={(val: any) => getAssessmentList()}
-                  selectedValue={state.selectedTimeZone}
-                  style={{}}
+                  onselected={(value: any) => {
+                    setSelectedChallenge(value);
+                    getAssessmentList();
+                  }}
+                  selectedValue={selectedChallenge}
+                  style={{width: '100%'}}
                   dropdownStyle={{
                     width: '83%',
                     marginTop: 10,
                     borderRadius: 10,
-                    numberOfLines: 1,
                   }}
                   dropdownTextStyle={{
-                    marginLeft: 10,
-                    width: '97%',
                     color: whiteThemeColors.greyDark,
                     fontSize: 13,
                     fontFamily: CommonStyles.fonts.regular,
                   }}
-                  textStyle={[
-                    {
-                      marginLeft: 10,
-                      color: whiteThemeColors.greyDark,
-                      fontFamily: CommonStyles.fonts.regular,
-                      fontSize: 13,
-                      width: '97%',
-                    },
-                  ]}
+                  textStyle={{
+                    color: selectedChallenge
+                      ? whiteThemeColors.black
+                      : whiteThemeColors.greyDark,
+                    fontFamily: CommonStyles.fonts.regular,
+                    fontSize: 13,
+                  }}
                   defaultTextStyle={{
                     color: whiteThemeColors.greyDark,
                     fontSize: 13,
                     fontFamily: CommonStyles.fonts.regular,
-                    width: '97%',
                   }}
+               
                 />
-              )} */}
+              )}
             </_View>
             <_Text
               style={[
@@ -282,8 +292,7 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
                   marginTop: 10,
                   display: isFromStudentAssessment ? 'none' : 'flex',
                 },
-              ]}
-            >
+              ]}>
               {`${terminologies['Assessment']?.label}`}
             </_Text>
             <_View
@@ -297,51 +306,44 @@ const index: React.FC<studentAssesmentInterface> = ({ navigation, route }) => {
                 height: 45,
                 display: isFromStudentAssessment ? 'none' : 'flex',
                 alignSelf: 'center',
-              }}
-            >
-              {/* {state.challengeList != undefined && (
+              }}>
+              {state.assessmentList != undefined && (
                 <_ModalDropdown
-                  item={state.assessmentList.map((userObj: any) => {
-                    return userObj.value;
-                  })}
+                  item={state.assessmentList.map((item: any) => ({
+                    label: item.value,
+                    value: item.key,
+                  }))}
                   label={
                     state.assessmentList.length != 0
                       ? `Select ${terminologies['Assessment']?.label}`
                       : `No ${terminologies['Assessment']?.label} Found`
                   }
                   isdisable={state.assessmentList.length === 0}
-                  onselected={selectedAssessment}
-                  style={{}}
+                  onselected={handleAssessmentSelection}
+                  selectedValue={selectedAssessment?.key}
+                  style={{width: '100%'}}
                   dropdownStyle={{
                     width: '83%',
                     marginTop: 10,
                     borderRadius: 10,
-                    numberOfLines: 1,
                   }}
                   dropdownTextStyle={{
-                    marginLeft: 10,
-                    width: '97%',
                     color: whiteThemeColors.greyDark,
                     fontSize: 13,
                     fontFamily: CommonStyles.fonts.regular,
                   }}
-                  textStyle={[
-                    {
-                      marginLeft: 10,
-                      color: whiteThemeColors.greyDark,
-                      fontFamily: CommonStyles.fonts.regular,
-                      fontSize: 13,
-                      width: '97%',
-                    },
-                  ]}
+                  textStyle={{
+                    color: whiteThemeColors.greyDark,
+                    fontFamily: CommonStyles.fonts.regular,
+                    fontSize: 13,
+                  }}
                   defaultTextStyle={{
                     color: whiteThemeColors.greyDark,
                     fontSize: 13,
                     fontFamily: CommonStyles.fonts.regular,
-                    width: '97%',
                   }}
                 />
-              )} */}
+              )}
             </_View>
 
             <_View marginTop={20}></_View>

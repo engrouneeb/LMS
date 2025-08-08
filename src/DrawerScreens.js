@@ -1,5 +1,5 @@
 // import { Homework } from 'screens/HomeWorks';
-import { NewHomeWorkStack } from './navigation/Stacks/NewHomeWorkStack';
+import {NewHomeWorkStack} from './navigation/Stacks/NewHomeWorkStack';
 import DrawerNames from './navigation/Drawer/DrawerScreenNames';
 import HomeWorkAssignment from './screens/HomeworkAssignment';
 import StudentAssessments from './screens/StudentAssessments';
@@ -20,6 +20,6 @@ export default DrawerScreens = {
   },
 };
 
-export const DrawerArray = Object.keys(DrawerScreens).map((key) => [
+export const DrawerArray = Object.keys(DrawerScreens).map(key => [
   DrawerScreens[key],
 ]);

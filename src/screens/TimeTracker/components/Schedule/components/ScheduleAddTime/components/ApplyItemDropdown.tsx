@@ -39,7 +39,7 @@ export const ApplyItemDropdown: React.FC<
           }
           onselected={(index: number) => {
             setSelectedValue(index);
-            onValueChange(index); // pass back index as before
+            onValueChange(index); 
           }}
           style={{paddingLeft: 5}}
           dropdownStyle={{

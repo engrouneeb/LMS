@@ -10,7 +10,7 @@ import { Appstate } from '../../reducers/Appstate';
 import Header from "../Headers"
 import { CustomAlert, height, isParent, whiteThemeColors, width } from '../../Utilities';
 import { useNavigation } from '@react-navigation/native';
-import ModalDropdown from 'react-native-modal-dropdown';
+import {Dropdown} from 'react-native-element-dropdown';
 import {
     fetchSocialPublicKeys,
     fetchUserSocialChannels,
@@ -271,34 +271,56 @@ export const SocailLogin = () => {
             backgroundColor={whiteThemeColors.background}
         >
             <_View style={{ flex: 1, padding: 10 }}>
-                {isParent(UserInfo.roleName) && <_View flexDirection='row' width={"100%"} style={{}}>
-                    <_Text style={{ fontSize: 16, fontWeight: 'bold', width: "50%" }}>Selected Student</_Text>
-                    <_View style={styles.dropdownContainer}>
-                        <ModalDropdown
-                            ref={dropdownRef}
-                            defaultValue={dropdownValue}
-                            saveScrollPosition={false}
-                            showsVerticalScrollIndicator={false}
-                            options={parentStudents.map(std => std.name)}
-                            renderRow={DropDownRow}
-                            style={{
-                                width: '40%',
-                                height: 35,
-                                borderRadius: 5,
-                                borderWidth: 0.5,
-                                borderColor: whiteThemeColors.primary,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}
-                            dropdownTextHighlightStyle={{
-                                backgroundColor: 'red',
-                            }}
-                            dropdownTextStyle={styles.dropdownTextStyle}
-                            dropdownStyle={styles.dropdownStyle}
-                            textStyle={styles.textStyle}
-                        />
-                    </_View>
-                </_View>}
+{isParent(UserInfo.roleName) && (
+                 <_View flexDirection='row' width={"100%"} style={{}}>
+    <_Text style={{ fontSize: 16, fontWeight: 'bold', width: "50%" }}>Selected Student</_Text>
+    <_View style={styles.dropdownContainer}>
+           <Dropdown
+        style={{
+          width: '40%',
+          height: 35,
+          borderRadius: 5,
+          borderWidth: 0.5,
+          borderColor: whiteThemeColors.primary,
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+        placeholderStyle={styles.textStyle}
+        selectedTextStyle={styles.textStyle}
+        itemTextStyle={styles.dropdownTextStyle}
+        containerStyle={styles.dropdownStyle}
+        data={parentStudents.map((std, idx) => ({
+          label: std.name,
+          value: idx,
+        }))}
+        labelField="label"
+        valueField="value"
+        placeholder={dropdownValue}
+        value={parentStudents.findIndex(std => std.name === dropdownValue)}
+        onChange={item => {
+          const selected = parentStudents[item.value];
+          if (selected) {
+            setDropdownValue(selected.name);
+            setSelectedStudent(selected);
+          }
+        }}renderItem={item => (
+          <TouchableHighlight
+            underlayColor="#f0f0f0"
+            style={{
+              backgroundColor: '#fff',
+              paddingVertical: 10,
+              paddingHorizontal: 15,
+              alignItems: 'center',
+            }}
+          >
+            <_Text style={{ textAlign: 'center', color: '#000' }}>{item.label}</_Text>
+          </TouchableHighlight>
+        )}
+      />
+    </_View>
+  </_View>
+)}
+               
                 <_Text style={styles.title}>Channels</_Text>
                 <_View style={styles.container}>
                     {isLoading ? (

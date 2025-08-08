@@ -1,6 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
 import { Alert, Modal, ScrollView, TouchableOpacity } from 'react-native';
-// import Pdf from 'react-native-pdf';
+ import Pdf from 'react-native-pdf';
 import * as Progress from 'react-native-progress';
 import { WebView } from 'react-native-webview';
 import { useDispatch, useSelector } from 'react-redux';
@@ -171,7 +171,7 @@ const _Download: React.FC<DownloadInterface> = ({ route }) => {
                   flex: 1,
                 }}
               >
-                {/* <Pdf
+                <Pdf
                   renderActivityIndicator={(percentage) => (
                     <Progress.Circle
                       allowFontScaling
@@ -185,7 +185,7 @@ const _Download: React.FC<DownloadInterface> = ({ route }) => {
                     cache: true,
                   }}
                   style={styles.pdf}
-                /> */}
+                />
               </ScrollView>
             ) : (
               <WebView

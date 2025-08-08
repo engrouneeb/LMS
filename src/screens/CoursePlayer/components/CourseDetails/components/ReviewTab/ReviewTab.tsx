@@ -9,7 +9,6 @@ import {
 } from '../../../../../../components';
 import {styles} from './styles';
 import Rating from '../../../../../Ratings';
-// import Stars from 'react-native-star-rating';
 import {UserImg} from '../../../../../ThumbNail';
 import {Alert, Image, TouchableOpacity} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -27,8 +26,10 @@ import {
 } from '../../../../../../Utilities';
 import {ReviewTabInterface} from '../../../../../../interfaces';
 import CommonStyles from '../../../../../CommonStyles';
+
 const defaultImgPath = '/Content/Images/courseImage.png';
 var clrCode = -1;
+
 const _ReviewTab: React.FC<ReviewTabInterface> = ({
   route,
   isActive,
@@ -47,6 +48,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
   const [terminologies, setTerminologies] = useState<Partial<TerminologyMap>>(
     {},
   );
+
   useEffect(() => {
     const fetchTerminologies = async () => {
       const terms = await getTerminologyLabel();
@@ -54,6 +56,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
     };
     fetchTerminologies();
   }, []);
+
   useEffect(() => {
     if (isActive) {
       if (
@@ -64,6 +67,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
       else getReviewDetial();
     }
   }, [reviewsResponse]);
+
   const getReviewDetial = () => {
     if (!reviewsResponse) return;
     if (reviewsResponse.ratingDetail) {
@@ -78,6 +82,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
       ]);
     }
   };
+
   const getStudentParentReview = () => {
     console.log('reviewsResponse', reviewsResponse);
     setStudentRatings(reviewsResponse.rating);
@@ -135,6 +140,7 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
       setDisabled(true);
     }
   };
+
   return isStudent(route.params.role as StudentInterface) ||
     isParent(route.params.role as ParentInterface) ? (
     <_View flex={1}>
@@ -158,19 +164,19 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
           <_View style={styles.submitCourseReview}>
             <_View style={styles.RatingStarView}>
               <_Text style={styles.rateText}>{'Rate :'}</_Text>
-              {/* <Stars
-                maxStars={5}
+              <TouchableOpacity
                 disabled={Disabled}
-                rating={studentRating}
-                emptyStarColor={whiteThemeColors.orange}
-                fullStarColor={whiteThemeColors.orange}
-                halfStarColor={whiteThemeColors.orange}
-                starSize={20}
-                selectedStar={(rating: any) => {
-                  setStudentRatings(rating);
-                }}
-                starStyle={{ marginLeft: 10 }}
-              /> */}
+                onPress={() => {}}
+                style={{flexDirection: 'row', marginLeft: 10}}>
+                <Rating
+                  rating={studentRating}
+                  maxStars={5}
+                  size={20}
+                  emptyStarColor={whiteThemeColors.orange}
+                  fullStarColor={whiteThemeColors.orange}
+                  reviewsCount={0} // Hide count for interactive rating
+                />
+              </TouchableOpacity>
             </_View>
             <_View style={{flexDirection: 'row'}}>
               <_TextInput
@@ -218,6 +224,8 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
                 rating={reviews.ratingDetail?.finalRating}
                 maxStars={5}
                 size={18}
+                emptyStarColor={whiteThemeColors.greyDark}
+                fullStarColor={whiteThemeColors.orange}
                 reviewsCount={reviews.listOfCourseReviews.length}
               />
             </_View>
@@ -276,7 +284,9 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
           clrCode++;
           if (clrCode == 7) clrCode = 0;
           return (
-            <_View style={{width: '95%'}}>
+            <_View
+              style={{width: '95%'}}
+              key={Obj.reviewId || Obj.userFullName}>
               <_View style={styles.courseReviews}>
                 <_View style={styles.headerView}>
                   <UserImg
@@ -295,6 +305,8 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
                       size={13}
                       rating={Obj.rating}
                       maxStars={5}
+                      emptyStarColor={whiteThemeColors.greyDark}
+                      fullStarColor={whiteThemeColors.orange}
                       reviewsCount={1}
                     />
                   </_View>
@@ -316,4 +328,5 @@ const _ReviewTab: React.FC<ReviewTabInterface> = ({
     </ScrollView>
   );
 };
+
 export const ReviewTab = React.memo(_ReviewTab);

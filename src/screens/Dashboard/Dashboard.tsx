@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import { useNavigation } from '@react-navigation/native';
-import React, { useEffect, useReducer, useState } from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import {
   AppState,
   BackHandler,
@@ -134,19 +134,21 @@ const Home = () => {
     };
     fetchTerminologies();
   }, []);
-  useEffect(() => {
-    navigation.addListener('focus', () => {
-      BackHandler.addEventListener('hardwareBackPress', () => {
-        _showAlert();
-        return true;
-      });
-    });
-    return () =>
-      navigation.addListener('blur', () => {
-        BackHandler.removeEventListener('hardwareBackPress', _showAlert);
-      });
-  }, []);
+useFocusEffect(
+  useCallback(() => {
+    const onBackPress = () => {
+      _showAlert();
+      return true;
+    };
 
+    const subscription = BackHandler.addEventListener(
+      'hardwareBackPress',
+      onBackPress,
+    );
+
+    return () => subscription.remove();
+  }, []),
+);
   useEffect(() => {
     dispatch(GetUserData());
   }, []);

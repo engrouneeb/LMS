@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert, Linking, PermissionsAndroid, Platform } from 'react-native';
 import { createThumbnail } from 'react-native-create-thumbnail';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {pick, types} from '@react-native-documents/picker';
 import { PERMISSIONS, RESULTS, request } from 'react-native-permissions';
 import { chatObject, whiteThemeColors } from '../../../../Utilities';
 import {
@@ -332,34 +332,40 @@ const handleLaunchImageLibrary: (setIsMenuOpen: any, dispatch: any) => void = (
 
 const handleSelectFile: (
   setIsMenuOpen: (val: boolean) => void,
-  dispatch: any
+  dispatch: any,
 ) => Promise<void> = async (setIsMenuOpen, dispatch) => {
-  // try {
-  //   const file = await DocumentPicker.pickSingle({
-  //     type: [DocumentPicker.types.allFiles] || [DocumentPicker.types.images],
-  //   });
-  //   let isVideo = false;
-  //   if (file) {
-  //     let isBase64 = false;
-  //     dispatch(fileFormateType('file'));
-  //     dispatch(saveGalleryAttachmentPath(file, isBase64, isVideo));
-  //     setIsMenuOpen(false);
-  //     if (file.type != null)
-  //       if (file?.type.includes('image')) {
-  //         isVideo = false;
-  //         dispatch(selectedTypes(1));
-  //         dispatch(saveLocalImageURI(file?.uri));
-  //       } else if (file.type.includes('video')) {
-  //         dispatch(selectedTypes(2));
-  //         dispatch(saveGalleryAttachmentImageURI(file?.uri));
-  //       } else if (file.type.includes('audio')) {
-  //         dispatch(selectedTypes(4));
-  //       } else {
-  //         dispatch(selectedTypes(3));
-  //         dispatch(saveGalleryAttachmentImageURI(file?.uri));
-  //       }
-  //   }
-  // } catch (err) {}
+  try {
+    const [file] = await pick({
+      allowMultiSelection: false,
+      mode: 'open',
+      types: [types.allFiles],
+    });
+    let isVideo = false;
+    if (file) {
+      let isBase64 = false;
+      dispatch(fileFormateType('file'));
+      dispatch(saveGalleryAttachmentPath(file, isBase64, isVideo));
+      setIsMenuOpen(false);
+      if (file.type != null) {
+        if (file?.type.includes('image')) {
+          isVideo = false;
+          dispatch(selectedTypes(1));
+          dispatch(saveLocalImageURI(file?.uri));
+        } else if (file.type.includes('video')) {
+          dispatch(selectedTypes(2));
+          dispatch(saveGalleryAttachmentImageURI(file?.uri));
+        } else if (file.type.includes('audio')) {
+          dispatch(selectedTypes(4));
+        } else {
+          dispatch(selectedTypes(3));
+          dispatch(saveGalleryAttachmentImageURI(file?.uri));
+        }
+      }
+    }
+  } catch (err: any) {
+    // Optionally handle cancellation or error
+    // if (err?.code !== 'DOCUMENT_PICKER_CANCELED') { ... }
+  }
 };
 
 function Camera(setIsMenuOpen: any, navigation: any, onSend: any): void {
@@ -377,20 +383,20 @@ const handleLaunchCamera: (
   navigation: any,
   onSend: any
 ) => void = (setIsMenuOpen, navigation, onSend) => {
- // openCamera(navigation, onSend);
+  openCamera(navigation, onSend);
   setIsMenuOpen(false);
 };
-// const openCamera: (navigation: any, onSend: any) => Promise<void> = async (
-//   navigation,
-//   onSend
-// ) => {
-//   const isMicrophonePermisson = await checkMicorPhonePermission();
-//   // console.log('isMicrophonePermisson', isMicrophonePermisson);
-//   if (!isMicrophonePermisson) return;
-//   const isCameraPermission = await checkCameraPermission();
-//   if (isCameraPermission)
-//     navigation.navigate(ScreensNames.Camera.name, { onSend: onSend });
-// };
+const openCamera: (navigation: any, onSend: any) => Promise<void> = async (
+  navigation,
+  onSend
+) => {
+  const isMicrophonePermisson = await checkMicorPhonePermission();
+  //console.log('isMicrophonePermisson', isMicrophonePermisson);
+  if (!isMicrophonePermisson) return;
+  const isCameraPermission = await checkCameraPermission();
+  if (isCameraPermission)
+    navigation.navigate(ScreensNames.Camera.name, { onSend: onSend });
+};
 
 export const checkMicorPhonePermission: () => Promise<boolean> = async () => {
   if (Platform.OS === 'android') {

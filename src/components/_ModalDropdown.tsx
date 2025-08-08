@@ -117,12 +117,12 @@ export const _ModalDropdown: React.FC<props> = ({
             <_View
               style={[
                 styles.dropdownItemContainer,
-                selected && styles.dropdownHighlightStyle, // Apply your highlight style here
+                selected && styles.dropdownHighlightStyle,
               ]}>
               <Text
                 style={[
                   styles.dropdownItemText,
-                  selected && styles.dropdownItemTextHighlight, // Apply white color here
+                  selected && styles.dropdownItemTextHighlight,
                 ]}>
                 {item.label}
               </Text>

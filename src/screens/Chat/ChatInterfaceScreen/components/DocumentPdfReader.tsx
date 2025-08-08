@@ -1,17 +1,19 @@
-import React, { FC, useState } from 'react';
-import { StatusBar, StyleSheet } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { CustomAlert, FileViewURL, whiteThemeColors } from '../../../../Utilities';
-import { _View } from '../../../../components';
-import { prohibitedExtensions } from './DocumentPdfReaderConstants';
-import { _ActivityIndicator } from '../../../Loader';
+import React, {FC, useState} from 'react';
+import {StatusBar, StyleSheet} from 'react-native';
+import Pdf from 'react-native-pdf';
+import * as Progress from 'react-native-progress';
+import {WebView} from 'react-native-webview';
+import {CustomAlert, FileViewURL, whiteThemeColors} from '../../../../Utilities';
+import {_View} from '../../../../components';
+import {prohibitedExtensions} from './DocumentPdfReaderConstants';
+import {_ActivityIndicator} from '../../../Loader';
 
 interface Props {
   url: string;
   fileExtension: string;
 }
 
-export const DocumentPdfReader: FC<Props> = ({ url, fileExtension }) => {
+export const DocumentPdfReader: FC<Props> = ({url, fileExtension}) => {
   const [WebviewSpinner, setWebViewSpinner] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [alertTitle, setAlertTitle] = useState<string>('');
@@ -32,6 +34,23 @@ export const DocumentPdfReader: FC<Props> = ({ url, fileExtension }) => {
       setShowAlert(true);
       return;
     } else if (fileExtension == 'pdf') {
+      return (
+        <Pdf
+          renderActivityIndicator={percentage => (
+            <Progress.Circle
+              allowFontScaling
+              showsText
+              progress={percentage}
+              size={60}
+            />
+          )}
+          source={{
+            uri: url,
+            cache: true,
+          }}
+          style={styles.pdfContainer}
+        />
+      );
     } else {
       return (
         <_View style={styles.webViewContainer}>
@@ -46,7 +65,7 @@ export const DocumentPdfReader: FC<Props> = ({ url, fileExtension }) => {
           {WebviewSpinner && (
             <_View style={styles.loaderContainer}>
               <_ActivityIndicator
-                size='large'
+                size="large"
                 color={whiteThemeColors.primary}
                 showText={false}
               />

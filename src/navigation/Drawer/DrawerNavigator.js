@@ -39,7 +39,7 @@ const drawer = createDrawerNavigator();
 function DrawerNavigator() {
   return (
     <drawer.Navigator
-      drawerContent={(props) => <SideBar {...props} />}
+      drawerContent={props => <SideBar {...props} />}
       initialRouteName={DrawerNames.dashboard.name}
       screenOptions={{
         swipeEnabled: false,
@@ -47,33 +47,32 @@ function DrawerNavigator() {
         drawerType: 'front',
       }}
       useLegacyImplementation={false}
-      backBehavior={'none'}
-    >
+      backBehavior={'none'}>
       <drawer.Screen name={DrawerNames.dashboard.name} component={HomeStack} />
       <drawer.Screen
         name={DrawerNames.coursePlayer.name}
         component={CourseStack}
-        options={{ unmountOnBlur: true }}
+        options={{unmountOnBlur: true}}
       />
       <drawer.Screen
         name={DrawerNames.drive.name}
         component={DriveStack}
-        options={{ unmountOnBlur: true }}
+        options={{unmountOnBlur: true}}
       />
       <drawer.Screen
         name={DrawerNames.StaffMenu.name}
         component={StaffInfoStack}
-        options={{ unmountOnBlur: true }}
+        options={{unmountOnBlur: true}}
       />
       <drawer.Screen
         name={DrawerNames.payments.name}
         component={PaymentsStack}
-        options={{ unmountOnBlur: true }}
+        options={{unmountOnBlur: true}}
       />
       <drawer.Screen
         name={DrawerNames.adminPayments.name}
         component={AdminPayments}
-        options={{ unmountOnBlur: true }}
+        options={{unmountOnBlur: true}}
       />
       <drawer.Screen
         component={NotificationsTab}
@@ -96,6 +95,7 @@ function DrawerNavigator() {
         component={EnrollmentsToClass}
         name={DrawerNames.EnrollmentsToClass.name}
       />
+      
       <drawer.Screen
         // options={{ gestureEnabled: false, unmountOnBlur: true }}
         name={DrawerNames.articles.name}
@@ -115,53 +115,53 @@ function DrawerNavigator() {
       />
       <drawer.Screen name={'Store'} component={StoreStack} />
       <drawer.Screen
-        options={{ gestureEnabled: false }}
+        options={{gestureEnabled: false}}
         name={ScreensNames.StudentProgressList.name}
         component={ProgressStudentList}
       />
       <drawer.Screen
-        options={{ gestureEnabled: false }}
+        options={{gestureEnabled: false}}
         name={ScreensNames.StudentAssessmentList.name}
         component={StudentAssessmentListForAdmin}
       />
       <drawer.Screen
-        options={{ gestureEnabled: false }}
+        options={{gestureEnabled: false}}
         name={ScreensNames.StudentListForAssessment.name}
         component={StudentListForAssessment}
       />
       <drawer.Screen
-        options={{ gestureEnabled: false }}
+        options={{gestureEnabled: false}}
         name={ScreensNames.StudentProgress.name}
         component={StudentProgressReport}
       />
       <drawer.Screen
-        options={{ gestureEnabled: false }}
+        options={{gestureEnabled: false}}
         name={ScreensNames.SingleStudentProgress.name}
         component={SingleStudent}
       />
       <drawer.Screen
-        options={{ gestureEnabled: false, unmountOnBlur: true }}
+        options={{gestureEnabled: false, unmountOnBlur: true}}
         name={ScreensNames.Calendar.name}
         component={CalendarStack}
       />
       <drawer.Screen
-        options={{ gestureEnabled: false, unmountOnBlur: true }}
+        options={{gestureEnabled: false, unmountOnBlur: true}}
         name={ScreensNames.HomeWorks.name}
         component={NewHomeWorkStack}
       />
       <drawer.Screen
-        options={{ gestureEnabled: true, animationEnabled: false }}
+        options={{gestureEnabled: true, animationEnabled: false}}
         name={ScreensNames.StudentListForHomework.name}
         component={StudentList}
       />
       <drawer.Screen
-        options={{ gestureEnabled: true, animationEnabled: false }}
+        options={{gestureEnabled: true, animationEnabled: false}}
         name={'pinCode'}
         component={KioskStack}
       />
       <drawer.Screen name={'Logout'} component={Logout} />
-      {DrawerArray.map((val1) => {
-        return val1.map((val) => {
+      {DrawerArray.map(val1 => {
+        return val1.map(val => {
           return (
             <drawer.Screen
               name={val.name}
