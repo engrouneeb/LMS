@@ -2,7 +2,7 @@ import { useFocusEffect } from '@react-navigation/native';
 import { viewAttachmentInterface } from '../interfaces';
 import React, { useState } from 'react';
 import { BackHandler, Platform, TouchableOpacity } from 'react-native';
-// import Pdf from 'react-native-pdf';
+import Pdf from 'react-native-pdf';
 import * as Progress from 'react-native-progress';
 import { WebView } from 'react-native-webview';
 import { useSelector } from 'react-redux';
@@ -134,7 +134,7 @@ export const ViewAttachment: React.FC<viewAttachmentInterface> = ({
         // viewer?src
         return (
           <>
-            {/* <Pdf
+            <Pdf
               source={{
                 uri: downloadbleLink ? downloadbleLink : setFileViewUri(url),
                 cache: true,
@@ -153,7 +153,7 @@ export const ViewAttachment: React.FC<viewAttachmentInterface> = ({
                 width: '100%',
                 height: '60%',
               }}
-            /> */}
+            />
             <_View
               style={{
                 position: 'absolute',
@@ -299,12 +299,17 @@ export const ViewAttachment: React.FC<viewAttachmentInterface> = ({
     return true;
   };
 
-  useFocusEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', backPress);
+useFocusEffect(
+  React.useCallback(() => {
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backPress,
+    );
 
-    return () =>
-      BackHandler.removeEventListener('hardwareBackPress', backPress);
-  });
+    return () => backHandler.remove();
+  }, []),
+);
+
   return (
     <>
       <_View

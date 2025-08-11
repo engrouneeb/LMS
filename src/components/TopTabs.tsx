@@ -8,7 +8,7 @@ import {
 } from '../Utilities';
 import { TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { getSelectedTab } from '../screens/Store/StoreHome/helper';
+//import { getSelectedTab } from '../screens/Store/StoreHome/helper';
 import { TopTabsInterfaces, TabTypes } from '../interfaces';
 import CommonStyles from "../screens/CommonStyles";
 export const TopTabs: FC<TopTabsInterfaces> = ({
@@ -47,7 +47,7 @@ export const TopTabs: FC<TopTabsInterfaces> = ({
         );
       } else {
         setActiveTab!(tab);
-        dispatch(getSelectedTab(tab.id));
+      //dispatch(getSelectedTab(tab.id));
       }
     }
   };  

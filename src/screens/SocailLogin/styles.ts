@@ -115,4 +115,25 @@ export const styles = StyleSheet.create({
     fontSize: 13,
     fontFamily: CommonStyles.fonts.regular,
   },
+  dropdown: {
+    height: 40,
+    borderColor: whiteThemeColors.primary,
+    borderWidth: 0.5,
+    borderRadius: 8,
+    paddingHorizontal: 8,
+    backgroundColor: 'white',
+  },
+  placeholderStyle: {
+    fontSize: 14,
+    color: '#888',
+  },
+  selectedTextStyle: {
+    fontSize: 14,
+    color: whiteThemeColors.primary,
+    fontWeight: '500',
+  },
+  iconStyle: {
+    width: 20,
+    height: 20,
+  },
 });

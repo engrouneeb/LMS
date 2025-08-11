@@ -37,11 +37,13 @@ function MasterHeader(props) {
   const {UserInfo, dashboardScreen, isShow} = useSelector(state => ({
     UserInfo: state.User.UserInfo,
     dashboardScreen: state.language.dashboardScreen,
-   // isShow: state.timerReducer.isShow,
+    isShow: state.timerReducer.isShow,
   }));
   const {orientation} = useLogin();
   useEffect(() => {
-    if (orientation) setOrientation(orientation);
+    if (orientation) {
+      setOrientation(orientation);
+    }
   }, [orientation]);
   useEffect(() => {
     AsyncStorage.getItem('@LanguageSettings')
@@ -280,7 +282,7 @@ function MasterHeader(props) {
       <TouchableOpacity
         style={{...styles.iconContainer, marginRight: 5}}
         onPress={() => {
-         //dispatch(showHideTimer(!isShow));
+          dispatch(showHideTimer(!isShow));
         }}>
         <_VectorIcons
           type="AntDesign"

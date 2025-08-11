@@ -114,14 +114,14 @@ const Home = () => {
     UserData,
     logoutLoading,
     selectedLanguage,
-   // isShow,
+    isShow,
   }: any = useSelector((state: Appstate) => ({
     token: state.token,
     roleName: state.User.UserInfo.roleName,
     UserData: state.User.UserInfo,
     logoutLoading: state.token.logoutLoading,
     selectedLanguage: state.language,
-  //  isShow: state.timerReducer.isShow,
+    isShow: state.timerReducer.isShow,
   }));
   let user_ID = UserData?.userID;
   const [terminologies, setTerminologies] = useState<Partial<TerminologyMap>>(
@@ -419,7 +419,7 @@ useFocusEffect(
           }}
         />
       )}
-     {/* {isShow && <Timer isShow={isShow} />} */}
+     {isShow && <Timer isShow={isShow} />}
     </_Screen>
   );
 };

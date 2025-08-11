@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-// ViewAttachment component is not present
-import {whiteThemeColors} from '../../../../../../../Utilities';
+import {ViewAttachment, whiteThemeColors} from '../../../../../../../Utilities';
 import {_View} from '../../../../../../../components';
 import {Dimensions} from 'react-native';
-import {_ActivityIndicator} from '../../../../../../Loader/_ActivityIndicator';
+import {_ActivityIndicator} from '../../../../../../Loader';
 const AttachmentView = (props: any) => {
   const {
     base64Url,
@@ -61,8 +60,8 @@ const AttachmentView = (props: any) => {
         justifyContent: 'center',
         backgroundColor: whiteThemeColors.background,
       }}>
-      {/* {loading ? (
-        <_ActivityIndicator size='large' />
+      {loading ? (
+        <_ActivityIndicator size="large" />
       ) : (
         <ViewAttachment
           navigation={props.navigation}
@@ -74,7 +73,7 @@ const AttachmentView = (props: any) => {
           isPrivate={isPrivate}
           uploadFrom={uploadFrom}
         />
-      )} */}
+      )}
     </_View>
   );
 };

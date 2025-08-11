@@ -90,16 +90,18 @@ export const AddUpdateWage: React.FC<AddUpdateWageInterface> = ({ route }) => {
       );
       return;
     }
-    const { wageFrom, wageType, wageID, userID } = route.params.wagesObject;
+
+    const { wageFrom: originalWageFrom, wageType: originalWageType, wageID, userID } = route.params.wagesObject;
+
+    const finalWageFrom = wagesFrom.find(w => w.value === state.enteredWageFrom)?.key || originalWageFrom;
+    const finalWageType = wagesType.find(w => w.value === state.enteredWageType)?.key || originalWageType;
+
     var wagesArr = [
       {
         wageID,
         itemName: state.enteredItemName,
-        wageFrom:
-          typeof state.enteredWageFrom == 'number'
-            ? state.enteredWageFrom
-            : wageFrom,
-        wageType: wageType,
+        wageFrom: finalWageFrom,
+        wageType: finalWageType,
         wageRate: parseFloat(state.enteredWageRate),
         userID: userID,
         effectiveDate: enteredEffectiveDate,

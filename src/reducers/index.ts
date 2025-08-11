@@ -26,9 +26,10 @@ import HomeworkReducer from './homeworkReducer';
 import CustomAlertReducer from './CustomAlertReducer';
 import TimeOffInstructorReducer from './timeOffInstructorReducer';
 import ModulePagesPermissions from './ModulePagesPermissionsReducer';
-import { tabReducer } from '../screens/Store/StoreHome/helper';
-import { AppModulePermission} from "./appModulePermissionReducer"
-import {web_authReducer} from "./webAuthReducer"
+//import { tabReducer } from '../screens/Store/StoreHome/helper';
+import {timerReducer} from './timerReducer';
+import { AppModulePermission} from './appModulePermissionReducer';
+import {web_authReducer} from './webAuthReducer';
 export interface rootInterface {
   readonly token?: {};
   readonly loading: boolean;
@@ -66,7 +67,7 @@ export interface rootInterface {
   readonly checkInList?: [];
   readonly courseClassescheckInList?: [];
   readonly isCheckedIn?: boolean;
-  readonly selectedCheckinMethod?: "PinCode"|"QRCode";
+  readonly selectedCheckinMethod?: 'PinCode'|'QRCode';
 }
 const INITIAL_STATE: rootInterface = {
   token: {},
@@ -104,7 +105,7 @@ const INITIAL_STATE: rootInterface = {
   fileUrl: '',
   checkInList: [],
   courseClassescheckInList: [],
-  selectedCheckinMethod:"PinCode"
+  selectedCheckinMethod:'PinCode',
 };
 export const rootReducer = (
   state: rootInterface = INITIAL_STATE,
@@ -288,9 +289,10 @@ const appReducer = combineReducers({
   HomeworkReducer: HomeworkReducer,
   CustomAlert: CustomAlertReducer,
   ModulePagesPermissions: ModulePagesPermissions,
-  tabReducer: tabReducer,
+  //tabReducer: tabReducer,
+  timerReducer: timerReducer,
   AppModulePermission:AppModulePermission,
-  WebAuthReducer:web_authReducer
+  WebAuthReducer:web_authReducer,
 });
 
 const mainReducer = (state: any, action: any) => {

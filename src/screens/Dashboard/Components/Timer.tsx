@@ -1,13 +1,13 @@
-import { _Button, _Text, _VectorIcons, _View } from '../../../components';
-import React, { FC, Fragment, useEffect, useState } from 'react';
-import { FlatList, Modal, Pressable, Text, View } from 'react-native';
-import { useDispatch } from 'react-redux';
+import {_Button, _Text, _VectorIcons, _View} from '../../../components';
+import React, {FC, Fragment, useEffect, useState} from 'react';
+import {FlatList, Modal, Pressable, Text, View} from 'react-native';
+import {useDispatch} from 'react-redux';
 import Loader from '../../Loader/loader';
 import ApiEndpoints from '../../../../data/ApiEndpoints';
-import { DataAccess } from '../../../../data/DAL';
-import { showHideTimer } from '../../../actions/TimerAction';
-import { whiteThemeColors } from '../../../Utilities/colors';
-import { styles } from './TimerStyles';
+import {DataAccess} from '../../../../data/DAL';
+import {showHideTimer} from '../../../actions/TimerAction';
+import {whiteThemeColors} from '../../../Utilities/colors';
+import {styles} from './TimerStyles';
 
 interface InitialState {
   totalCheckInTime: string;
@@ -28,15 +28,15 @@ const formatDate = (dateString: string) => {
 };
 
 // Component to render individual clock details
-const RenderItem: FC<{ item: any }> = ({ item }) => (
+const RenderItem: FC<{item: any}> = ({item}) => (
   <Fragment>
     <_View style={styles.renderItemContainer}>
       <_View style={styles.renderItemRow}>
         <_View style={styles.renderItemIconWrapper}>
           <_View style={styles.renderItemIcon}>
             <_VectorIcons
-              type='Entypo'
-              name='clock'
+              type="Entypo"
+              name="clock"
               color={whiteThemeColors.red + 90}
               size={24}
             />
@@ -49,8 +49,8 @@ const RenderItem: FC<{ item: any }> = ({ item }) => (
         <_View style={styles.renderItemIconWrapper}>
           <_View style={styles.renderItemIcon}>
             <_VectorIcons
-              type='AntDesign'
-              name='clockcircleo'
+              type="AntDesign"
+              name="clockcircleo"
               color={whiteThemeColors.green}
               size={24}
             />
@@ -65,8 +65,16 @@ const RenderItem: FC<{ item: any }> = ({ item }) => (
   </Fragment>
 );
 
-export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
+export const Timer: React.FC<{isShow: boolean}> = ({isShow}) => {
+  console.log('===================');
+  console.log({isShow});
+  console.log('===================');
   const [modalVisible, setModalVisible] = useState(isShow);
+
+  useEffect(() => {
+    setModalVisible(isShow);
+  }, [isShow]);
+
   const [currentTime, setCurrentTime] = useState(new Date());
   const [clockDetails, setClockDetails] = useState<InitialState>({
     totalCheckInTime: '',
@@ -77,7 +85,7 @@ export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
   const [submitting, setIsSubmitting] = useState(true);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { Get, PostSecured } = DataAccess();
+  const {Get, PostSecured} = DataAccess();
 
   useEffect(() => {
     const interval = setInterval(() => setCurrentTime(new Date()), 1000);
@@ -93,7 +101,9 @@ export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
     const EndPoint = ApiEndpoints.GetStaffTimerLogs;
     const res = await Get(EndPoint);
     setLoading(false);
-    if (!res.error) setClockDetails(res);
+    if (!res.error) {
+      setClockDetails(res);
+    }
   };
 
   const handleModalClose = () => {
@@ -111,19 +121,18 @@ export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
 
   return (
     <Modal
-      animationType='slide'
+      animationType="slide"
       transparent={true}
       visible={modalVisible}
-      onRequestClose={handleModalClose}
-    >
+      onRequestClose={handleModalClose}>
       <View style={styles.modalBackground}>
         <_View style={styles.modalContent}>
           <_View style={styles.titleContainer}>
             <_Text style={styles.titleText}>Check-In/Out Detail</_Text>
             <Pressable onPress={handleModalClose} style={styles.closeButton}>
               <_VectorIcons
-                type='IonIcons'
-                name='close'
+                type="IonIcons"
+                name="close"
                 size={20}
                 color={whiteThemeColors.primary}
               />
@@ -132,8 +141,8 @@ export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
           <_View style={styles.timeDateContainer}>
             <_View style={styles.timeDateWrapper}>
               <_VectorIcons
-                type='MaterialCommunityIcons'
-                name='timetable'
+                type="MaterialCommunityIcons"
+                name="timetable"
                 size={50}
                 color={whiteThemeColors.primary}
               />
@@ -154,8 +163,8 @@ export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
               <_View style={styles.detailContainer}>
                 <_View style={styles.iconContainer}>
                   <_VectorIcons
-                    type='AntDesign'
-                    name='login'
+                    type="AntDesign"
+                    name="login"
                     color={whiteThemeColors.green}
                     size={20}
                   />
@@ -163,8 +172,8 @@ export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
                 <_View style={styles.detailTextContainer}>
                   <_View style={styles.row}>
                     <_VectorIcons
-                      type='MaterialCommunityIcons'
-                      name='clock-check-outline'
+                      type="MaterialCommunityIcons"
+                      name="clock-check-outline"
                       size={18}
                       color={whiteThemeColors.primary}
                     />
@@ -177,8 +186,8 @@ export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
                 <_View>
                   <_View style={styles.row}>
                     <_VectorIcons
-                      type='MaterialCommunityIcons'
-                      name='timer-outline'
+                      type="MaterialCommunityIcons"
+                      name="timer-outline"
                       size={22}
                       color={whiteThemeColors.primary}
                     />
@@ -192,15 +201,15 @@ export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
               {clockDetails.pauseContinueTimerLogs.length > 0 ? (
                 <FlatList
                   data={clockDetails.pauseContinueTimerLogs}
-                  keyExtractor={(item) => item?.id}
-                  renderItem={({ item }) => <RenderItem item={item} />}
+                  keyExtractor={item => item?.id}
+                  renderItem={({item}) => <RenderItem item={item} />}
                   style={styles.list}
                 />
               ) : (
                 <_View style={styles.noLogsContainer}>
                   <_VectorIcons
-                    type='MaterialCommunityIcons'
-                    name='timetable'
+                    type="MaterialCommunityIcons"
+                    name="timetable"
                     size={100}
                     color={whiteThemeColors.primary}
                   />
@@ -216,7 +225,7 @@ export const Timer: React.FC<{ isShow: boolean }> = ({ isShow }) => {
                 submitting={submitting}
                 callback={handleTimeLog}
                 style={styles.btnStyle}
-                BtnTxt={{ color: 'white', alignSelf: 'center' }}
+                BtnTxt={{color: 'white', alignSelf: 'center'}}
                 btnText={clockDetails.isShowContinue ? 'Continue' : 'Pause'}
               />
             </_View>

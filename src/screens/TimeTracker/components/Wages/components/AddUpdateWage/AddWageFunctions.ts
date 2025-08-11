@@ -89,16 +89,10 @@ export const isWageAlreadyExists = (
 };
 
 export const setWageFrom = (value: any, wagesFrom: any, setState: any) =>
-  setState(
-    stateConstants.enteredWageFrom,
-    wagesFrom.filter((x: any) => x.value == value)[0].key
-  );
+  setState(stateConstants.enteredWageFrom, value);
 
 export const handleSetWageType = (value: any, setState: any, wagesType: any) =>
-  setState(
-    stateConstants.enteredWageType,
-    wagesType?.filter((x: any) => x.value == value)[0].key
-  );
+  setState(stateConstants.enteredWageType, value);
 
 export const getWageFromValue = (wagesFrom: any, wageFrom: any) => {
   return wagesFrom.filter(function (x: any) {
