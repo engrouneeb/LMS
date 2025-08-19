@@ -39,7 +39,7 @@ const AttendanceViewByClass: React.FC<viewAttendanceBCInterface> = ({
     setFilteredClasslist(data);
   };
   // const navigation = useNavigation();
-  const { Get } = DataAccess();
+  const {Get} = DataAccess();
   const [isVisible, setisVisible] = useState(false);
   const [terminologies, setTerminologies] = useState<Partial<TerminologyMap>>(
     {},
@@ -116,15 +116,14 @@ const AttendanceViewByClass: React.FC<viewAttendanceBCInterface> = ({
         onAndroidBack={onAndroidBack}
         hideTopSafeArea
         hideBottomSafeArea
-        backgroundColor={whiteThemeColors.background}
-      >
+        backgroundColor={whiteThemeColors.background}>
         {isVisible && (
           <Search
             onInputChange={onChangeText}
             onClose={() => setisVisible(false)}
             animSpeed={100}
             data={classesList}
-            searchKey='className'
+            searchKey="className"
             outPos={-110}
             inPos={-10}
             height={60}
@@ -138,11 +137,10 @@ const AttendanceViewByClass: React.FC<viewAttendanceBCInterface> = ({
         ) : (
           <FlatList
             data={filteredClasslist || classesList}
-            renderItem={({ item }) => (
+            renderItem={({item}) => (
               <Pressable
                 style={styles.pressContainer}
-                onPress={() => onPressCourse(item)}
-              >
+                onPress={() => onPressCourse(item)}>
                 <ClassListCard classData={item} />
               </Pressable>
             )}
@@ -164,4 +162,4 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
 });
-export { AttendanceViewByClass };
+export {AttendanceViewByClass};

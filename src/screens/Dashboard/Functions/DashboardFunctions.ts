@@ -109,7 +109,7 @@ export const getGreetings = () => {
 export const getVectorIconName = () => {
   const hour = new Date().getHours();
   return hour < 12
-    ? 'md-partly-sunny-outline'
+    ? 'partly-sunny-outline'
     : hour >= 12 && hour <= 17
     ? 'sunny-sharp'
     : 'moon-outline';

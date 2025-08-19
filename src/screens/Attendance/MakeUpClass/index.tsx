@@ -431,7 +431,7 @@ export const MakeUpClass = () => {
 
           <_View
             style={[
-              styles.input,
+              styles.dropdown,
               {
                 backgroundColor:
                   state.classesNames.length > 0
@@ -467,7 +467,7 @@ export const MakeUpClass = () => {
                   valueField="value"
                   value={state.selectedCourse}
                   placeholder={`Select a ${terminologies['Class']?.label}`}
-                  style={styles.dropDownContainer}
+                  //  style={styles.dropDownContainer}
                   containerStyle={styles.dropdownStyle}
                   itemTextStyle={styles.dropDownTxt}
                   selectedTextStyle={[
@@ -550,7 +550,7 @@ export const MakeUpClass = () => {
           </_View>
 
           <_Text style={styles.labelTxt}>{'Assign Instructor'}</_Text>
-          <_View style={styles.input}>
+          <_View style={styles.dropdown}>
             <_View
               style={{
                 height: 40,
@@ -572,7 +572,7 @@ export const MakeUpClass = () => {
                     ? state.selectedInstructor
                     : 'Select an Instructor'
                 }
-                value={null} // We handle selection through onFocus/onBlur and the custom renderItem
+                value={state.selectedInstructor}
                 style={[styles.dropDownContainer, {width: '100%'}]}
                 placeholderStyle={[styles.dropDownTxt, {width: '97%'}]}
                 selectedTextStyle={[
@@ -633,13 +633,13 @@ export const MakeUpClass = () => {
                     />
                   </_View>
                 )}
-                onChange={() => {}} 
+                onChange={() => {}}
               />
             </_View>
           </_View>
 
           <_Text style={styles.labelTxt}>{'Select Timezone'}</_Text>
-          <_View style={styles.input}>
+          <_View style={styles.dropdown}>
             <_View
               style={{
                 height: 40,
@@ -660,7 +660,7 @@ export const MakeUpClass = () => {
                 valueField="value"
                 value={state.selectedTimeZone}
                 placeholder={'Select a Timezone'}
-                style={styles.dropDownContainer}
+                //  style={styles.dropDownContainer}
                 containerStyle={styles.dropdownStyle}
                 itemTextStyle={styles.dropDownTxt}
                 selectedTextStyle={[

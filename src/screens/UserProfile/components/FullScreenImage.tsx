@@ -1,9 +1,8 @@
-import { Modal, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
-import React, { FC } from 'react';
-// REMOVED: import FastImage from 'react-native-fast-image'; 
-// REPLACED WITH: React Native's built-in Image component
-import { _View, _VectorIcons } from '../../../components';
-import { whiteThemeColors } from '../../../Utilities';
+import {Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {FC} from 'react';
+import FastImage from '@d11/react-native-fast-image';
+import {_View, _VectorIcons} from '../../../components';
+import {whiteThemeColors} from '../../../Utilities';
 
 interface FullScreenImageProps {
   imageUri: string;
@@ -21,27 +20,26 @@ const FullScreenImage: FC<FullScreenImageProps> = ({
   };
   return (
     <Modal
-      animationType='fade'
+      animationType="fade"
       onRequestClose={closeModal}
       visible={showFullScreen}
-      style={styles.container}
-    >
+      style={styles.container}>
       <_View style={styles.imageContainer}>
-        <Image
+        <FastImage
           style={styles.image}
           source={{
             uri: imageUri,
-            // REMOVED: FastImage specific props (priority, cache)
-            // These are not available in React Native's Image component
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.immutable,
           }}
-          resizeMode="contain"
+          resizeMode={FastImage.resizeMode.contain}
         />
       </_View>
 
       <TouchableOpacity onPress={closeModal} style={styles.goBackBtn}>
         <_VectorIcons
-          type='MaterialCommunityIcons'
-          name='keyboard-backspace'
+          type="MaterialCommunityIcons"
+          name="keyboard-backspace"
           size={42}
           color={whiteThemeColors.primary}
         />
@@ -50,7 +48,7 @@ const FullScreenImage: FC<FullScreenImageProps> = ({
   );
 };
 
-export { FullScreenImage };
+export {FullScreenImage};
 
 const styles = StyleSheet.create({
   container: {

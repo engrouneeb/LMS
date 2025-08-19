@@ -169,4 +169,17 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
+  selectedItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 8,
+    margin: 2,
+    backgroundColor: whiteThemeColors.primary + '30',
+    borderRadius: 5,
+  },
+  selectedItemText: {
+    marginRight: 5,
+    fontSize: 12,
+    color: whiteThemeColors.primary,
+  },
 });

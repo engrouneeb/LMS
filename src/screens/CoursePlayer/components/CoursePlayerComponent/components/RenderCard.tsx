@@ -4,6 +4,7 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   View, // Use RN View directly here to avoid nesting problems
+  
 } from 'react-native';
 import {
   isAdmin,
@@ -36,7 +37,6 @@ const _RenderCard = (props: any) => {
       <TouchableHighlight
         underlayColor={whiteThemeColors.primary + '50'}
         onPress={() => {
-          props.handelPopUpMenu(false, 0);
           props.onSelectCourse(
             props.item.courseId,
             props.item.courseName,
@@ -104,7 +104,17 @@ const _RenderCard = (props: any) => {
           isCoordinator(props.role) ||
           isExecutive(props.role) ? (
             <TouchableOpacity
-              style={styles.eclipse}
+              style={{
+                width: 30,
+                height: 30,
+                backgroundColor: whiteThemeColors.primary + 30,
+                position: 'absolute',
+                top: 10,
+                right: 13,
+                borderRadius: 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
               hitSlop={{top: 20, bottom: 20, left: 20, right: 20}}
               onPress={() => {
                 const {selectedCourseId, item, isPopUpShown} = props;
@@ -114,25 +124,12 @@ const _RenderCard = (props: any) => {
                   item.courseId,
                 );
               }}>
-              <View
-                style={{
-                  width: 30,
-                  height: 30,
-                  backgroundColor: whiteThemeColors.primary + 30,
-                  position: 'absolute',
-                  top: 13,
-                  right: 11,
-                  borderRadius: 10,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}>
-                <_VectorIcons
-                  name="dots-three-vertical"
-                  type="Entypo"
-                  size={16}
-                  color={whiteThemeColors.white}
-                />
-              </View>
+              <_VectorIcons
+                name="dots-three-vertical"
+                type="Entypo"
+                size={16}
+                color={whiteThemeColors.white}
+              />
             </TouchableOpacity>
           ) : null}
 

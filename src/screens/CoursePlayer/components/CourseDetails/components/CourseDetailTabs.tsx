@@ -48,7 +48,6 @@ export const CourseDetailTabs: React.FC<props> = ({
           ),
           value: '1',
         },
-        
       ]);
     };
     fetchTerminologies();
@@ -73,7 +72,6 @@ export const CourseDetailTabs: React.FC<props> = ({
             activeOpacity={0.6}
             onPress={onPress1}
             style={styles.topViewButton}>
-              
             <_VectorIcons
               name="easel-outline"
               type="Ionicons"
@@ -84,36 +82,38 @@ export const CourseDetailTabs: React.FC<props> = ({
         </_View>
       ) : (
         <_View style={styles.border}>
-          <Dropdown
-            data={dropdownItems}
-            labelField="label"
-            valueField="value"
-            onChange={item => onPress2(item.value)}
-            style={[styles.topViewButton, {justifyContent: 'center'}]}
-            placeholder=""
-            renderRightIcon={() => null}
-            renderItem={(item, selected) => (
-              <_View style={{padding: 10}}>
-                <Text style={styles.dropDownItemTxt}>{item.label}</Text>
-              </_View>
-            )}
-            dropdownPosition="bottom"
-            containerStyle={[styles.dropDownList, CommonStyles.shadow]}
-            itemTextStyle={{color: whiteThemeColors.black}}
-            selectedTextStyle={{color: whiteThemeColors.white}}
-           // itemContainerStyle={{backgroundColor: whiteThemeColors.white}}
-            activeColor={whiteThemeColors.greyLight}
-            showsVerticalScrollIndicator={false}
-            renderLeftIcon={() => (
-              <_VectorIcons
-                type={'Ionicons'}
-                name="easel-outline"
-                color={whiteThemeColors.icons.whiteIcon}
-                size={20}
-                style={{padding: 15}}
-              />
-            )}
-          />
+          <TouchableOpacity activeOpacity={0.9}>
+            <Dropdown
+              data={dropdownItems}
+              labelField="label"
+              valueField="value"
+              onChange={item => onPress2(item.value)}
+              style={[styles.topViewButton, {justifyContent: 'center'}]}
+              placeholder=""
+              renderRightIcon={() => null}
+              renderItem={(item, selected) => (
+               <_View style={{padding: 10, borderBottomColor: whiteThemeColors.greyDark + 30, borderBottomWidth: 0.4}}>
+                  <Text style={styles.dropDownItemTxt}>{item.label}</Text>
+                </_View>
+              )}
+              dropdownPosition="bottom"
+              containerStyle={[styles.dropDownList, CommonStyles.shadow]}
+              itemTextStyle={{color: whiteThemeColors.black}}
+              itemContainerStyle={{backgroundColor: 'transparent'}}
+              activeColor="transparent"
+              selectedTextStyle={{}}
+              showsVerticalScrollIndicator={false}
+              renderLeftIcon={() => (
+                <_VectorIcons
+                  type={'Ionicons'}
+                  name="easel-outline"
+                  color={whiteThemeColors.icons.whiteIcon}
+                  size={20}
+                  style={{padding: 15}}
+                />
+              )}
+            />
+          </TouchableOpacity>
         </_View>
       )}
       <_View style={styles.border}>

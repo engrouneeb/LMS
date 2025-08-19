@@ -208,7 +208,7 @@ const UserProfile = () => {
           />
           <UserInfoRow title={'Email'} value={email} icon={'email'} />
         </_View>
-        {/* {isEnabled('Connect to Social Media') && ( */}
+        {isEnabled('Connect to Social Media') && (
         <Pressable
           onPress={() => {
             navigation.navigate('Home', {
@@ -231,7 +231,7 @@ const UserProfile = () => {
             Connect to Social Media
           </_Text>
         </Pressable>
-        {/* )}  */}
+         )}  
       </_View>
       <ChangePasswordModal
         modalVisible={changePasswordModal}

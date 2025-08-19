@@ -5,6 +5,9 @@ import {
   TouchableHighlight,
   TouchableOpacity,
   StyleSheet,
+  View,
+  Platform,
+  Text,
 } from 'react-native';
 import {whiteThemeColors} from '../../../Utilities';
 import {
@@ -12,8 +15,6 @@ import {
   useCameraDevice,
   useCameraPermission,
   useMicrophonePermission,
-  CameraPosition,
-  Torch,
 } from 'react-native-vision-camera';
 import {_Text, _VectorIcons, _View} from '../../../components';
 import {
@@ -34,7 +35,7 @@ const CameraScreen: FC<cameraScreenInterface> = ({route}) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const [isVideo, setIsVideo] = useState<boolean>(false);
   const [isFrontCam, setIsFrontCam] = useState<boolean>(false);
-  const [isFlashOn, setIsFlashOn] = useState<Torch>('off');
+  const [isFlashOn, setIsFlashOn] = useState<'on' | 'off'>('off');
   const [imageUrl, setImageUrl] = useState<string>('');
   const [videoUri, setVideoUri] = useState<string>('');
   const [videoPreviewModal, setVideoPreviewModal] = useState<boolean>(false);
@@ -43,73 +44,85 @@ const CameraScreen: FC<cameraScreenInterface> = ({route}) => {
   const [seconds, setSeconds] = useState<number>(60);
   const cameraRef = useRef<Camera>(null);
 
+  const {hasPermission, requestPermission} = useCameraPermission();
   const {
-    hasPermission: hasCameraPermission,
-    requestPermission: requestCameraPermission,
-  } = useCameraPermission();
-  const {
-    hasPermission: hasMicrophonePermission,
-    requestPermission: requestMicrophonePermission,
+    hasPermission: hasMicPermission,
+    requestPermission: requestMicPermission,
   } = useMicrophonePermission();
 
   const device = useCameraDevice(isFrontCam ? 'front' : 'back');
 
   useEffect(() => {
-    if (!hasCameraPermission) {
-      requestCameraPermission();
-    }
-    if (!hasMicrophonePermission) {
-      requestMicrophonePermission();
-    }
-  }, []);
-
-  function handleBackButtonClick() {
-    navigation.goBack();
-    return true;
-  }
-
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', handleBackButtonClick);
-    return () => {
-      BackHandler.removeEventListener(
-        'hardwareBackPress',
-        handleBackButtonClick,
-      );
+    const getPermissions = async () => {
+      try {
+        await requestPermission();
+        await requestMicPermission();
+      } catch (err) {
+        console.log('Permission error:', err);
+      }
     };
+    getPermissions();
   }, []);
 
   useEffect(() => {
-    let interval: any;
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => {
+        navigation.goBack();
+        return true;
+      },
+    );
+    return () => backHandler.remove();
+  }, [navigation]);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
     if (isRecording) {
       interval = setInterval(() => {
-        if (seconds > 0) {
-          setSeconds(seconds - 1);
-        }
+        setSeconds(prev => {
+          if (prev <= 1) {
+            stopRecording();
+            return 0;
+          }
+          return prev - 1;
+        });
       }, 1000);
     }
-    return () => {
-      clearInterval(interval);
-    };
-  }, [seconds, isRecording]);
+    return () => clearInterval(interval);
+  }, [isRecording]);
 
   const sendMsg = (text: string, object?: any) => {
     route.params.onSend(text, object);
     setVideoPreviewModal(false);
     navigation.goBack();
-    return true;
   };
 
-  async function takePicture() {
-    if (cameraRef.current) {
-      const photo = await cameraRef.current.takePhoto({
-        qualityPrioritization: 'quality',
-        flash: isFlashOn,
-      });
-      const compressedURL = await Media_Compressor(photo.path, 'image');
-      setImageUrl(compressedURL);
-      setImagePreviewModal(true);
-    }
-  }
+ async function takePicture() {
+   if (!cameraRef.current) return;
+
+   try {
+     const photo = await cameraRef.current.takePhoto({
+       flash: isFlashOn,
+       qualityPrioritization: 'quality',
+     });
+
+     let compressedURL = await Media_Compressor(photo.path, 'image');
+     if (
+       compressedURL &&
+       !compressedURL.startsWith('http') &&
+       !compressedURL.startsWith('file://') &&
+       !compressedURL.startsWith('data:')
+     ) {
+       compressedURL = `file://${compressedURL}`;
+     }
+
+     setImageUrl(compressedURL);
+     setImagePreviewModal(true);
+   } catch (err) {
+     console.error('Photo error:', err);
+   }
+ }
+
 
   const startRecord = async () => {
     if (!cameraRef.current) return;
@@ -143,30 +156,33 @@ const CameraScreen: FC<cameraScreenInterface> = ({route}) => {
 
   const stopRecording = async () => {
     if (cameraRef.current && isRecording) {
-      await cameraRef.current.stopRecording();
+      try {
+        await cameraRef.current.stopRecording();
+      } catch (e) {
+        console.log('Recording already stopped');
+      }
       setIsRecording(false);
-      setSeconds(60);
     }
   };
 
-  if (!hasCameraPermission || !hasMicrophonePermission) {
+  if (!hasPermission || !hasMicPermission) {
     return (
-      <_View style={styles.permissionContainer}>
-        <_Text>Camera or microphone permission not granted</_Text>
-      </_View>
+      <View style={styles.permissionContainer}>
+        <Text>Camera or microphone permission not granted</Text>
+      </View>
     );
   }
 
-  if (device == null) {
+  if (!device) {
     return (
-      <_View style={styles.permissionContainer}>
-        <_Text>No camera device found</_Text>
-      </_View>
+      <View style={styles.permissionContainer}>
+        <Text>No camera device found</Text>
+      </View>
     );
   }
 
   return (
-    <_View style={StyleSheet.absoluteFill}>
+    <View style={StyleSheet.absoluteFill}>
       <TouchableOpacity
         onPress={() => navigation.goBack()}
         style={styles.closeIcon}>
@@ -184,28 +200,22 @@ const CameraScreen: FC<cameraScreenInterface> = ({route}) => {
         device={device}
         isActive={true}
         photo={true}
-        video={true}
-        audio={true}
-        torch={isFlashOn}
-        orientation="portrait"
+        video={isVideo}
+        audio={isVideo}
+        torch={isFlashOn === 'on' ? 'on' : 'off'}
+        enableZoomGesture
       />
 
-      <_View>
-        <_View style={styles.cameraView}>
-          {isRecording && (
-            <>
-              <_View style={styles.timerContainer}>
-                <Animated.View
-                  style={[styles.blinkingDot, {opacity: fadeAnim}]}
-                />
-                <_Text style={styles.timerText}>
-                  {`${seconds}`}
-                  <_Text style={{fontSize: 10}}>{` Sec`}</_Text>
-                </_Text>
-              </_View>
-            </>
-          )}
-        </_View>
+      <_View style={styles.container}>
+        {isRecording && (
+          <_View style={styles.timerContainer}>
+            <Animated.View style={[styles.blinkingDot, {opacity: fadeAnim}]} />
+            <_Text style={styles.timerText}>
+              {`${seconds}`}
+              <_Text style={{fontSize: 10}}>{` Sec`}</_Text>
+            </_Text>
+          </_View>
+        )}
 
         <TouchableHighlight
           style={styles.captureBtn}
@@ -215,53 +225,51 @@ const CameraScreen: FC<cameraScreenInterface> = ({route}) => {
                 ? stopRecording()
                 : startRecord()
               : takePicture();
-          }}>
-          <Animated.View
-            style={{
-              backgroundColor: isVideo
-                ? whiteThemeColors.red
-                : whiteThemeColors.white,
-              borderRadius: 20,
-              width: 40,
-              height: 40,
-              opacity: fadeAnim,
-            }}
+          }}
+          underlayColor="transparent">
+          <_View
+            style={[
+              styles.captureInner,
+              {
+                backgroundColor: isVideo
+                  ? whiteThemeColors.red
+                  : whiteThemeColors.white,
+              },
+            ]}
           />
         </TouchableHighlight>
 
         <_View style={styles.bottomBtns}>
           <TouchableOpacity
-            style={{
-              ...styles.iconBg,
-              backgroundColor: isVideo
-                ? whiteThemeColors.transparent
-                : whiteThemeColors.white + 80,
-            }}
-            onPress={() => {
-              setIsVideo(false);
-            }}>
+            style={[
+              styles.iconBg,
+              {
+                backgroundColor: !isVideo
+                  ? whiteThemeColors.white + '80'
+                  : 'transparent',
+              },
+            ]}
+            onPress={() => setIsVideo(false)}>
             <_VectorIcons
               name={'camera-outline'}
               type={'Ionicons'}
               size={30}
               color={
-                isVideo ? whiteThemeColors.white : whiteThemeColors.primary
+                !isVideo ? whiteThemeColors.primary : whiteThemeColors.white
               }
-              style={{
-                zIndex: 5,
-              }}
             />
           </TouchableOpacity>
+
           <TouchableOpacity
-            style={{
-              ...styles.iconBg,
-              backgroundColor: isVideo
-                ? whiteThemeColors.white + 80
-                : whiteThemeColors.transparent,
-            }}
-            onPress={() => {
-              setIsVideo(true);
-            }}>
+            style={[
+              styles.iconBg,
+              {
+                backgroundColor: isVideo
+                  ? whiteThemeColors.white + '80'
+                  : 'transparent',
+              },
+            ]}
+            onPress={() => setIsVideo(true)}>
             <_VectorIcons
               name={'videocam-outline'}
               type={'Ionicons'}
@@ -269,21 +277,21 @@ const CameraScreen: FC<cameraScreenInterface> = ({route}) => {
               color={
                 isVideo ? whiteThemeColors.primary : whiteThemeColors.white
               }
-              style={{
-                zIndex: 5,
-              }}
             />
           </TouchableOpacity>
+
           <TouchableOpacity
-            style={{
-              ...styles.iconBg,
-              backgroundColor: isFrontCam
-                ? whiteThemeColors.white + 80
-                : whiteThemeColors.transparent,
-            }}
+            style={[
+              styles.iconBg,
+              {
+                backgroundColor: isFrontCam
+                  ? whiteThemeColors.white + '80'
+                  : 'transparent',
+              },
+            ]}
             onPress={() => {
               setIsFrontCam(!isFrontCam);
-              isFlashOn === 'on' && setIsFlashOn('off');
+              if (isFlashOn === 'on') setIsFlashOn('off');
             }}>
             <_VectorIcons
               name={'camera-reverse-outline'}
@@ -292,23 +300,22 @@ const CameraScreen: FC<cameraScreenInterface> = ({route}) => {
               color={
                 isFrontCam ? whiteThemeColors.primary : whiteThemeColors.white
               }
-              style={{
-                zIndex: 5,
-              }}
             />
           </TouchableOpacity>
+
           <TouchableOpacity
             disabled={isFrontCam}
-            style={{
-              ...styles.iconBg,
-              backgroundColor:
-                isFlashOn === 'on'
-                  ? whiteThemeColors.white + 80
-                  : whiteThemeColors.transparent,
-            }}
-            onPress={() => {
-              setIsFlashOn(isFlashOn === 'on' ? 'off' : 'on');
-            }}>
+            style={[
+              styles.iconBg,
+              {
+                backgroundColor:
+                  isFlashOn === 'on'
+                    ? whiteThemeColors.white + '80'
+                    : 'transparent',
+                opacity: isFrontCam ? 0.5 : 1,
+              },
+            ]}
+            onPress={() => setIsFlashOn(isFlashOn === 'on' ? 'off' : 'on')}>
             <_VectorIcons
               name={isFlashOn === 'off' ? 'flash-outline' : 'flash-off-outline'}
               type={'Ionicons'}
@@ -318,30 +325,29 @@ const CameraScreen: FC<cameraScreenInterface> = ({route}) => {
                   ? whiteThemeColors.white
                   : whiteThemeColors.primary
               }
-              style={{
-                zIndex: 5,
-              }}
             />
           </TouchableOpacity>
         </_View>
-        {imagePreviewModal && (
-          <ImagePreview
-            uri={imageUrl}
-            imagePreviewModal={imagePreviewModal}
-            setImagePreviewModal={setImagePreviewModal}
-            onSend={sendMsg}
-          />
-        )}
-        {videoPreviewModal && (
-          <VideoPreview
-            uri={videoUri}
-            videoPreviewModal={videoPreviewModal}
-            setVideoPreviewModal={setVideoPreviewModal}
-            onSend={sendMsg}
-          />
-        )}
       </_View>
-    </_View>
+
+      {imagePreviewModal && (
+        <ImagePreview
+          uri={imageUrl}
+          imagePreviewModal={imagePreviewModal}
+          setImagePreviewModal={setImagePreviewModal}
+          onSend={sendMsg}
+        />
+      )}
+
+      {videoPreviewModal && (
+        <VideoPreview
+          uri={videoUri}
+          videoPreviewModal={videoPreviewModal}
+          setVideoPreviewModal={setVideoPreviewModal}
+          onSend={sendMsg}
+        />
+      )}
+    </View>
   );
 };
 

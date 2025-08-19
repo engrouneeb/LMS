@@ -14,9 +14,13 @@ import { GiftedChat } from 'react-native-gifted-chat';
 import { useDispatch, useSelector } from 'react-redux';
 import { Appstate } from '../../../reducers/Appstate';
 import Loader from '../../Loader/loader';
+loading
 import {
   DownloadDocs,
+  fileinterface,
   convertUTCDateStringToLocalDate,
+  convertLocalDateTimeToStringFormat,
+
   isAdmin,
   isCoordinator,
   isExecutive,
@@ -26,7 +30,7 @@ import {
   whiteThemeColors,
 } from '../../../Utilities';
 import WhiteLabelConfig from '../../../WhiteLabelConfig';
-import { setCurrentFocus } from '../../../actions/AsyncStorage';
+import { loading, setCurrentFocus } from '../../../actions/AsyncStorage';
 import {
   GetPreviousChat,
   fileFormateType,
@@ -577,8 +581,8 @@ export const ChatInterface: FC<ChatInterfaceScreenInterface> = ({ route }) => {
       voiceRecorder?.stopPlayer().then(() => {
         voiceRecorder?.removePlayBackListener();
       });
-      setKeyboardStatus('Keyboard Hidden'); // Reset keyboard status
-      Keyboard.dismiss(); // Explicitly hide the keyboard
+      setKeyboardStatus('Keyboard Hidden');
+      Keyboard.dismiss(); 
       navigation.goBack();
     return true;
   };

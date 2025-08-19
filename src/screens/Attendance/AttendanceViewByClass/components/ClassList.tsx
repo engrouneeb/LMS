@@ -11,7 +11,7 @@ import {
 } from '../../../../components';
 import { _ActivityIndicator } from '../../../Loader';
 import ClassListCard from './ClassListCard';
-const ClassList: React.FC<classListAttendanceInterface> = (props) => {
+const ClassList: React.FC<classListAttendanceInterface> = props => {
   const [value] = useState('');
   const [startDate] = useState(new Date().toDateString());
   const [isLoading, setIsLoading] = useState(false);
@@ -148,8 +148,7 @@ const ClassList: React.FC<classListAttendanceInterface> = (props) => {
           return (
             <Pressable
               style={styles.cardComponet}
-              onPress={() => onPressBatches(batchObj)}
-            >
+              onPress={() => onPressBatches(batchObj)}>
               <ClassListCard
                 CourseName={CourseName}
                 levelName={levelName}
@@ -165,8 +164,7 @@ const ClassList: React.FC<classListAttendanceInterface> = (props) => {
         return (
           <Pressable
             style={styles.cardComponet}
-            onPress={() => onPressCourse(CourseID)}
-          >
+            onPress={() => onPressCourse(CourseID)}>
             <ClassListCard
               CourseName={CourseName}
               levelName={levelName}
@@ -193,14 +191,14 @@ const ClassList: React.FC<classListAttendanceInterface> = (props) => {
     </_View>
   );
   return (
-    <_View style={{ flex: 1, justifyContent: 'center' }}>
+    <_View style={{flex: 1, justifyContent: 'center'}}>
       {props.loading || isLoading ? (
         <_ActivityIndicator size={'large'} />
       ) : props.CoursesList.length > 0 ? (
         <FlatList
           showsVerticalScrollIndicator={false}
           data={props.CoursesList}
-          renderItem={({ item }) => renderData(item)}
+          renderItem={({item}) => renderData(item)}
           keyExtractor={(item, index) => index.toString()}
           scrollEventThrottle={1}
         />

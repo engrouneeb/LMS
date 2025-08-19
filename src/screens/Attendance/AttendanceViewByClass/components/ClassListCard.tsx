@@ -18,10 +18,11 @@ const ClassListCard: FC<ClassProps> = ({ classData }) => {
   return (
     <>
       <_View style={styles.leftIcon}>
-        {classData?.courseImage == '/Content/Images/courseImage.png' ? (
-          <Image style={styles.cardIcon} source={Placeholder} />
+        {classData?.courseImage &&
+        classData.courseImage !== '/Content/Images/courseImage.png' ? (
+          <_Image style={styles.cardIcon} uri={classData.courseImage} />
         ) : (
-          <_Image style={styles.cardIcon} uri={classData?.courseImage} />
+          <Image style={styles.cardIcon} source={Placeholder} />
         )}
       </_View>
       <_View style={styles.cardBody}>

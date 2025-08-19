@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { useNavigation } from '@react-navigation/native';
 import { voiceMsgPlaybackInterface } from '../../../../interfaces';
 import moment from 'moment';
-import React, { useState } from 'react';
+import React, { JSX, useState } from 'react';
 import {
   Alert,
   Dimensions,
@@ -18,6 +19,7 @@ import {
   MessageText,
   Time,
 } from 'react-native-gifted-chat';
+import FastImage from '@d11/react-native-fast-image';
 import { useDispatch, useSelector } from 'react-redux';
 import { VideoPlayer, isTablet, whiteThemeColors } from '../../../../Utilities';
 import { DocumentPdfReader } from '../index';
@@ -36,7 +38,6 @@ import {
   _Text,
   _VectorIcons,
   _View,
-  _Image,
 } from '../../../../components';
 import { Appstate } from '../../../../reducers/Appstate';
 import { _ActivityIndicator } from '../../../Loader';
@@ -50,14 +51,13 @@ import {
 import { styles } from './GiftedChatComponentStyle';
 import { TypingIndicator } from './TypingIndicator';
 import CommonStyles from '../../../../screens/CommonStyles';
-
-import { useLogin } from '../../../../navigation/MainNav';
+import {useLogin} from '../../../../navigation/MainNav';
 
 export const renderAvatar = (
   Obj: any,
   UserData: UserDataInterface,
   ChatUserObj: chatUserInterface,
-  viewChat: any = undefined
+  viewChat: any = undefined,
 ) => {
   var UsrInfo: {
     FirstName?: string;
@@ -101,7 +101,7 @@ export const renderAvatar = (
 
 export const renderBubble = (
   props: any,
-  voiceRecorder: renderVoiceMessageInterface
+  voiceRecorder: renderVoiceMessageInterface,
 ) => {
   if (props.currentMessage.audio != undefined)
     return <RenderVoiceMessage props={props} voiceRecorder={voiceRecorder} />;
@@ -115,11 +115,11 @@ export const renderBubble = (
   );
 };
 
-export const renderDay: (props: any) => JSX.Element = (props) => (
+export const renderDay: (props: any) => JSX.Element = props => (
   <Day {...props} textStyle={styles.dayText} />
 );
 
-export const renderInputToolbar: (props: any) => JSX.Element = (props) => {
+export const renderInputToolbar: (props: any) => JSX.Element = props => {
   return (
     <InputToolbar
       {...props}
@@ -131,23 +131,20 @@ export const renderInputToolbar: (props: any) => JSX.Element = (props) => {
         // position: 'absolute',
         bottom: 18,
         marginHorizontal: 15,
-        width:Platform.OS=="android" ?"87%":'80%',
+        width: Platform.OS == 'android' ? '87%' : '80%',
         alignSelf: 'center',
         borderRadius: 10,
-        left:Platform.OS=="android" ?'6%': '8%',
+        left: Platform.OS == 'android' ? '6%' : '8%',
       }}
     />
   );
 };
 
 export const useRenderMessageImage = () => {
-  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
-  const [isFileView, setIsFileView] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
-  const [imageUrl, setImageUrl] = useState<string>('');
-  const [docUrl, setDocUrl] = useState<string>('');
   const navigation = useNavigation<any>();
   const dispatch = useDispatch<any>();
+
   const {
     selectedType,
     localImageURI,
@@ -165,7 +162,6 @@ export const useRenderMessageImage = () => {
       index: 0,
     },
   ];
-
   const obj = {
     camera: '',
     file: 'File',
@@ -175,62 +171,72 @@ export const useRenderMessageImage = () => {
     Platform.OS == 'ios' ? (items = [obj, ...items]) : items;
   }
 
-  const renderMessageImage: (props: any) => JSX.Element = (props) => {
-    return (
-      props.currentMessage.image && (
-        <TouchableOpacity
-          style={styles.messageMediaWrapper}
-          onPress={() => {
-            setImageUrl(props.currentMessage.image);
-            setIsFullScreen(true);
+const renderMessageImage: (props: any) => JSX.Element = props => {
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false);
+  const [imageUrl, setImageUrl] = useState<string>('');
+  return (
+    props.currentMessage.image && (
+      <TouchableOpacity
+        style={styles.messageMediaWrapper}
+        onPress={() => {
+          setImageUrl(props.currentMessage.image);
+          setIsFullScreen(true);
+        }}>
+        <FastImage
+          style={styles.thumbnailImage}
+          source={{
+            uri: props.currentMessage.image,
+            priority: FastImage.priority.normal,
+            cache: FastImage.cacheControl.immutable,
           }}
-        >
-          <_Image
-            style={styles.thumbnailImage}
-            uri={props.currentMessage.image}
-          />
-          <Modal
-            animationType='fade'
-            onRequestClose={() => setIsFullScreen(false)}
-            visible={isFullScreen}
+        />
+        <Modal
+          animationType="fade"
+          onRequestClose={() => setIsFullScreen(false)}
+          visible={isFullScreen}
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}>
+          <_View
             style={{
+              flex: 1,
               justifyContent: 'center',
               alignItems: 'center',
-            }}
-          >
-            <_View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-                padding: 1,
+              padding: 1,
+            }}>
+            <FastImage
+              style={styles.fullScreenImage}
+              source={{
+                uri: imageUrl,
+                priority: FastImage.priority.normal,
+                cache: FastImage.cacheControl.immutable,
               }}
-            >
-              <_Image
-                style={styles.fullScreenImage}
-                uri={imageUrl}
-              />
-            </_View>
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </_View>
 
-            <TouchableOpacity
-              onPress={() => {
-                setIsFullScreen(false);
-              }}
-              style={styles.closeModal}
-            >
-              <_VectorIcons
-                type='AntDesign'
-                name='closecircleo'
-                size={22}
-                color={whiteThemeColors.white}
-              />
-            </TouchableOpacity>
-          </Modal>
-        </TouchableOpacity>
-      )
-    );
-  };
+          <TouchableOpacity
+            onPress={() => {
+              setIsFullScreen(false);
+            }}
+            style={styles.closeModal}>
+            <_VectorIcons
+              type="AntDesign"
+              name="closecircleo"
+              size={22}
+              color={whiteThemeColors.white}
+            />
+          </TouchableOpacity>
+        </Modal>
+      </TouchableOpacity>
+    )
+  );
+};
   const renderMessageFile = (props: any) => {
+   const [isFileView, setIsFileView] = useState<boolean>(false);
+  const [docUrl, setDocUrl] = useState<string>('');
+
     let fileExtention = props?.currentMessage?.file
       ? props?.currentMessage?.file.split('/').pop().toLowerCase()
       : '';
@@ -242,10 +248,9 @@ export const useRenderMessageImage = () => {
             setDocUrl(props.currentMessage.file);
             dispatch(saveGalleryAttachmentImageURI(''));
             setIsFileView(true);
-          }}
-        >
+          }}>
           <_View style={styles.bgfile}>
-            <_View style={{ alignItems: 'center', flexDirection: 'row' }}>
+            <_View style={{alignItems: 'center', flexDirection: 'row'}}>
               <_View style={styles.fileIconCircle}>
                 <_View style={styles.fileExtension}>
                   <_Text style={styles.fileType}>
@@ -269,22 +274,20 @@ export const useRenderMessageImage = () => {
                   marginLeft: 4,
                   fontSize: 12,
                   fontFamily: CommonStyles.fonts.regular,
-                }}
-              >
+                }}>
                 {fileExtention}
               </_Text>
             </_View>
           </_View>
           {props.currentMessage.file === docUrl ? (
             <Modal
-              animationType='fade'
+              animationType="fade"
               visible={isFileView}
               onRequestClose={() => setIsFileView(false)}
               style={{
                 backgroundColor: whiteThemeColors.black,
                 justifyContent: 'center',
-              }}
-            >
+              }}>
               <DocumentPdfReader
                 url={props.currentMessage.file}
                 fileExtension={
@@ -295,14 +298,13 @@ export const useRenderMessageImage = () => {
                 onPress={() => {
                   setIsFileView(false);
                 }}
-                style={styles.closeModal}
-              >
+                style={styles.closeModal}>
                 <_VectorIcons
-                  type='AntDesign'
-                  name='closecircleo'
-                  size={22}
-                  color={whiteThemeColors.white}
-                />
+                type="AntDesign"
+                name="closecircleo"
+                size={22}
+                color={whiteThemeColors.white}
+              />
               </TouchableOpacity>
             </Modal>
           ) : null}
@@ -316,8 +318,8 @@ export const useRenderMessageImage = () => {
     return res;
   };
   const handlePermissions: (
-    handleVoiceMessage: (val: boolean) => void
-  ) => Promise<void> = async (handleVoiceMessage) => {
+    handleVoiceMessage: (val: boolean) => void,
+  ) => Promise<void> = async handleVoiceMessage => {
     const res: boolean = await seekVoicePermissionFromUser();
     handleVoiceMessage(res);
   };
@@ -333,12 +335,12 @@ export const useRenderMessageImage = () => {
   const renderSend: (
     props: any,
     isMicOn: boolean,
-    handleVoiceMessage: (val: boolean) => void
+    handleVoiceMessage: (val: boolean) => void,
   ) => JSX.Element = (props, isMicOn = false, handleVoiceMessage) => {
     const onSend = (text: string, object?: any) => {
-      props.onSend({ text, object });
+      props.onSend({text, object});
     };
-    const { orientation } = useLogin();
+    const {orientation} = useLogin();
     return (
       <_View
         style={[
@@ -346,8 +348,7 @@ export const useRenderMessageImage = () => {
           {
             marginRight: isMicOn ? 15 : 10,
           },
-        ]}
-      >
+        ]}>
         {Boolean(fileFormate) && (
           <_View style={styles.uploadFile}>
             <RenderFile />
@@ -363,17 +364,16 @@ export const useRenderMessageImage = () => {
                 dispatch(upLoadFileloading(true));
 
                 props.onSend(
-                  { text: Boolean(props.text) ? props.text : '' },
-                  true
+                  {text: Boolean(props.text) ? props.text : ''},
+                  true,
                 );
               } else if (isMicOn && isMenuOpen == false) {
                 handlePermissions(handleVoiceMessage);
               } else if (props.text !== '') {
                 dispatch(fileFormateType(''));
-                props.onSend({ text: props.text }, true);
+                props.onSend({text: props.text}, true);
               } else setIsMenuOpen(true);
-            }}
-          >
+            }}>
             <SendIcon
               size={35}
               color={
@@ -392,10 +392,9 @@ export const useRenderMessageImage = () => {
                 handlePermissions(handleVoiceMessage);
               } else if (props.text !== '') {
                 dispatch(fileFormateType(''));
-                props.onSend({ text: props.text }, true);
+                props.onSend({text: props.text}, true);
               } else setIsMenuOpen(true);
-            }}
-          >
+            }}>
             {!isMenuOpen &&
               (isMicOn ? (
                 <_View
@@ -405,8 +404,7 @@ export const useRenderMessageImage = () => {
                     borderRadius: 35,
                     justifyContent: 'center',
                     alignItems: 'center',
-                  }}
-                >
+                  }}>
                   <_VectorIcons
                     type={'MaterialCommunityIcons'}
                     name={'microphone'}
@@ -426,7 +424,6 @@ export const useRenderMessageImage = () => {
               ))}
           </TouchableOpacity>
         )}
-
         <FloatingMenu
           buttonWidth={41}
           innerWidth={38}
@@ -437,12 +434,14 @@ export const useRenderMessageImage = () => {
           isOpen={isMenuOpen}
           onMenuToggle={setIsMenuOpen}
           onItemPress={(item: any) => {
+             console.log('Pressed item:', item); // <--- log the whole object
+             console.log('Item index:', item.index);
             selectAction(
               item.index,
               dispatch,
               setIsMenuOpen,
               navigation,
-              onSend
+              onSend,
             );
           }}
           buttonSize={40}
@@ -487,8 +486,7 @@ export const useRenderMessageImage = () => {
             borderColor: whiteThemeColors.primary,
             justifyContent: 'center',
             alignItems: 'center',
-          }}
-        >
+          }}>
           <_VectorIcons
             name={'close'}
             type={'MaterialIcons'}
@@ -506,15 +504,17 @@ export const useRenderMessageImage = () => {
               zIndex: 10,
               justifyContent: 'center',
               alignItems: 'center',
-            }}
-          >
+            }}>
             <_ActivityIndicator color={'#84DDE0'} showText={false} />
           </_View>
         )}
         {selectedType == 1 ? (
-          <_Image
-            style={{ height: 250, width: 250, borderRadius: 4 }}
-             uri= {localImageURI} 
+          <FastImage
+            style={{height: 250, width: 250, borderRadius: 4}}
+            source={{
+              uri: localImageURI,
+              priority: FastImage.priority.normal,
+            }}
           />
         ) : selectedType == 2 ? (
           <_View
@@ -525,14 +525,17 @@ export const useRenderMessageImage = () => {
             style={{
               backgroundColor: whiteThemeColors.background,
               borderRadius: 5,
-            }}
-          >
-            <_Image
-              uri= {localImageURI} 
+            }}>
+            <FastImage
+              resizeMode="contain"
               style={{
                 width: 250,
                 height: 250,
                 borderRadius: 4,
+              }}
+              source={{
+                uri: 'https://cypressintegration.com/wp-content/uploads/gray-background-texture-1-1.gif',
+                priority: FastImage.priority.normal,
               }}
             />
             <_VectorIcons
@@ -551,7 +554,7 @@ export const useRenderMessageImage = () => {
             />
           </_View>
         ) : selectedType == 4 ? (
-          <_View style={{ alignItems: 'center' }}>
+          <_View style={{alignItems: 'center'}}>
             <_VectorIcons
               name={'applemusic'}
               type={'Fontisto'}
@@ -563,9 +566,9 @@ export const useRenderMessageImage = () => {
             />
           </_View>
         ) : (
-          <_View style={{ alignItems: 'center' }}>
+          <_View style={{alignItems: 'center'}}>
             <_View style={styles.fileExtension}>
-              <_Text style={{ fontSize: 15, color: whiteThemeColors.white }}>
+              <_Text style={{fontSize: 15, color: whiteThemeColors.white}}>
                 {'file'}
               </_Text>
             </_View>
@@ -606,8 +609,7 @@ export const useRenderMessageImage = () => {
             borderColor: whiteThemeColors.primary,
             justifyContent: 'center',
             alignItems: 'center',
-          }}
-        >
+          }}>
           <_VectorIcons
             name={'close'}
             type={'MaterialIcons'}
@@ -618,12 +620,14 @@ export const useRenderMessageImage = () => {
             }}
           />
         </TouchableOpacity>
-        <_View style={{ alignItems: 'center' }}>
+        <_View style={{alignItems: 'center'}}>
           {selectedType == 1 ? (
-            <_Image
-              style={{ height: 250, width: 250, borderRadius: 4 }}
-              uri={localImageURI}
-              
+            <FastImage
+              style={{height: 250, width: 250, borderRadius: 4}}
+              source={{
+                uri: localImageURI,
+                priority: FastImage.priority.normal,
+              }}
             />
           ) : (
             <_View
@@ -634,18 +638,20 @@ export const useRenderMessageImage = () => {
               style={{
                 backgroundColor: whiteThemeColors.background,
                 borderRadius: 5,
-              }}
-            >
+              }}>
               {Boolean(thumbnaillUri) ? (
                 <>
-                  <_Image
-                    
+                  <FastImage
+                    resizeMode={'contain'}
                     style={{
                       width: 250,
                       height: 250,
                       borderRadius: 4,
                     }}
-                    uri={thumbnaillUri}
+                    source={{
+                      uri: thumbnaillUri,
+                      priority: FastImage.priority.normal,
+                    }}
                   />
                   <_VectorIcons
                     type={'MaterialCommunityIcons'}
@@ -689,7 +695,7 @@ export const useRenderMessageImage = () => {
     RenderImage,
   ];
 };
-export const renderMessageVideo: (props: any) => JSX.Element = (props) => {
+export const renderMessageVideo: (props: any) => JSX.Element = props => {
   return (
     <_View style={styles.messageMediaWrapper}>
       <VideoPlayer
@@ -699,7 +705,7 @@ export const renderMessageVideo: (props: any) => JSX.Element = (props) => {
     </_View>
   );
 };
-export const renderMessageText: (props: any) => JSX.Element = (props) => {
+export const renderMessageText: (props: any) => JSX.Element = props => {
   return (
     <_View style={styles.messageTextWrapper}>
       <MessageText
@@ -729,12 +735,12 @@ export const renderMessageText: (props: any) => JSX.Element = (props) => {
   );
 };
 
-export const renderTime: (props: any) => JSX.Element = (props) => {
+export const renderTime: (props: any) => JSX.Element = props => {
   return <Time {...props} timeTextStyle={styles.timeText} />;
 };
-export const renderFooter: (isTyping: boolean) => JSX.Element | null = (
-  isTyping
-) => {
+export const renderFooter: (
+  isTyping: boolean,
+) => JSX.Element | null = isTyping => {
   if (isTyping) {
     return (
       <_View style={styles.indicator}>
@@ -752,7 +758,7 @@ const RenderVoiceMessage: ({
 }: {
   props: any;
   voiceRecorder: renderVoiceMessageInterface;
-}) => JSX.Element = ({ props, voiceRecorder }) => {
+}) => JSX.Element = ({props, voiceRecorder}) => {
   const [play, setPlay] = useState<boolean>(false);
   const [totalDuration, setTotalDuration] = useState<number>(0);
   const [currentPosition, setCurrentPosition] = useState<number>(0);
@@ -775,17 +781,17 @@ const RenderVoiceMessage: ({
       .catch((e: any) => console.log('error pausing audio: ', e));
   };
 
-  const isUrlValid: (url: string) => boolean = (url) => {
+  const isUrlValid: (url: string) => boolean = url => {
     return RegExp('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?').test(
-      url
+      url,
     );
   };
 
-  const handlePlay: (id: number) => Promise<void> = async (id) => {
+  const handlePlay: (id: number) => Promise<void> = async id => {
     if (!isUrlValid(props.currentMessage.audio)) {
       Alert.alert('Error', 'The provided url for voice msg is corrupted', [
-        { text: 'Okay', style: 'cancel' },
-        { text: 'Cancel', style: 'destructive' },
+        {text: 'Okay', style: 'cancel'},
+        {text: 'Cancel', style: 'destructive'},
       ]);
       return;
     }
@@ -815,7 +821,7 @@ const RenderVoiceMessage: ({
     }
   };
 
-  const getDefaultDuration: (durations: number) => string = (durations) => {
+  const getDefaultDuration: (durations: number) => string = durations => {
     if (!Boolean(durations)) return '00/00';
     else if (durations < 10) return `00/0${durations} sec(s)`;
     else return `00/${durations} sec(s)`;
@@ -832,20 +838,17 @@ const RenderVoiceMessage: ({
         padding: 5,
 
         justifyContent: 'center',
-      }}
-    >
+      }}>
       <_View
         style={{
           flexDirection: 'row',
           alignItems: 'center',
           justifyContent: 'space-between',
-        }}
-      >
+        }}>
         <Pressable
           hitSlop={20}
           style={{}}
-          onPress={() => handlePlay(props.currentMessage._id)}
-        >
+          onPress={() => handlePlay(props.currentMessage._id)}>
           {loader ? (
             <_ActivityIndicator
               showText={false}
@@ -868,8 +871,7 @@ const RenderVoiceMessage: ({
             height: 4,
             backgroundColor: whiteThemeColors.primary + 30,
             borderRadius: 10,
-          }}
-        >
+          }}>
           <_View
             style={{
               width: `${+seekbarWidth * 100}%`,
@@ -902,8 +904,7 @@ const RenderVoiceMessage: ({
             borderRadius: 24,
             alignItems: 'center',
             marginLeft: 10,
-          }}
-        >
+          }}>
           <_VectorIcons
             type={'MaterialCommunityIcons'}
             name={'microphone'}
@@ -911,10 +912,10 @@ const RenderVoiceMessage: ({
             size={20}
           />
           {play && (
-            <_Text style={{ color: whiteThemeColors.black, fontSize: 9 }}>
+            <_Text style={{color: whiteThemeColors.black, fontSize: 9}}>
               {currentPosition != 0 && totalDuration != 0
                 ? `${moment(currentPosition).format('ss')}/${moment(
-                    totalDuration
+                    totalDuration,
                   ).format('ss')}`
                 : getDefaultDuration(props?.currentMessage?.duration)}
             </_Text>
@@ -925,9 +926,8 @@ const RenderVoiceMessage: ({
             position: 'absolute',
             right: 60,
             top: 30,
-          }}
-        >
-          <_Text style={{ color: whiteThemeColors.greyDark, fontSize: 9 }}>
+          }}>
+          <_Text style={{color: whiteThemeColors.greyDark, fontSize: 9}}>
             {moment(props.currentMessage.createdAt).format('h:mm A')}
           </_Text>
         </_View>

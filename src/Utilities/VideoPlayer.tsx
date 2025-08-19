@@ -1,12 +1,12 @@
 import React, {useRef, useState} from 'react';
 import {
-  Image,
   Modal,
   StyleSheet,
   TouchableOpacity,
   View,
   Text,
 } from 'react-native';
+import FastImage from '@d11/react-native-fast-image';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Video from 'react-native-video';
@@ -89,11 +89,12 @@ const Videoplayer: React.FC<props> = ({url, thumbnail, style}) => {
           }}
         />
       </_View>
-      <Image
+      <FastImage
         style={{
           width: 260,
           height: 240,
           borderRadius: 6,
+          // borderWidth: 5,
           borderColor: whiteThemeColors.chatInterface.chatRight,
           ...style,
         }}
@@ -101,8 +102,9 @@ const Videoplayer: React.FC<props> = ({url, thumbnail, style}) => {
           uri: thumbnail
             ? thumbnail
             : 'https://cypressintegration.com/wp-content/uploads/gray-background-texture-1-1.gif',
+          priority: FastImage.priority.normal,
         }}
-        resizeMode="cover"
+        resizeMode={FastImage.resizeMode.cover}
       />
       {isFullScreen && (
         <Modal
@@ -135,7 +137,7 @@ const Videoplayer: React.FC<props> = ({url, thumbnail, style}) => {
             </TouchableOpacity>
 
             <Slider
-              style={{flex: 1, marginHorizontal: 10,}}
+              style={{flex: 1, marginHorizontal: 10}}
               minimumValue={0}
               maximumValue={duration}
               value={currentTime}
@@ -143,7 +145,6 @@ const Videoplayer: React.FC<props> = ({url, thumbnail, style}) => {
               maximumTrackTintColor={whiteThemeColors.background}
               thumbTintColor={whiteThemeColors.primary}
               onSlidingComplete={onSeek}
-      
             />
 
             <Text style={{color: whiteThemeColors.white, fontSize: 12}}>

@@ -31,6 +31,7 @@ import {
   getChatObjectArgument_StateInterface,
   ChatUserObj,
 } from '../../../../interfaces';
+import { launchImageLibrary } from 'react-native-image-picker';
 
 export const UpdateChatObj = async (
   chatlist: UpdateChatObjArgument_chatlistInterface[],
@@ -257,23 +258,39 @@ export const renderItemIcon: (item: any) => JSX.Element | null = (item) => {
 
   return null;
 };
-
+// ) => void = (item, dispatch, setIsMenuOpen, navigation, onSend) => {
+//   console.log('selectAction');
+//   if (item === 0) {
+//     Camera(setIsMenuOpen, navigation, onSend);
+//     dispatch(selectedTypes(1));
+//   } else if (item === 1) {
+//     handleSelectFile(setIsMenuOpen, dispatch);
+//     dispatch(selectedTypes(3));
+//   } else {
+//     handleLaunchImageLibrary(setIsMenuOpen, dispatch);
+//   }
+// };
 export const selectAction: (
   item: any,
   dispatch: any,
   setIsMenuOpen: any,
   navigation: any,
-  onSend: any
+  onSend: any,
 ) => void = (item, dispatch, setIsMenuOpen, navigation, onSend) => {
-  console.log('selectAction');
+  console.log('selectAction, item index:', item);
   if (item === 0) {
     Camera(setIsMenuOpen, navigation, onSend);
     dispatch(selectedTypes(1));
   } else if (item === 1) {
+    handleLaunchImageLibrary(setIsMenuOpen, dispatch);
+    dispatch(selectedTypes(2));
+  } else if (item === 2) {
+    // File
+    console.log('Opening file picker...');
     handleSelectFile(setIsMenuOpen, dispatch);
     dispatch(selectedTypes(3));
   } else {
-    handleLaunchImageLibrary(setIsMenuOpen, dispatch);
+    console.log('Unknown item index:', item);
   }
 };
 

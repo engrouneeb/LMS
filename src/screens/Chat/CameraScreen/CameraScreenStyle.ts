@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'black',
+    position:'relative',
   },
   closeIcon: {
     position: 'absolute',
@@ -37,6 +37,8 @@ export const styles = StyleSheet.create({
     borderWidth: 2,
     height: 60,
     width: 60,
+        position: 'absolute',
+    bottom:90,
     alignSelf: 'center',
     marginBottom: 5,
     justifyContent: 'center',
@@ -83,6 +85,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     alignItems: 'center',
     height: 70,
+    bottom: 0,
+    position: 'absolute',
     width: '100%',
     backgroundColor: whiteThemeColors.white + 40,
     borderTopLeftRadius: 20,

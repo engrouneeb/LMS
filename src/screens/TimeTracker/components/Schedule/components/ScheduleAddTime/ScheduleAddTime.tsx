@@ -48,7 +48,7 @@ import {
 } from './ScheduleAddTimeFunctions';
 
 import { ScheduleAddTimeInterface } from '../../../../../../interfaces';
-import { Appstate } from '../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../reducers/Appstate';
 import { initialState, reducer, StateConstants } from './States';
 import { styles } from './style';
 

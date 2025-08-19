@@ -1,15 +1,16 @@
-import React, { FC, useState } from 'react';
+import React, {FC, useState} from 'react';
 import {
   KeyboardAvoidingView,
   Modal,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import { SendIcon } from '../../../../../assets/Icons';
-import { _TextInput, _View, _VectorIcons, _Image } from '../../../../components';
+import FastImage from '@d11/react-native-fast-image';
+import {SendIcon} from '../../../../../assets/Icons';
+import {_TextInput, _View, _VectorIcons} from '../../../../components';
 import Loader from '../../../Loader/loader';
-import { whiteThemeColors } from '../../../../Utilities';
-import { useUploadAttachment } from './useUploadAttachment';
+import {whiteThemeColors} from '../../../../Utilities';
+import {useUploadAttachment} from './useUploadAttachment';
 
 interface ImagePreview {
   uri: string;
@@ -26,7 +27,7 @@ const ImagePreview: FC<ImagePreview> = ({
 }) => {
   const [caption, setCaption] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
-  const { uploadFile } = useUploadAttachment();
+  const {uploadFile} = useUploadAttachment();
   const sendMessageAttachment = async () => {
     setLoading(true);
     const uploadFileResponse = await uploadFile(uri, true, false, false);
@@ -36,23 +37,28 @@ const ImagePreview: FC<ImagePreview> = ({
   return (
     <Modal
       statusBarTranslucent
-      animationType='fade'
+      animationType="fade"
       visible={imagePreviewModal}
-      style={styles.modal}
-    >
-      <_Image
+      style={styles.modal}>
+      <FastImage
         style={styles.fullScreenImage}
-        // source={{
-        //   uri: uri,
-         
-        // }}
-        uri={uri}
+        source={{
+          uri: uri,
+          priority: FastImage.priority.normal,
+          cache: FastImage.cacheControl.immutable,
+        }}
+        resizeMode={FastImage.resizeMode.contain}
+        onLoadStart={() => {
+          setLoading(true);
+        }}
+        onLoadEnd={() => {
+          setLoading(false);
+        }}
       />
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        style={{flex: 1}}
         behavior={'position'}
-        keyboardVerticalOffset={0}
-      >
+        keyboardVerticalOffset={0}>
         <_View style={styles.captionView}>
           <_TextInput
             multiline={true}
@@ -60,16 +66,15 @@ const ImagePreview: FC<ImagePreview> = ({
             placeholderTextColor={whiteThemeColors.white}
             value={caption}
             placeholder={'Add a caption...'}
-            onChangeText={(text) => {
+            onChangeText={text => {
               setCaption(text);
             }}
           />
           <TouchableOpacity
-            style={{ flex: 1 }}
+            style={{flex: 1}}
             onPress={() => {
               sendMessageAttachment();
-            }}
-          >
+            }}>
             <SendIcon size={33} color={whiteThemeColors.white} />
           </TouchableOpacity>
         </_View>
@@ -78,11 +83,10 @@ const ImagePreview: FC<ImagePreview> = ({
         onPress={() => {
           setImagePreviewModal(false);
         }}
-        style={styles.closeModal}
-      >
+        style={styles.closeModal}>
         <_VectorIcons
-          type='AntDesign'
-          name='closecircleo'
+          type="AntDesign"
+          name="closecircleo"
           size={22}
           color={whiteThemeColors.white}
         />
@@ -92,7 +96,7 @@ const ImagePreview: FC<ImagePreview> = ({
   );
 };
 
-export { ImagePreview };
+export {ImagePreview};
 const styles = StyleSheet.create({
   modal: {
     height: '100%',

@@ -1,12 +1,11 @@
-import { SelectInstructorModalWagesDropDownInterface } from '../../../../../../../interfaces';
-import React, { FC } from 'react';
-import { StyleSheet } from 'react-native';
-import { whiteThemeColors } from '../../../../../../../Utilities';
-import { _Text, _View, _VectorIcons } from '../../../../../../../components';
+import {SelectInstructorModalWagesDropDownInterface} from '../../../../../../../interfaces';
+import React, {FC, useState} from 'react';
+import {StyleSheet} from 'react-native';
+import {whiteThemeColors} from '../../../../../../../Utilities';
+import {_Text, _View, _VectorIcons} from '../../../../../../../components';
 import CommonStyles from '../../../../../../../screens/CommonStyles';
-import {
-  _ModalDropdown,
-} from '../../../../../../../components';
+import {Dropdown} from 'react-native-element-dropdown';
+
 const DropdownArrowIcon = () => (
   <_View style={styles.dropdownArrowContainer}>
     <_VectorIcons
@@ -14,15 +13,14 @@ const DropdownArrowIcon = () => (
       name={'chevron-down'}
       size={25}
       color={whiteThemeColors.black}
-      style={{}}
     />
   </_View>
 );
 
-const DropdownItem = (option: string) => {
+const DropdownItem = (item: {label: string; value: string | number}) => {
   return (
     <_View style={styles.dropContainer}>
-      <_Text style={styles.dropdownText}>{option}</_Text>
+      <_Text style={styles.dropdownText}>{item.label}</_Text>
     </_View>
   );
 };
@@ -32,23 +30,36 @@ export const WagesDropDown: FC<SelectInstructorModalWagesDropDownInterface> = ({
   data,
   onValueChange,
 }) => {
-  const handleOnSelect = (index: number) => {
-    onValueChange(+index);
+  const [selectedValue, setSelectedValue] = useState<string | null>(null);
+
+  const dropdownData = data.map((item, index) => ({
+    label: item,
+    value: index.toString(),
+  }));
+
+  const handleOnSelect = (item: {label: string; value: string}) => {
+    setSelectedValue(item.value);
+    onValueChange(+item.value);
   };
+
   return show ? (
     <_View style={styles.container}>
       <_View style={styles.subContainer}>
-        <_ModalDropdown
-          showsVerticalScrollIndicator={false}
-          options={data}
-          defaultValue={'Select a Wage'}
+        <Dropdown
+          data={dropdownData}
+          labelField="label"
+          valueField="value"
+          value={selectedValue}
+          placeholder="Select a Wage"
           style={styles.dropdownStrip}
-          dropdownStyle={[styles.dropdownListContainer]}
-          defaultTextStyle={styles.dropdownDefaultTxtStyle}
-          textStyle={styles.selectedItemTxtStyle}
-          onSelect={handleOnSelect}
-          renderRow={DropdownItem}
-          renderRightComponent={DropdownArrowIcon}
+          placeholderStyle={styles.dropdownDefaultTxtStyle}
+          selectedTextStyle={styles.selectedItemTxtStyle}
+          containerStyle={styles.dropdownListContainer}
+          itemTextStyle={styles.dropdownText}
+          onChange={handleOnSelect}
+          renderRightIcon={DropdownArrowIcon}
+          renderItem={DropdownItem}
+          showsVerticalScrollIndicator={false}
         />
       </_View>
     </_View>
@@ -81,13 +92,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     alignSelf: 'center',
+    paddingHorizontal: 16,
   },
   dropdownDefaultTxtStyle: {
-    width: '100%',
+    color: whiteThemeColors.greyDark,
+    fontFamily: CommonStyles.fonts.semiBold,
+    paddingLeft: 15,
   },
   selectedItemTxtStyle: {
     paddingLeft: 15,
     fontFamily: CommonStyles.fonts.semiBold,
+    color: whiteThemeColors.black,
   },
   dropContainer: {
     flexDirection: 'row',

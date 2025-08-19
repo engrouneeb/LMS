@@ -1,39 +1,39 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import {createDrawerNavigator} from '@react-navigation/drawer';
 import React from 'react';
-import { DrawerArray } from '../../DrawerScreens';
+import {DrawerArray} from '../../DrawerScreens';
 import ScreensNames from '../../screenNames';
-import { NotificationsTab } from '../../screens/Notifications';
+import {NotificationsTab} from '../../screens/Notifications';
 import {
   ProgressStudentList,
   SingleStudent,
   StudentAssessmentListForAdmin,
   StudentProgressReport,
 } from '../../screens/Reports';
-import { StudentListForAssessment } from '../../screens/StudentAssessments/StudentListForAssessment';
+import {StudentListForAssessment} from '../../screens/StudentAssessments/StudentListForAssessment';
 import SideBar from '../../screens/Sidebar';
 import Logout from '../../screens/Signout';
-import { StudentInfoDetials } from '../../screens/StudentInfo';
+import {StudentInfoDetials} from '../../screens/StudentInfo';
 import AttendanceStack from '../Stacks/AttendanceStack/AttendanceStack';
 import CourseStack from '../Stacks/CourseStack/CourseStack';
 import HomeStack from '../Stacks/HomeStack/HomeStack';
 import MessageStack from '../Stacks/MessageStack/MessageStack';
 import ReportStack from '../Stacks/ReportStack/ReportStack';
-import { StoreStack } from '../Stacks/StoreStack/StoreStack';
-import { KioskStack } from '../Stacks';
+import {Store} from '../../screens/Store';
+import {KioskStack} from '../Stacks';
 import StudentStack from '../Stacks/StudentStack/StudentStack';
 import TimeTrackerStack from '../Stacks/TimeTrackerStack/TimeTrackerStack';
 import DriveStack from '../Stacks/DriveStack/DriveStack';
 import StaffInfo from '../Stacks/StaffInfoStack/StaffInfoStack';
-import { StaffMenu } from '../../screens/StaffInfo';
+import {StaffMenu} from '../../screens/StaffInfo';
 import PaymentsStack from '../Stacks/PaymentsStack/PaymentsStack';
-import { AdminPayments } from '../../screens/Payments';
+import {AdminPayments} from '../../screens/Payments';
 import CalendarStack from '../Stacks/CalendarStack/CalendarStack';
 import DrawerNames from './DrawerScreenNames';
 import EnrollmentScreen from '../../screens/Enroll';
-import { EnrollmentsToClass } from '../../screens/Enroll/AdminEnrollnments';
+import {EnrollmentsToClass} from '../../screens/Enroll/AdminEnrollnments';
 import Articles from '../../screens/Articles';
-import { NewHomeWorkStack } from 'navigation/Stacks/NewHomeWorkStack';
-import { StudentList } from '../../screens/HomeWorks';
+import {NewHomeWorkStack} from 'navigation/Stacks/NewHomeWorkStack';
+import {StudentList} from '../../screens/HomeWorks';
 import StaffInfoStack from '../Stacks/StaffInfoStack/StaffInfoStack';
 const drawer = createDrawerNavigator();
 function DrawerNavigator() {
@@ -95,7 +95,7 @@ function DrawerNavigator() {
         component={EnrollmentsToClass}
         name={DrawerNames.EnrollmentsToClass.name}
       />
-      
+
       <drawer.Screen
         // options={{ gestureEnabled: false, unmountOnBlur: true }}
         name={DrawerNames.articles.name}
@@ -113,7 +113,7 @@ function DrawerNavigator() {
         name={DrawerNames.attendance.name}
         component={AttendanceStack}
       />
-      <drawer.Screen name={'Store'} component={StoreStack} />
+      <drawer.Screen name={'Store'} component={Store} />
       <drawer.Screen
         options={{gestureEnabled: false}}
         name={ScreensNames.StudentProgressList.name}

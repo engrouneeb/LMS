@@ -20,9 +20,9 @@ import {
   checkInputs,
   getWageFromValue,
   getWageTypeValue,
-  handleSetWageType,
+
+  getKeyFromValue,
   isWageAlreadyExists,
-  setWageFrom,
   showHideAlert,
 } from './AddWageFunctions';
 import {
@@ -90,18 +90,15 @@ export const AddUpdateWage: React.FC<AddUpdateWageInterface> = ({ route }) => {
       );
       return;
     }
-
-    const { wageFrom: originalWageFrom, wageType: originalWageType, wageID, userID } = route.params.wagesObject;
-
-    const finalWageFrom = wagesFrom.find(w => w.value === state.enteredWageFrom)?.key || originalWageFrom;
-    const finalWageType = wagesType.find(w => w.value === state.enteredWageType)?.key || originalWageType;
-
+    const {wageFrom, wageType, wageID, userID} = route.params.wagesObject;
+    const wageFromKey = getKeyFromValue(wagesFrom, state.enteredWageFrom);
+    const wageTypeKey = getKeyFromValue(wagesType, state.enteredWageType);
     var wagesArr = [
       {
         wageID,
         itemName: state.enteredItemName,
-        wageFrom: finalWageFrom,
-        wageType: finalWageType,
+        wageFrom: wageFromKey ?? wageFrom,
+        wageType: wageTypeKey ?? wageType,
         wageRate: parseFloat(state.enteredWageRate),
         userID: userID,
         effectiveDate: enteredEffectiveDate,
@@ -139,14 +136,16 @@ export const AddUpdateWage: React.FC<AddUpdateWageInterface> = ({ route }) => {
     );
 
     if (allInputsEntered == true && wageExists == false) {
+      const wageFromKey = getKeyFromValue(wagesFrom, state.enteredWageFrom);
+      const wageTypeKey = getKeyFromValue(wagesType, state.enteredWageType);
       var wagesArr = [
         {
           wageID: 0,
           fixHours: 0,
           isForAllTimeCards: false,
           itemName: state.enteredItemName,
-          wageFrom: parseInt(state.enteredWageFrom),
-          wageType: parseInt(state.enteredWageType),
+          wageFrom: wageFromKey,
+          wageType: wageTypeKey,
           wageRate: parseFloat(state.enteredWageRate),
           UserID: route.params.UserId,
           effectiveDate: new Date(enteredEffectiveDate),
@@ -239,7 +238,7 @@ export const AddUpdateWage: React.FC<AddUpdateWageInterface> = ({ route }) => {
                 if (type == 'update wage') {
                   setState(stateConstants.hasModified, true);
                 }
-                setWageFrom(_wagesFrom[index], wagesFrom, setState);
+                setState(stateConstants.enteredWageFrom, _wagesFrom[index]);
               }}
               type={type}
             />
@@ -255,7 +254,7 @@ export const AddUpdateWage: React.FC<AddUpdateWageInterface> = ({ route }) => {
                 if (type == 'update wage') {
                   setState(stateConstants.hasModified, true);
                 }
-                handleSetWageType(_wagesType[index], setState, wagesType);
+                setState(stateConstants.enteredWageType, _wagesType[index]);
               }}
               type={type}
             />

@@ -1,20 +1,23 @@
-import React, { FC } from 'react';
-import { Image } from 'react-native';
-//import FastImage, { FastImageProps } from 'react-native-fast-image';
-interface ImageInterfaces {
+import React, {FC} from 'react';
+import FastImage, {FastImageProps} from '@d11/react-native-fast-image';
+interface ImageInterfaces extends FastImageProps {
   style: any;
   uri: any;
 }
 export const _Image: FC<ImageInterfaces> = ({
   style,
   uri,
+  resizeMode = FastImage.resizeMode.cover,
   ...rest
 }) => (
-  <Image
+  <FastImage
     style={style}
     source={{
       uri: uri,
+      priority: FastImage.priority.normal,
+      cache: FastImage.cacheControl.immutable,
     }}
+    resizeMode={resizeMode}
     {...rest}
   />
 );
