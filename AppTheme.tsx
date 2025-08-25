@@ -5,7 +5,7 @@ export default StyleSheet.create({
     screen: {
         flex: 1,
         justifyContent: 'center',
-        backgroundColor: whiteLabelConfig.PRIMARY_COLOR
+        backgroundColor: whiteLabelConfig.PRIMARY_COLOR,
     },
     title: {
         paddingHorizontal: 16,
@@ -15,7 +15,7 @@ export default StyleSheet.create({
     },
     container: {
         paddingTop: 60,
-        alignItems: 'center'
+        alignItems: 'center',
     },
     greeting: {
         height: 100,
@@ -24,9 +24,9 @@ export default StyleSheet.create({
         borderColor: '#657b83',
         margin: 16,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     greetingText: {
-        color: whiteLabelConfig.PRIMARY_TEXT_COLOR
-    }
+        color: whiteLabelConfig.PRIMARY_TEXT_COLOR,
+    },
 });

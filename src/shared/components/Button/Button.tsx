@@ -8,7 +8,7 @@ import {
   TextStyle,
   TouchableOpacityProps,
 } from 'react-native';
-import { useTheme } from '@/app/providers/ThemeProvider';
+import { useTheme } from '../../../app/providers/ThemeProvider';
 
 export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'text';
 export type ButtonSize = 'small' | 'medium' | 'large';

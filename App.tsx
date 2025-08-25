@@ -18,7 +18,7 @@ function App() {
   const inAppUpdates = new SpInAppUpdates(
     true, // isDebug
   );
-  LogBox.ignoreAllLogs();
+  LogBox.ignoreAllLogs(); 
   useEffect(() => {
     console.warn = () => {};
     console.error = () => {};
@@ -67,10 +67,12 @@ function App() {
   Icon.loadFont();
   return (
     <ErrorBoundary FallbackComponent={ErrorComponent}>
+      
       {isUpdateAvailable ? (
         <AppUpdateModal hideUpdateAlert={hideUpdateAlert} url={url} />
       ) : (
         <Setup />
+        
       )}
     </ErrorBoundary>
   );

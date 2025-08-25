@@ -663,6 +663,7 @@ export const MakeUpClass = () => {
                 //  style={styles.dropDownContainer}
                 containerStyle={styles.dropdownStyle}
                 itemTextStyle={styles.dropDownTxt}
+                placeholderStyle={{fontSize:12}}
                 selectedTextStyle={[
                   styles.dropDownTxt,
                   {

@@ -97,9 +97,9 @@ export interface BottomTabScreensNamesInterfaces {
   EventDetails?: ObjectValueType;
   AnnouncementDetails?: ObjectValueType;
   HomeWorks?: ObjectValueType;
-  AddNewItem?: ObjectValueType;
-  StoreHome?: ObjectValueType;
-  Shipment?: ObjectValueType;
+//  AddNewItem?: ObjectValueType;
+ StoreHome?: ObjectValueType;
+//Shipment?: ObjectValueType;
   Transactions?: ObjectValueType;
   AddRedeemCode?: ObjectValueType;
   Calendar?: ObjectValueType;

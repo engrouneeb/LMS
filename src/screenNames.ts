@@ -322,15 +322,15 @@ const ScreensNames = {
   HomeWorks: {
     name: 'HomeWorks',
   },
-  AddNewItem: {
-    name: 'AddNewItem',
-  },
+  // AddNewItem: {
+  //   name: 'AddNewItem',
+  // },
   StoreHome: {
     name: 'StoreHome',
   },
-  Shipment: {
-    name: 'Shipment',
-  },
+  // Shipment: {
+  //   name: 'Shipment',
+  // },
   Transactions: {
     name: 'Transactions',
   },

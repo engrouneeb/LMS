@@ -10,7 +10,7 @@ import {
 import React, {Fragment, useEffect, useState} from 'react';
 import {Alert, FlatList, Linking, TouchableOpacity} from 'react-native';
 import {useSelector} from 'react-redux';
-import {Appstate} from '../../../../../../../reducers/Appstate';
+import {Appstate} from '../../../../../../reducers/Appstate';
 import {isStudent, whiteThemeColors} from '../../../../../../Utilities';
 import {InstructorDiscSvg} from '../../../../../../../assets/Icons';
 import ApiEndpoints from '../../../../../../../data/ApiEndpoints';

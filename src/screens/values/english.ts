@@ -206,12 +206,12 @@ export const englishMessageScreen = {
 };
 export const englishStoreScreen = {
   Store: 'Store',
-  Tabs: [
-    {
-      TabName: 'Add New Item',
-      Navigation: 'AddNewItem',
-    },
-  ],
+  // Tabs: [
+  //   {
+  //     TabName: 'Add New Item',
+  //     Navigation: 'AddNewItem',
+  //   },
+  // ],
 };
 export const englishReportsScreen = {
   Reports: 'Reports',

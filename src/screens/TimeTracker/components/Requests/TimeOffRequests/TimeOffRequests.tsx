@@ -113,7 +113,7 @@ export const TimeOffRequest: FC<TimeOffRequestInterface> = ({ route }) => {
   };
 
   const handleOnAndroidBack = () => {
-    navigation.navigate('Requests');
+    navigation.goBack();
     return true;
   };
   return (
@@ -122,7 +122,7 @@ export const TimeOffRequest: FC<TimeOffRequestInterface> = ({ route }) => {
         <Header
           isBack
           Screen={'Time Off Requests'}
-          GoBack={() => navigation.navigate('Requests')}
+          GoBack={() => navigation.goBack()}
         />
       }
       flex={1}

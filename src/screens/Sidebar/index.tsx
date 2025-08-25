@@ -67,7 +67,9 @@ const SideBar: React.FC<props> = ({navigation}) => {
   const {Get} = DataAccess();
   const {isLoading, sideBarConfig} = useSideBarConfig();
   useEffect(() => {
-    if (isCoordinator(UserData.roleName)) isCurriculumPresent = false;
+    if (isCoordinator(UserData.roleName)) {
+      isCurriculumPresent = false;
+    }
     return () => {
       setShowAlert(false);
       setAlertTitle(undefined);
@@ -88,6 +90,8 @@ const SideBar: React.FC<props> = ({navigation}) => {
     });
   };
   const CheckDrawer = (Navigation: any, labelName: string) => {
+    console.log({Navigation, labelName});
+
     if (Navigation === 'Notifications') {
       navigation.closeDrawer();
       dispatch(clearNotificationCount(0));
@@ -146,13 +150,15 @@ const SideBar: React.FC<props> = ({navigation}) => {
         });
       }
     } else if (Navigation == 'Assessments') {
-      if (isStudent(UserData.roleName))
+      if (isStudent(UserData.roleName)) {
         navigation.navigate(DrawerScreens.StudentAssessments.name, {
           quickLinks: false,
           stdId: UserData.userID,
           goBackScreen: DrawerScreens.dashboard.name,
         });
-      else navigation.navigate(Screens.StudentListForAssessment.name);
+      } else {
+        navigation.navigate(Screens.StudentListForAssessment.name);
+      }
     } else {
       if (Navigation == 'Time Tracker') {
         GetTimeTrackingCounter();
@@ -165,11 +171,12 @@ const SideBar: React.FC<props> = ({navigation}) => {
           });
         } else if (Navigation == 'Staff Info') {
           navigation.navigate(DrawerScreenNames.StaffMenu.name);
-        } else
+        } else {
           navigation.navigate(Navigation, {
             header: labelName,
             goBackScreen: DrawerScreens.dashboard.name,
           });
+        }
         navigation.closeDrawer();
       }
     }
@@ -389,45 +396,56 @@ const SideBar: React.FC<props> = ({navigation}) => {
     EndPoint.params = `?studentId=${studentId}`;
     dispatch(setAction.studentInfoOverviewLoading());
     Get(EndPoint).then((res: any) => {
-      if (!res.error) dispatch(setAction.studentInfoOverviewSuccess(res));
+      if (!res.error) {
+        dispatch(setAction.studentInfoOverviewSuccess(res));
+      }
       dispatch(setAction.studentInfoOverviewFailed());
     });
     EndPoint = ApiEndpoints.GetStudentSkills;
     EndPoint.params = `?studentId=${studentId}`;
     dispatch(setAction.studentInfoSkillsLoading());
     Get(EndPoint).then((res: any) => {
-      if (!res.error) dispatch(setAction.studentInfoSkillsSuccess(res));
+      if (!res.error) {
+        dispatch(setAction.studentInfoSkillsSuccess(res));
+      }
       dispatch(setAction.studentInfoSkillsFailed());
     });
     EndPoint = ApiEndpoints.GetUserEnrolledEvents;
     EndPoint.params = `?studentId=${studentId}`;
     dispatch(setAction.studentInfoEnrolledEventsLoading());
     Get(EndPoint).then((res: any) => {
-      if (!res.error) dispatch(setAction.studentInfoEnrolledEventsSuccess(res));
+      if (!res.error) {
+        dispatch(setAction.studentInfoEnrolledEventsSuccess(res));
+      }
       dispatch(setAction.studentInfoEnrolledEventsFailed());
     });
     EndPoint = ApiEndpoints.GetStudentMedical;
     EndPoint.params = `?studentId=${studentId}`;
     dispatch(setAction.studentInfoMedicalLoading());
     Get(EndPoint).then((res: any) => {
-      if (!res.error) dispatch(setAction.studentInfoMedicalSuccess(res));
+      if (!res.error) {
+        dispatch(setAction.studentInfoMedicalSuccess(res));
+      }
       dispatch(setAction.studentInfoMedicalFailed());
     });
     EndPoint = ApiEndpoints.GetStudentFeedback;
     EndPoint.params = `?studentId=${studentId}`;
     dispatch(setAction.studentInfoFeedbackLoading());
     Get(EndPoint).then((res: any) => {
-      if (!res.error)
-        if (res[0]?.classesList)
+      if (!res.error) {
+        if (res[0]?.classesList) {
           dispatch(setAction.studentInfoFeedbackSuccess(res));
+        }
+      }
       dispatch(setAction.studentInfoFeedbackFailed());
     });
     EndPoint = ApiEndpoints.StudentGetClasses;
     EndPoint.params = `?studentId=${studentId}`;
     dispatch(setAction.studentInfoClassesLoading());
     Get(EndPoint).then((res: any) => {
-      if (!res.error)
+      if (!res.error) {
         dispatch(setAction.studentInfoClassesSuccess(res.classesList));
+      }
       dispatch(setAction.studentInfoClassesFailed());
     });
   };

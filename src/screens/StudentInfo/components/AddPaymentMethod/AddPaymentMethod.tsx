@@ -1,23 +1,26 @@
-import React, {  useState } from 'react';
-import {  ScrollView, TouchableOpacity } from 'react-native';
-import { _Text, _View, _TextInput, _VectorIcons } from '../../../../components';
+import React, {useState, useEffect} from 'react';
+import {ScrollView, TouchableOpacity} from 'react-native';
+import {_Text, _View, _TextInput, _VectorIcons} from '../../../../components';
 import Header from '../../../Headers';
-import { styles } from '../../styles';
+import {styles} from '../../styles';
 import Loader from '../../../Loader/Loading';
-import { StripeModal, Radio } from './components';
-import PlaidLink from 'react-native-plaid-link-sdk';
-import { DataAccess } from '../../../../../data/DAL';
-import { CustomAlert, whiteThemeColors } from '../../../../Utilities';
+import {StripeModal, Radio} from './components';
+import PlaidLink, {
+  create,
+  open,
+  dismissLink,
+} from 'react-native-plaid-link-sdk';
+import {DataAccess} from '../../../../../data/DAL';
+import {CustomAlert, whiteThemeColors} from '../../../../Utilities';
 import ApiEndpoints from '../../../../../data/ApiEndpoints';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 
 let adminMsgAlert = 'Unable to process your request Please contact your admin';
-interface props {
-}
+interface props {}
 const AddPaymentMethod: React.FC<props> = () => {
-  const navigation:any = useNavigation();
-  const route:any=useRoute();
-  const { PostSecured } = DataAccess();
+  const navigation: any = useNavigation();
+  const route: any = useRoute();
+  const {PostSecured} = DataAccess();
   const [paymentMethod, setPaymentMethod] = useState(0);
   const [loader, setLoader] = useState(false);
   const [showStripe, setShowStripe] = useState(false);
@@ -26,13 +29,35 @@ const AddPaymentMethod: React.FC<props> = () => {
   const [showAlert, setShowAlert] = useState(false);
   const [alertTitle, setAlertTitle] = useState('');
   const [alertMessage, setAlertMessage] = useState('');
-  const [checkError, setCheckError] = useState({ name: '', email: '' });
+  const [checkError, setCheckError] = useState({name: '', email: ''});
+  const [isPlaidPreloaded, setIsPlaidPreloaded] = useState(false);
   const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
   const openStripe = () => setShowStripe(true);
-  const { plaidToken, stripeKey, studentId, domainUrl } = route.params;
+  const {plaidToken, stripeKey, studentId, domainUrl} = route.params;
+
   const closeStripe = () => {
     setShowStripe(false);
   };
+
+  // Preload Plaid Link when component mounts and token is available
+  useEffect(() => {
+    if (plaidToken && plaidToken !== '' && !isPlaidPreloaded) {
+      preloadPlaidLink();
+    }
+  }, [plaidToken]);
+
+  const preloadPlaidLink = async () => {
+    try {
+      await create({
+        token: plaidToken,
+        noLoadingState: false,
+      });
+      setIsPlaidPreloaded(true);
+    } catch (error) {
+      console.error('Failed to preload Plaid Link:', error);
+    }
+  };
+
   const onSuccess = async (data: any) => {
     setLoader(true);
     let details = JSON.parse(data.metadata.metadataJson);
@@ -51,7 +76,7 @@ const AddPaymentMethod: React.FC<props> = () => {
       setShowAlert(true);
       setAlertMessage('Bank Card added Successflly');
       setAlertTitle('Success');
-      navigation.navigate("StudentInfoDetials",{billing: true});
+      navigation.navigate('StudentInfoDetials', {billing: true});
     } else {
       setShowAlert(true);
       setAlertMessage(res.value);
@@ -61,28 +86,28 @@ const AddPaymentMethod: React.FC<props> = () => {
   };
 
   const onNameEnter = (name: any) => {
-    setCheckError((prev) => {
-      return { ...prev, name: '' };
+    setCheckError(prev => {
+      return {...prev, name: ''};
     });
     setFullName(name);
   };
   const onEmailEnter = (email: any) => {
-    setCheckError((prev) => {
-      return { ...prev, email: '' };
+    setCheckError(prev => {
+      return {...prev, email: ''};
     });
     setEmail(email);
   };
 
   const nameCheckValidation = () => {
     !fullName.trim() &&
-      setCheckError((prev) => {
-        return { ...prev, name: '*Full name is required' };
+      setCheckError(prev => {
+        return {...prev, name: '*Full name is required'};
       });
   };
   const emailCheckValidation = () => {
     !emailRegex.test(email) &&
-      setCheckError((prev) => {
-        return { ...prev, email: '*Valid email is required' };
+      setCheckError(prev => {
+        return {...prev, email: '*Valid email is required'};
       });
   };
 
@@ -90,24 +115,48 @@ const AddPaymentMethod: React.FC<props> = () => {
     let check = false;
     !fullName.trim() && !emailRegex.test(email)
       ? [
-        setShowAlert(true),
-        setAlertMessage('Full name and email is Required'),
-        setAlertTitle('Error'),
-      ]
+          setShowAlert(true),
+          setAlertMessage('Full name and email is Required'),
+          setAlertTitle('Error'),
+        ]
       : !fullName.trim()
-        ? [
+      ? [
           setShowAlert(true),
           setAlertMessage('Full name is Required'),
           setAlertTitle('Error'),
         ]
-        : !emailRegex.test(email)
-          ? [
-            setShowAlert(true),
-            setAlertMessage('Email is Required'),
-            setAlertTitle('Error'),
-          ]
-          : (check = true);
+      : !emailRegex.test(email)
+      ? [
+          setShowAlert(true),
+          setAlertMessage('Email is Required'),
+          setAlertTitle('Error'),
+        ]
+      : (check = true);
     return check;
+  };
+
+  const handlePlaidLinkOpen = async () => {
+    if (!isPlaidPreloaded) {
+      // If not preloaded, try to preload first
+      await preloadPlaidLink();
+    }
+
+    try {
+      await open({
+        onSuccess: (success: any) => {
+          onSuccess(success);
+        },
+        onExit: (linkExit: any) => {
+          console.log('Plaid Link exited:', linkExit);
+          dismissLink();
+        },
+      });
+    } catch (error) {
+      console.error('Failed to open Plaid Link:', error);
+      setShowAlert(true);
+      setAlertMessage('Failed to open bank account linking');
+      setAlertTitle('Error');
+    }
   };
 
   return (
@@ -117,21 +166,23 @@ const AddPaymentMethod: React.FC<props> = () => {
         isBack={true}
         Screen={'Payments'}
         GoBack={() => {
-           navigation.navigate("StudentInfoDetials",{billing: true});
+          navigation.navigate('StudentInfoDetials', {billing: true});
         }}
-        onAndroidBack={()=>{navigation.navigate("StudentInfoDetials",{billing: true})}}
+        onAndroidBack={() => {
+          navigation.navigate('StudentInfoDetials', {billing: true});
+        }}
       />
       <_View style={styles.safeView}>
         <_View style={styles.mainView}>
           <ScrollView contentContainerStyle={styles.scrollviewContainer}>
             <_View style={[styles.modalContainer]}>
-              <_Text style={[styles.heading, { marginBottom: 10 }]}>
+              <_Text style={[styles.heading, {marginBottom: 10}]}>
                 Payment By
               </_Text>
               <_View style={styles.inputContainer}>
                 <_Text style={styles.headText}>Full Name</_Text>
                 <_TextInput
-                  textAlignVertical='top'
+                  textAlignVertical="top"
                   style={styles.inputStyle}
                   onChangeText={onNameEnter}
                   onBlur={nameCheckValidation}
@@ -146,7 +197,7 @@ const AddPaymentMethod: React.FC<props> = () => {
               <_View style={styles.inputContainer}>
                 <_Text style={styles.headText}>{'Email'}</_Text>
                 <_TextInput
-                  textAlignVertical='top'
+                  textAlignVertical="top"
                   style={styles.inputStyle}
                   onChangeText={onEmailEnter}
                   placeholder={'Enter your email'}
@@ -159,16 +210,13 @@ const AddPaymentMethod: React.FC<props> = () => {
               </_View>
             </_View>
             <_View style={styles.paymentMethodContainer}>
-              <_Text
-                style={[styles.heading, { marginBottom: 10, fontSize: 18 }]}
-              >
+              <_Text style={[styles.heading, {marginBottom: 10, fontSize: 18}]}>
                 Payment Method
               </_Text>
               <TouchableOpacity
                 onPress={() => setPaymentMethod(0)}
                 activeOpacity={0.8}
-                style={styles.btnWithIcon}
-              >
+                style={styles.btnWithIcon}>
                 <Radio selected={paymentMethod == 0} />
                 <_Text
                   style={[
@@ -179,8 +227,7 @@ const AddPaymentMethod: React.FC<props> = () => {
                           ? whiteThemeColors.primaryTextColor
                           : whiteThemeColors.greyDark,
                     },
-                  ]}
-                >
+                  ]}>
                   Credit Card
                 </_Text>
                 <_VectorIcons
@@ -197,8 +244,7 @@ const AddPaymentMethod: React.FC<props> = () => {
               <TouchableOpacity
                 activeOpacity={0.8}
                 onPress={() => setPaymentMethod(1)}
-                style={styles.btnWithIcon}
-              >
+                style={styles.btnWithIcon}>
                 <Radio selected={paymentMethod == 1} />
                 <_Text
                   style={[
@@ -209,8 +255,7 @@ const AddPaymentMethod: React.FC<props> = () => {
                           ? whiteThemeColors.primaryTextColor
                           : whiteThemeColors.greyDark,
                     },
-                  ]}
-                >
+                  ]}>
                   Bank Account
                 </_Text>
                 <_VectorIcons
@@ -227,11 +272,11 @@ const AddPaymentMethod: React.FC<props> = () => {
             </_View>
           </ScrollView>
           {paymentMethod == 0 &&
-            (stripeKey == '' ||
-              stripeKey == null ||
-              !stripeKey ||
-              !fullName.trim() ||
-              !emailRegex.test(email)) ? (
+          (stripeKey == '' ||
+            stripeKey == null ||
+            !stripeKey ||
+            !fullName.trim() ||
+            !emailRegex.test(email)) ? (
             <_View style={styles.floatingButton}>
               <TouchableOpacity
                 activeOpacity={0.2}
@@ -243,8 +288,7 @@ const AddPaymentMethod: React.FC<props> = () => {
                     setAlertTitle('Error'),
                   ];
                 }}
-                style={styles.stretchedView}
-              >
+                style={styles.stretchedView}>
                 <_VectorIcons
                   name={'arrowright'}
                   type={'AntDesign'}
@@ -261,8 +305,7 @@ const AddPaymentMethod: React.FC<props> = () => {
                   let check = checkValidation();
                   check && openStripe();
                 }}
-                style={styles.stretchedView}
-              >
+                style={styles.stretchedView}>
                 <_VectorIcons
                   name={'arrowright'}
                   type={'AntDesign'}
@@ -287,8 +330,7 @@ const AddPaymentMethod: React.FC<props> = () => {
                     setAlertTitle('Error'),
                   ];
                 }}
-                style={styles.stretchedView}
-              >
+                style={styles.stretchedView}>
                 <_VectorIcons
                   name={'arrowright'}
                   type={'AntDesign'}
@@ -299,22 +341,17 @@ const AddPaymentMethod: React.FC<props> = () => {
             </_View>
           ) : (
             <_View style={styles.floatingButton}>
-              <PlaidLink
-                tokenConfig={{
-                  token: plaidToken,
-                }}
-                onSuccess={onSuccess}
-                onExit={(exit) => { }}
-              >
-                <_View style={styles.arrowRight}>
-                  <_VectorIcons
-                    name={'arrowright'}
-                    type={'AntDesign'}
-                    size={26}
-                    color={whiteThemeColors.white}
-                  />
-                </_View>
-              </PlaidLink>
+              <TouchableOpacity
+                activeOpacity={0.2}
+                onPress={handlePlaidLinkOpen}
+                style={styles.stretchedView}>
+                <_VectorIcons
+                  name={'arrowright'}
+                  type={'AntDesign'}
+                  size={26}
+                  color={whiteThemeColors.white}
+                />
+              </TouchableOpacity>
             </_View>
           )}
         </_View>
@@ -349,4 +386,4 @@ const AddPaymentMethod: React.FC<props> = () => {
     </_View>
   );
 };
-export { AddPaymentMethod };
+export {AddPaymentMethod};

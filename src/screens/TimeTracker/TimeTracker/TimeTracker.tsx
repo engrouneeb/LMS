@@ -7,7 +7,7 @@ import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { useEffect, useState } from 'react';
 import { FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../reducers/Appstate';
+import { Appstate } from '../../../reducers/Appstate';
 import { isAdmin, whiteThemeColors } from '../../../Utilities';
 import { setTimeOffInstructor } from '../../../actions/AsyncStorage';
 import { _Screen, _View, NoPermission } from '../../../components';

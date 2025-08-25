@@ -31,6 +31,10 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSDocumentsFolderUsageDescription</key>
+<string>We need access to documents</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>We need access to photos</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Your message to user when the camera is accessed for the first time</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

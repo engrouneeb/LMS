@@ -8,7 +8,7 @@ import {
   UIManager,
 } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../reducers/Appstate';
 import { whiteThemeColors } from '../../../../../../Utilities';
 import { _Screen } from '../../../../../../components';
 import CstHeader from '../../../../../Headers';

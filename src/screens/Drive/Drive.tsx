@@ -182,7 +182,7 @@ const Drive = (props: any) => {
       <_View
         style={{
           position: 'absolute',
-          bottom: 40,
+          bottom: 50,
           right: 80, // Shift it to the left of the upload button
           zIndex: 10,
         }}
@@ -196,6 +196,7 @@ const Drive = (props: any) => {
             height: 55,
             width: 55,
             borderRadius: 20,
+            
           }}
         >
           <_VectorIcons
@@ -255,7 +256,7 @@ const Drive = (props: any) => {
               height: 55,
               width: 55,
               position: 'absolute',
-              bottom: 40,
+              bottom: 50,
               right: 10,
               zIndex: 10,
               justifyContent: 'center',

@@ -1,5 +1,5 @@
 import { rootInterface } from './';
-import { tabReducerInterface } from '../screens/Store/StoreHome/helper';
+//import { tabReducerInterface } from '../screens/Store/StoreHome/helper';
 import { CP_StudentReducerInterface } from './CP_StudentReducer';
 import { CourseAssignStudentsReducerInterface } from './CourseAssignStudentsReducer';
 import { CourseDetailReducerInterface } from './CourseDetailReducer';
@@ -60,7 +60,7 @@ export interface Appstate {
   HomeworkReducer: HomeworkReducerInterface;
   CustomAlert: CustomAlertReducerInterface;
   ModulePagesPermissions: ModulePagesPermissionsInterface;
-  tabReducer: tabReducerInterface;
+  //tabReducer: tabReducerInterface;
   timerReducer: timerInterface;
   AppModulePermission:AppModulePermissionInterfaceState
   WebAuthReducer:Web_AuthState

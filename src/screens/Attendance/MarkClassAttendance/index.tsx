@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { SafeAreaView, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { CustomAlert, whiteThemeColors } from '../../../Utilities';
 import {
@@ -193,6 +193,7 @@ const MarkClassAttendance: React.FC<markAttendanceInterface> = ({
         />
       )}
       {markedAttendance.length > 0 && (
+        <SafeAreaView style={{ flex: 1 }}>
         <_View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <_Button
             submitting={!sumbitLoading}
@@ -203,6 +204,7 @@ const MarkClassAttendance: React.FC<markAttendanceInterface> = ({
             style={[styles.button]}
           />
         </_View>
+        </SafeAreaView>
       )}
       {alert.show && (
         <CustomAlert

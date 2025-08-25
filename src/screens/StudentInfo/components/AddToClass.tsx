@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native';
 import { WebView } from 'react-native-webview';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../reducers/Appstate';
+import { Appstate } from '../../../reducers/Appstate';
 import { getHeight, getTerminologyLabel, getWidth, TerminologyMap } from '../../../Utilities';
 import ApiEndpoints from '../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../data/DAL';

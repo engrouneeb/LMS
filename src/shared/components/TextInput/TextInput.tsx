@@ -6,7 +6,7 @@ import {
   View,
   Text,
 } from 'react-native';
-import { useTheme } from '@/app/providers/ThemeProvider';
+import { useTheme } from '../../../app/providers/ThemeProvider';
 
 interface TextInputProps extends RNTextInputProps {
   label?: string;

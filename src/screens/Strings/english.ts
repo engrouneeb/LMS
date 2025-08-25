@@ -335,20 +335,20 @@ export const englishMessageScreen = {
 };
 export const englishStoreScreen = {
   Store: 'Store',
-  Tabs: [
-    {
-      TabName: 'Add New Item',
-      Navigation: 'AddNewItem',
-    },
-    {
-      TabName: 'Shipment Needed',
-      Navigation: 'Shipment',
-    },
-    {
-      TabName: 'All Transactions',
-      Navigation: 'Transactions',
-    },
-  ],
+  // Tabs: [
+  //   {
+  //     TabName: 'Add New Item',
+  //     Navigation: 'AddNewItem',
+  //   },
+  //   {
+  //     TabName: 'Shipment Needed',
+  //     Navigation: 'Shipment',
+  //   },
+  //   {
+  //     TabName: 'All Transactions',
+  //     Navigation: 'Transactions',
+  //   },
+  // ],
 };
 export const englishReportsScreen = {
   Reports: 'Reports',

@@ -2,7 +2,7 @@ import moment, { Moment } from 'moment';
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { FlatList } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../reducers/Appstate';
 import { CustomAlert, isAdmin, whiteThemeColors } from '../../../../../../Utilities';
 import Endpoints from '../../../../../../../data/ApiEndpoints';
 import { DataAccess } from '../../../../../../../data/DAL';

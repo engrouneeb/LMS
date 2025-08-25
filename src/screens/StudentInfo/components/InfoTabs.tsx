@@ -2,6 +2,7 @@ import React, {FC, useEffect, useMemo, useState} from 'react';
 import {Platform, ScrollView} from 'react-native';
 import {isTablet} from 'react-native-device-info';
 import {TabBar, TabView} from 'react-native-tab-view';
+
 import {Orientation, whiteThemeColors} from '../../../Utilities';
 import {_Text, _VectorIcons, _View, NoPermission} from '../../../components';
 import {wp} from '../../../Helpers/Responsiveness';
@@ -36,7 +37,6 @@ const InfoTabs: FC<props> = ({
   const [index, setIndex] = useState(initialIndex);
   const [orientation, setOrientation] = useState<any>();
   const [showNoPermission, setNoPermission] = useState(false);
-
   const {routes, tabsLoading} = useStudentInfoTabs();
 
   // Memoize showNoPermission based on routes

@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useState } from 'react';
 import { Text, TouchableHighlight } from 'react-native';
 import { useSelector } from 'react-redux';
-import { Appstate } from '../../../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../../../reducers/Appstate';
 import { CustomAlert, isStudent, whiteThemeColors } from '../../../../../../../Utilities';
 import {
   _Button,

@@ -15,6 +15,7 @@ import { isPortrait, isTablet, _Button, _View } from '../../components';
 import { useMeetingLogoutHook } from '../../customHooks';
 import CommonStyles from '../CommonStyles';
 //endregion
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 export const GetStarted = () => {
   const [submitting, setSubmitting] = useState(true);
@@ -63,49 +64,50 @@ export const GetStarted = () => {
   };
 
   return (
-    <_View style={{ flex: 1 }}>
-      {showLogo ? (
-        <Image
-          style={{
-            width: '100%',
-            height: isTab ? 400 : 350,
-          }}
-          source={{ uri: loginImgUri }}
+    <SafeAreaView style={{flex: 1}} edges={['bottom']}>
+      <_View style={{flex: 1}}>
+        {showLogo ? (
+          <Image
+            style={{
+              width: '100%',
+              height: isTab ? 400 : 350,
+            }}
+            source={{uri: loginImgUri}}
+          />
+        ) : null}
+        <_View
+          style={[
+            style.logoContainer,
+            WhiteLabelConfig.APP_VARIANT_NAME == 'compuchlid' && {
+              backgroundColor: whiteThemeColors.white,
+            },
+          ]}>
+          <Image
+            style={{
+              width:
+                Platform.OS == 'android'
+                  ? '70%'
+                  : isTab
+                  ? parseInt(WhiteLabelConfig.GET_STARTED_IMAGE_SIZE)
+                  : '80%',
+              height: isTab ? 400 : Platform.OS == 'android' ? 250 : 310,
+            }}
+            resizeMode="contain"
+            source={{uri: getStartedImage}}
+          />
+        </_View>{' '}
+        <_Button
+          borderRadius={15}
+          transparent={false}
+          submitting={submitting}
+          loaderColor={whiteThemeColors.white}
+          BtnTxt={style.buttonText}
+          style={[style.buttonStyle, CommonStyles.themeClr]}
+          btnText={getStartedScreen.btnText}
+          callback={() => _getStarted()}
         />
-      ) : null}
-      <_View
-        style={[
-          style.logoContainer,
-          WhiteLabelConfig.APP_VARIANT_NAME == 'compuchlid' && {
-            backgroundColor: whiteThemeColors.white,
-          },
-        ]}
-      >
-        <Image
-          style={{
-            width:
-              Platform.OS == 'android'
-                ? '70%'
-                : isTab
-                ? parseInt(WhiteLabelConfig.GET_STARTED_IMAGE_SIZE)
-                : '80%',
-            height: isTab ? 400 : Platform.OS == 'android' ? 250 : 310,
-          }}
-          resizeMode='contain'
-          source={{ uri: getStartedImage }}
-        />
-      </_View>
-      <_Button
-        borderRadius={15}
-        transparent={false}
-        submitting={submitting}
-        loaderColor={whiteThemeColors.white}
-        BtnTxt={style.buttonText}
-        style={[style.buttonStyle, CommonStyles.themeClr]}
-        btnText={getStartedScreen.btnText}
-        callback={() => _getStarted()}
-      />
-    </_View>
+      </_View>{' '}
+    </SafeAreaView>
   );
 };
 

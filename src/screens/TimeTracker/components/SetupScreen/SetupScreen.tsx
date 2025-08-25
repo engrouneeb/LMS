@@ -7,7 +7,7 @@ import Header from '../../../Headers';
 import Search from '../../../Search';
 import { NoData, RenderList } from './components';
 import { AddOrEditSetup } from './components/AddOrEdit';
-import { Appstate } from '../../../../../reducers/Appstate';
+import { Appstate } from '../../../../reducers/Appstate';
 import { useNavigation } from '@react-navigation/native';
 import { useAppModulePermission } from '../../../../customHooks';
 

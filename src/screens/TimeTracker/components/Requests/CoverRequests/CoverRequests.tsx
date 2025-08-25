@@ -126,7 +126,7 @@ export const CoverRequest: React.FC<CoverRequestInterface> = ({ route }) => {
     }
   };
   const handleOnAndroidBack = () => {
-    navigation.navigate('Requests');
+    navigation.goBack();
     return true;
   };
 
@@ -136,7 +136,7 @@ export const CoverRequest: React.FC<CoverRequestInterface> = ({ route }) => {
         <Header
           isBack
           Screen={'Cover Requests'}
-          GoBack={() => navigation.navigate('Requests')}
+          GoBack={() => navigation.goBack()}
         />
       }
       flex={1}

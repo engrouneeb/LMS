@@ -22,7 +22,7 @@ import {
   _setHour,
   determineHeight,
 } from './TimeSheetDetailFunctions';
-import { Appstate } from '../../../../../../reducers/Appstate';
+import { Appstate } from '../../../../../reducers/Appstate';
 import { TimeSheetDetailInterface } from '../../../../../interfaces';
 
 export const TimeSheetDetial: FC<TimeSheetDetailInterface> = ({ route }) => {

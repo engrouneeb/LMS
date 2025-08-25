@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Appstate } from '../../../../../reducers/Appstate';
+import { Appstate } from '../../../../reducers/Appstate';
 import { isInstructor } from '../../../../Utilities';
 import { getWages } from '../../../../actions/TimeTrackerActions';
 import { _Screen } from '../../../../components';
